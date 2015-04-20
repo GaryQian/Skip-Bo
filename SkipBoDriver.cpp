@@ -1,4 +1,4 @@
-#include "playerClass.h"
+#include "Player.h"
 #include "SkipBoFuncs.h"
 #include <iostream>
 
