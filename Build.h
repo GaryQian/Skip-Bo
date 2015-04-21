@@ -2,17 +2,12 @@
 
 using std::vector;
 
-class Build {
+class Build: public Deck {
 	
-	static vector<vector<int>> piles;
-	
-	static vector<bool> full;
+	bool full;
 	
 	Build() {
-		piles.push_back(new vector<int>());
-		piles.push_back(new vector<int>());
-		piles.push_back(new vector<int>());
-		piles.push_back(new vector<int>());
+		
 	}
 
 };

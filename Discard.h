@@ -2,14 +2,11 @@
 
 using std::vector;
 
-class Discard {
-	vector<vector<int>> piles;
+class Discard: public Deck {
 	
-	Build() {
-		piles.push_back(new vector<int>());
-		piles.push_back(new vector<int>());
-		piles.push_back(new vector<int>());
-		piles.push_back(new vector<int>());
+	
+	Discard() {
+		
 	}
 	
 };

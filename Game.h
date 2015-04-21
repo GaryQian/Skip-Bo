@@ -16,10 +16,13 @@ class Game {
 	
 	vector<Move> move;
 	
-	Build build;
+	vector<Build> build;
 	
-	Game(vector<string> names) : build() {//copy this code into the implementation .cpp later
-		
+	Game(vector<string> names) {//copy this code into the implementation .cpp later
+		build.push_back(new Build());
+		build.push_back(new Build());
+		build.push_back(new Build());
+		build.push_back(new Build());
 		for (int i  = 0; i < names.size(); ++i) {
 			if (false) { //check if it is an AI
 				players.push_back(new AI(names[i]));

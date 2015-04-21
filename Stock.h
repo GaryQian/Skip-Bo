@@ -2,10 +2,10 @@
 
 using std::vector;
 
-class Draw: public Deck {
+class Stock: public Deck {
 	
 	
-	Draw() {
+	Stock() {
 		
 	}
 	
