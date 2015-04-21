@@ -3,7 +3,8 @@
 
 class Display {
     
-    static display(Player player, Build build);
+    static display(Player player, Build build, int num);
     
+	static string convert(int num);
 
 };

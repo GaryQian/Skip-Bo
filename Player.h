@@ -11,7 +11,7 @@ using std::vector;
 class Player {
 	string name;
 	
-	vector<Hand> hand;
+	Hand hand;
 	
 	Stock stock;
 	

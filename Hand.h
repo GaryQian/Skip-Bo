@@ -7,6 +7,11 @@ class Hand: public Deck {
     Hand() {
         
     }
+	
+	int at(int num) {
+		return cards.at(num);
+		
+	}
 
 
 
