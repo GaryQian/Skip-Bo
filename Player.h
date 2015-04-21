@@ -10,18 +10,24 @@ using std::vector;
 
 class player {
 	string name;
+	
 	vector<Hand> hand;
+	
 	Stock stock;
 	
 	vector<Discard> discard;
 
 	//reference to higher level data
 	vector<Build>* build;
+	
 	Draw* draw;
 
-	player(string name, Draw* draw) { //copy to .cpp file later
+	player(string name, Draw* draw, vector<Build>* build) { //copy to .cpp file later
 		this->draw = *draw;
 		this->name = name;
-
+		this->build = build;
+		deal();
 	}  //constructor
+	
+	void deal();
 };
