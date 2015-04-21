@@ -8,7 +8,7 @@
 using std::string;
 using std::vector;
 
-class player {
+class Player {
 	string name;
 	
 	vector<Hand> hand;
@@ -22,7 +22,7 @@ class player {
 	
 	Draw* draw;
 
-	player(string name, Draw* draw, vector<Build>* build) { //copy to .cpp file later
+	Player(string name, Draw* draw, vector<Build>* build) { //copy to .cpp file later
 		this->draw = *draw;
 		this->name = name;
 		this->build = build;
