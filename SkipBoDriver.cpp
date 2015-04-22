@@ -11,7 +11,7 @@ int main(){
   shuffle(deck);
 
   int numPlayers;
-  cout << "How many players? " << endl;
+  cout << "How many players? (Enter Integer):" << endl;
   cin >> numPlayers;
   
   //player playerList[numPlayers];

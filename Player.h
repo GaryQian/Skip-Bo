@@ -9,25 +9,25 @@ using std::string;
 using std::vector;
 
 class Player {
-	string name;
+  string name;
 	
-	Hand hand;
+  Hand hand;
 	
-	Stock stock;
+  Stock stock;
 	
-	vector<Discard> discard;
+  vector<Discard> discard;
 
-	//reference to higher level data
-	vector<Build>* build;
+  //reference to higher level data
+  vector<Build>* build;
 	
-	Draw* draw;
+  Draw* draw;
 
-	Player(string name, Draw* draw, vector<Build>* build) { //copy to .cpp file later
-		this->draw = *draw;
-		this->name = name;
-		this->build = build;
-		deal();
-	}  //constructor
+  Player(string name, Draw* draw, vector<Build>* build) { //copy to .cpp file later
+    this->draw = *draw;
+    this->name = name;
+    this->build = build;
+    deal();
+  }  //constructor
 	
-	void deal();
+  void deal();
 };

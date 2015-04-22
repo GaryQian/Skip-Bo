@@ -4,8 +4,7 @@ using std::string;
 
 struct Move {
 
-    int player;
-    
-    string move;
+  int player;    
+  string move;
 
 };

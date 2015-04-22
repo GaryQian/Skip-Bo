@@ -3,10 +3,8 @@
 using std::vector;
 
 class Draw: public Deck {
-	
-	
-	Draw() {
 		
-	}
+  Draw() {  
+  }
 	
 };

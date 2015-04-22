@@ -4,10 +4,9 @@ using std::vector;
 
 class Build: public Deck {
 	
-	bool full;
+  bool full;
 	
-	Build() {
-		
-	}
+  Build() {		
+  }
 
 };
