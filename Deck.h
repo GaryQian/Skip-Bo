@@ -9,6 +9,8 @@ class Deck {
 	
 	int getSize();
 	
+	int getTop();
+	
 	int take();
 	
 	move(Deck b);
