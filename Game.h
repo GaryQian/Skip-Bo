@@ -15,6 +15,9 @@ class Game {
   int turn;
 
  public:
-  Game(std::vector<std::string> names);
+  //Constructor
+  Game(std::vector<std::string> names); 
+
+  //Mutator functions
   void nextTurn();
 };
