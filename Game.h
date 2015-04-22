@@ -6,30 +6,15 @@
 #include "Move.h"
 #include "AI.h"
 
-
-using std::vector;
-using std::string;
-
 class Game {
+ private:
+  std::vector<Player> players;
+  std::vector<Move> move;
+  std::vector<Build> build;
+  Draw draw;
+  int turn;
 
-	vector<Player> players;
-	
-	vector<Move> move;
-	
-	vector<Build> build;
-	
-	Game(vector<string> names) {//copy this code into the implementation .cpp later
-		build.push_back(new Build());
-		build.push_back(new Build());
-		build.push_back(new Build());
-		build.push_back(new Build());
-		for (int i  = 0; i < names.size(); ++i) {
-			if (false) { //check if it is an AI
-				players.push_back(new AI(names[i]));
-			}
-			players.push_back(new Player(names[i]));
-		}
-		
-	}
-
+ public:
+  Game(std::vector<std::string> names);
+  void nextTurn();
 };
