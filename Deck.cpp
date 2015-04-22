@@ -1,23 +1,57 @@
+#include "Deck.h"
 #include <vector>
 
 using std::vector;
 
-Deck::Deck();
+Deck::Deck(){
+  
+}
 
 int Deck::getSize() {
-  return cards.size();
+  return size;
 }
 
-int Deck::take();
+int Deck::takeCard() {
+  int topCard = getTop();
+  cards.pop_back();
+  return topCard;
+}
 
 int Deck::getTop() {
-  return cards.back();
+  return cards[size-1];
 }
 
-void Deck::move(Deck b);
+bool Deck::isEmpty(){
+  return size == 0;
+}
 
-void Deck::move(Deck b, int num);
+bool Deck::move(Deck b){
+  if(isEmpty()){
+    b += this -> takeCard();
+    return true;
+  }
+  return false;
+}
 
-void Deck::operator +=(int value);
 
-void Deck::operator +=(vector<int> list);
+bool Deck::move(Deck b, int num){
+  
+  return true;
+}
+
+void Deck::operator +=(int value){
+  cards.push_back(value);
+  size++;
+}
+
+void Deck::operator +=(vector<int> list){
+  vector<int> newCards;
+  newCards.reserve(size + list.size());
+  newCards.insert(newCards.end(), cards.begin(), cards.end());
+  newCards.insert(newCards.end(), list.begin(), list.end());
+  cards = newCards;
+}
+
+int main(){
+  
+}
