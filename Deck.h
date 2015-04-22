@@ -1,21 +1,23 @@
 #include <vector>
-
-using std::vector;
+#include <string>
+#include <sstream>
 
 class Deck {
- protected:
-  vector<int> cards;	
-  int size;
+ protected:  
+  std::vector<int> cards; //the vector of integers that represent cards  
+  int size; //the number of cards in the deck
 
  public: 
   Deck();
   int getSize();	
-  int getTop(); //do we need this? take() basically does the same thing	
-  int takeCard();	
+  int getTop(); 
+  virtual int takeCard();	
   bool isEmpty();
-  bool move(Deck b);	
-  bool move(Deck b, int num);	
+  virtual bool move() = 0;	
+  //bool move(Deck b, int num);	
   void operator +=(int value);	
-  void operator +=(vector<int> list);
-  void print(); 
+  void operator +=(std::vector<int> list);
+  std::string toString() const; 
 };
+
+std::ostream& operator << (std::ostream& os, const Deck& d);

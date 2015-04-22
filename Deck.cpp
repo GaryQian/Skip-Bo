@@ -1,17 +1,17 @@
 #include "Deck.h"
-#include <vector>
+#include <cstdlib>
 
 using std::vector;
-
-Deck::Deck(){
-  
-}
+using std::string;
+using std::ostringstream;
+using std::ostream;
+using std::iterator;
 
 int Deck::getSize() {
   return size;
 }
 
-int Deck::takeCard() {
+int Deck::takeCard(){
   int topCard = getTop();
   cards.pop_back();
   return topCard;
@@ -25,19 +25,14 @@ bool Deck::isEmpty(){
   return size == 0;
 }
 
+/*
 bool Deck::move(Deck b){
   if(isEmpty()){
-    b += this -> takeCard();
+    b += takeCard();
     return true;
   }
   return false;
-}
-
-
-bool Deck::move(Deck b, int num){
-  
-  return true;
-}
+  }*/
 
 void Deck::operator +=(int value){
   cards.push_back(value);
@@ -50,4 +45,20 @@ void Deck::operator +=(vector<int> list){
   newCards.insert(newCards.end(), cards.begin(), cards.end());
   newCards.insert(newCards.end(), list.begin(), list.end());
   cards = newCards;
+}
+
+string Deck::toString() const{
+  vector<int>::const_iterator it;
+  ostringstream oss;
+
+  for(it = cards.begin(); it < cards.end(); it++){
+    oss << *it << " ";
+  }
+
+  return oss.str();
+}
+
+ostream& operator << (ostream& os, const Deck& d){
+  os << d.toString();
+  return os;
 }
