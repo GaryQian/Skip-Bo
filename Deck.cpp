@@ -51,7 +51,3 @@ void Deck::operator +=(vector<int> list){
   newCards.insert(newCards.end(), list.begin(), list.end());
   cards = newCards;
 }
-
-int main(){
-  
-}
