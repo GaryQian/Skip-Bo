@@ -46,11 +46,40 @@ bool Game::hasEnded(){
   return players[turn%players.size()].hasWon();
 }
 
-void Game::save_game(){
-  string filename;
-
-  cout << "Save as:" << endl;
-  std::getline(cin, filename);
+void Game::save_game(string filename){
+  int numP = Players.size();
   std::ofstream outFile(filename);
+
+  outFile << numP << endl;
   
+  for(int i = 0; i < numP; i++){
+    outFile << Players[i].getName() << endl;
+  }
+  
+  outFile << draw.print() << endl;
+
+  for(int i = 0; i < 4; i++){
+    outFile << build[i].print() << -1 << " ";
+  }
+  outFile << endl;
+
+  for(int i = 0; i < numP; i++){
+    outFile << Players[i].getHand().print() << endl;
+    
+    for(int j = 0; j < 4; j++){
+      outFile << (Players[i].getDiscard())[j].print() << -1 << " ";
+    }
+    outFile << endl;
+
+    outFile << Players[i].getStock().print() << endl;
+  }
+
+  outFile << move.size() << endl;
+
+  for(int i = 0; i < move.size(); i++){
+    outFile << move[i].playerNum << " " << move[i].source << " " << move[i].dest << endl;
+  }
+
+  outFile << turn << endl;
 }
+
