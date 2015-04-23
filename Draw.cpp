@@ -13,14 +13,12 @@ Draw::Draw(){
   for(int i = 0; i < 18; i++){
     cards.push_back(0);
   }
-  //update size
-  size = cards.size();
 }
 
 bool Draw::move(Hand& h, int num){
   vector<int> toMove;
   //if we have enough cards in the draw pile, take whatever is needed
-  if(size > num){
+  if(getSize() > num){
     for(int i = 0; i < num; i++){
       toMove.push_back(takeCard());
     }
@@ -29,8 +27,8 @@ bool Draw::move(Hand& h, int num){
   }
   //else if draw pile is not empty, but has less than the requested
   //number of cards, just take what remains in the draw pile
-  else if(!isEmpty() && size < num){
-    for(int i = 0; i < size; i++){
+  else if(!isEmpty() && getSize() < num){
+    for(int i = 0; i < getSize(); i++){
       toMove.push_back(takeCard());
     }
     h += toMove;
@@ -41,7 +39,7 @@ bool Draw::move(Hand& h, int num){
 
 void Draw::shuffle(vector<int> arr){
   vector<int> shuffled;
-  int last = size;
+  int last = getSize();
 
   //if the user passes in a given arrangement in the form of a vector
   //of integers, use each element of the vector as the index of the

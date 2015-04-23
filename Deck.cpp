@@ -8,44 +8,33 @@ using std::ostream;
 using std::iterator;
 
 int Deck::getSize() {
-  return size;
+  return cards.size();
 }
 
 int Deck::takeCard(){
   int topCard = getTop();
   cards.pop_back();
-  size--;
   return topCard;
   }
 
 int Deck::getTop() {
-  return cards[size-1];
+  return cards[getSize() - 1];
 }
-
+ 
 bool Deck::isEmpty(){
-  return size == 0;
+  return getSize() == 0;
 }
-/*
-bool Deck::move(Deck& d){
-  if(isEmpty()){
-    d += takeCard();
-    return true;
-  }
-  return false;
-  }*/
 
 void Deck::operator +=(int value){
   cards.push_back(value);
-  size++;
 }
 
 void Deck::operator +=(vector<int> list){
   vector<int> newCards;
-  newCards.reserve(size + list.size());
+  newCards.reserve(getSize() + list.size());
   newCards.insert(newCards.end(), cards.begin(), cards.end());
   newCards.insert(newCards.end(), list.begin(), list.end());
   cards = newCards;
-  size += list.size();
 }
 
 string Deck::toString() const{
