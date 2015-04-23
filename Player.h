@@ -8,6 +8,7 @@ using std::string;
 using std::vector;
 
 class Player {
+  //Instance fields
   string name;	
   Hand hand;       
   Stock stock;	
@@ -18,13 +19,10 @@ class Player {
 	
   Draw* draw;
 
-  Player(string name, Draw* draw, vector<Build>* build) { //copy to .cpp file later
-    this->draw = *draw;
-    this->name = name;
-    this->build = build;
-    deal();
-  }  //constructor
+  //Constructor
+  Player(string name, Draw* draw, vector<Build>* build);
 	
+  //Methods
   void deal();
   bool hasWon();
   bool playCard(Deck a, Deck b);

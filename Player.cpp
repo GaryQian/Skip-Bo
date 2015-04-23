@@ -28,7 +28,9 @@ bool Player::hasWon()
 
 bool Player::playCard(Deck a, Deck b)
 {
-  
+  if (a.move(b))
+    return true;
+  return false;
 }
 
 bool Player::playCard(Deck b, int num)
