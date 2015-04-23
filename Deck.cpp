@@ -10,12 +10,13 @@ using std::iterator;
 int Deck::getSize() {
   return size;
 }
-/*
+
 int Deck::takeCard(){
   int topCard = getTop();
   cards.pop_back();
+  size--;
   return topCard;
-  }*/
+  }
 
 int Deck::getTop() {
   return cards[size-1];
@@ -24,14 +25,14 @@ int Deck::getTop() {
 bool Deck::isEmpty(){
   return size == 0;
 }
-
+/*
 bool Deck::move(Deck& d){
   if(isEmpty()){
     d += takeCard();
     return true;
   }
   return false;
-}
+  }*/
 
 void Deck::operator +=(int value){
   cards.push_back(value);
@@ -44,6 +45,7 @@ void Deck::operator +=(vector<int> list){
   newCards.insert(newCards.end(), cards.begin(), cards.end());
   newCards.insert(newCards.end(), list.begin(), list.end());
   cards = newCards;
+  size += list.size();
 }
 
 string Deck::toString() const{
