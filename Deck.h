@@ -11,7 +11,7 @@ class Deck {
   Deck();
   int getSize();	
   int getTop(); 
-  int takeCard();	
+  virtual int takeCard();	
   bool isEmpty();
   virtual bool move(Deck& d) = 0;	
   //bool move(Deck b, int num);	
