@@ -4,17 +4,13 @@
 #include "Discard.h"
 #include "Draw.h"
 
-
 using std::string;
 using std::vector;
 
 class Player {
-  string name;
-	
-  Hand hand;
-	
-  Stock stock;
-	
+  string name;	
+  Hand hand;       
+  Stock stock;	
   vector<Discard> discard;
 
   //reference to higher level data
@@ -30,4 +26,11 @@ class Player {
   }  //constructor
 	
   void deal();
+  bool hasWon();
+  bool playCard(Deck a, Deck b);
+  bool playCard(Deck b, int num);
+  string getName();
+  Hand getHand();
+  vector<Discard> getDiscard();
+  vector<int> getStock();
 };
