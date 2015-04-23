@@ -14,9 +14,16 @@ Player::Player(string name, Draw* draw, vector<Build>* build) {
 }
 
 //do we have to accomodate for when there are more than 4 players; in which there would be 20 cards/player?
-void Player::deal() 
+void Player::deal(int playerNum) 
 {
-  stock += draw.take(30);
+  if (playerNum <= 4 && playerNum >= 1)
+    {
+      stock += draw.take(30);
+    }
+  if (playerNum > 4)
+    {
+      stock += draw.take(20);
+    }
 }
 
 bool Player::hasWon()
@@ -35,6 +42,9 @@ bool Player::playCard(Deck a, Deck b)
 
 bool Player::playCard(Deck b, int num)
 {
+  if (hand.move(Deck b, int num))
+    return true;
+  return false;
 }
 
 string Player::getName()
