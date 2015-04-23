@@ -1,4 +1,4 @@
-#include "Hand.h"
+#include "Deck.h"
 #include <vector>
 
 using std::vector;
