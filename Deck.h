@@ -7,12 +7,11 @@ class Deck {
   std::vector<int> cards; //the vector of integers that represent cards  
 
  public: 
-  Deck();
   int getSize();	
   int getTop(); 
-  virtual int takeCard() = 0;	
+  virtual int takeCard();	
   bool isEmpty();
-  virtual bool move(Deck& d);	
+  virtual bool move(Deck& d, int num = 1) = 0;	
   //bool move(Deck b, int num);	
   void operator +=(int value);	
   void operator +=(std::vector<int> list);
@@ -29,9 +28,9 @@ class Hand: public Deck {
 class Draw: public Deck {
   public: 
    Draw();
-  bool move(Hand& h, int num);
-  void shuffle(std::vector<int> arr = std::vector<int>());
-  void swap(int& a, int& b);
+   bool move(Deck& d,int num);
+   void shuffle(std::vector<int> arr = std::vector<int>());
+   void swap(int& a, int& b);
 };
 
 class Build: public Deck {

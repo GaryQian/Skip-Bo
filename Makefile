@@ -1,11 +1,17 @@
 CC = g++
 CXXFLAGS = -std=c++11 -pedantic -Wall -Wextra -O -g
 
-deckTest: DeckTest.cpp deck.o
-	$(CC) $(CXXFLAGS) DeckTest.cpp
+test: dTest
+	@./dTest
 
-deck.o: Deck.h Deck.cpp Draw.h Draw.cpp Build.h Build.cpp Hand.h Hand.cpp Discard.h Discard.cpp
+dTest: dTest.o deck.o
+	$(CC) $(CXXFLAGS) -o dTest DeckTest.o Deck.o Build.o Hand.o Draw.o Discard.o 
+
+dTest.o: DeckTest.cpp Deck.h
+	$(CC) $(CXXFLAGS) -c DeckTest.cpp
+
+deck.o: Deck.h Deck.cpp Draw.cpp Build.cpp Hand.cpp Discard.cpp
 	$(CC) $(CXXFLAGS) -c Deck.cpp Draw.cpp Build.cpp Hand.cpp Discard.cpp
 
 clean: 
-	rm -f *~ *.o *.gcov a.out
+	rm -f *~ *.o *.gcov a.out dTest
