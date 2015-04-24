@@ -156,7 +156,7 @@ void Game::process(string input){
     return;
   }
 
-  string source = input.at(0);
+  char source = input.at(0);
   Move m;
 
   if (source == 's'){
@@ -196,7 +196,7 @@ void Game::process(string input){
     return;
   }
 
-  string dest  = input.substr(1,0);
+  char dest  = input.substr(1,0);
   int destIndex = 0;
 
   if (dest == 'b' || dest == 'd'){
@@ -205,12 +205,20 @@ void Game::process(string input){
 
     if (destIndex > 3){
       cout << "Invalid index " << endl;
+      return;
     }
 
     m.destIndex = destIndex;
   }
   else{
     cout << "Invalid destination" << endl;
+    return;
+  }
+  
+  if (dest == 'b' && m.value != 0){
+    if (build[destIndex]%12 != value - 1){
+      cout << "Invalid move" << endl;
+    }
   }
 
   this.play(m);
@@ -218,5 +226,5 @@ void Game::process(string input){
 }
 
 void Game::play(Move m){
-
+  
 }
