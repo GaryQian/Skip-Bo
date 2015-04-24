@@ -14,21 +14,12 @@ Player::Player(string name, Draw* draw, vector<Build>* build, Stock yourStock) {
   this->name = name;
   this->build = build;
   this->theStock = yourStock;
+  
   deal();
   isAnAI = false;
 }
 
-void Player::deal(int playerNum) 
-{
-  //gives each player 30 cards if there are less than or equal to 4 players
-  if (playerNum <= 4 && playerNum >= 1) {
-      theStock += draw.take(LESSPLAYERS);
-  }
-
-  //gives each player 20 cards if there are over 4 players
-  if (playerNum > 4) {
-    theStock += draw.take(MOREPLAYERS);
-  }
+bool Player::move() {
 }
 
 bool Player::hasWon() {
