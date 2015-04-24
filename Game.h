@@ -20,4 +20,14 @@ class Game {
 
   //Mutator functions
   void nextTurn();
+  
+  bool hasEnded(0;
+  
+  void save_game()(string filename);
+  
+  void load_game(string filename);
+  
+  void process(string input);
+  
+  void play(Move m);
 };
