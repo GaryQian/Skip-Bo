@@ -65,7 +65,7 @@ vector<Discard> Player::getDiscard() {
 }
 
 vector<int> Player::getStock() {
-  return stock;
+  return theStock;
 }
 
 bool Player::isAI() {

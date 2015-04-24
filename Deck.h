@@ -49,6 +49,6 @@ class Stock: public Deck {
  public:
   Stock();
   bool move(Stock& s);
-}
+};
 
 std::ostream& operator << (std::ostream& os, const Deck& d);
