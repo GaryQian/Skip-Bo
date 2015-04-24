@@ -70,9 +70,3 @@ void Draw::shuffle(vector<int> arr){
   cards = shuffled;
 }
 
-void Draw::swap(int& a, int& b){
-  int temp;
-  temp = a;
-  a = b;
-  b = temp;
-}

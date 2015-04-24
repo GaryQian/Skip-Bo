@@ -51,3 +51,42 @@ std::ostream& operator << (std::ostream& os, const Deck& d) {
   os << d.toString();
   return os;
 }
+
+void shuffle(vector<int> v){
+  vector<int> shuffled;
+  int last = getSize();
+
+  //if the user passes in a given arrangement in the form of a vector
+  //of integers, use each element of the vector as the index of the
+  //card to be added to the new shuffled vector.  else, generate our
+  //own randomized arrangement. Basically does the same shuffling
+  //method afterwards.
+  if(arr.size() > 0){
+    vector<int>::const_iterator it;
+
+    for(it = arr.begin(); it < arr.end(); it++){
+      //add the card at index indicated by arr to the shuffled vector
+      shuffled.push_back(v[*it]);
+      //move the chosen card to the back, and decrement last so that
+      //the chosen card can't be re-chosen
+      swap(v[*it], v[last-1]);
+      last--;
+    }
+  }
+  else{
+    srand(time(NULL));
+    while(last--){
+      int num = rand() % last;
+      shuffled.push_back(v[num]);
+      swap(v[num],v[last-1]);
+    }
+  }
+  //replace the old vector with the new shuffled one
+  v = shuffled;
+}
+
+void swap(int&a , int& b){
+  int temp = b;
+  b = a;
+  a = temp;
+}
