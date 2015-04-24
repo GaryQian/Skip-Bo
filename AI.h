@@ -6,12 +6,13 @@
 #include <string>
 #include <vector>
 
-//Add a comment to this line
 using std::string;
 using std::vector;
- 
+
 class AI: public Player {
- 
+	
+	int seed;
+	
 	AI(string name, Draw* draw, vector<Build>* build);
 	
 	string calculateMove();

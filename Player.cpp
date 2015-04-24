@@ -3,66 +3,71 @@
 #include <string>
 #include <vector>
 
+#define LESSPLAYERS 30
+#define MOREPLAYERS 20
+
 using std::string;
 using std::vector;
 
-Player::Player(string name, Draw* draw, vector<Build>* build) {
+Player::Player(string name, Draw* draw, vector<Build>* build, Stock yourStock) {
   this->draw = *draw;
   this->name = name;
   this->build = build;
-  deal();	
+  this->theStock = yourStock;
+  deal();
+  isAnAI = false;
 }
 
-//do we have to accomodate for when there are more than 4 players; in which there would be 20 cards/player?
 void Player::deal(int playerNum) 
 {
-  if (playerNum <= 4 && playerNum >= 1)
-    {
-      stock += draw.take(30);
-    }
-  if (playerNum > 4)
-    {
-      stock += draw.take(20);
-    }
+  //gives each player 30 cards if there are less than or equal to 4 players
+  if (playerNum <= 4 && playerNum >= 1) {
+      theStock += draw.take(LESSPLAYERS);
+  }
+
+  //gives each player 20 cards if there are over 4 players
+  if (playerNum > 4) {
+    theStock += draw.take(MOREPLAYERS);
+  }
 }
 
-bool Player::hasWon()
-{
-  if (stock.isEmpty())
+bool Player::hasWon() {
+  if (theStock.isEmpty()) {
     return true;
+  }
   return false;
 }
 
-bool Player::playCard(Deck a, Deck b)
-{
-  if (a.move(b))
+bool Player::playCard(Deck a, Deck b) {
+  if (a.move(b)) {
     return true;
+  }
   return false;
 }
 
-bool Player::playCard(Deck b, int num)
-{
-  if (hand.move(Deck b, int num))
+bool Player::playCard(Deck b, int num) {
+  if (hand.move(b, num)) {
     return true;
+  }
   return false;
 }
 
-string Player::getName()
-{
+string Player::getName() {
   return name;
 }
 
-Hand Player::getHand()
-{
+Hand Player::getHand() {
   return hand;
 }
 
-vector<Discard> getDiscard()
-{
+vector<Discard> Player::getDiscard() {
   return discard;
 }
 
-vector<int> getStock()
-{
-  return stock;
+Stock Player::getStock() {
+  return theStock;
+}
+
+bool Player::isAI() {
+  return isAnAI;
 }

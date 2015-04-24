@@ -1,8 +1,6 @@
 #include <string>
 #include <vector>
-#include "Hand.h"
-#include "Discard.h"
-#include "Draw.h"
+#include "Deck.h"
 
 using std::string;
 using std::vector;
@@ -11,8 +9,9 @@ class Player {
   //Instance fields
   string name;	
   Hand hand;       
-  Stock stock;	
+  Stock theStock;	
   vector<Discard> discard;
+  bool isAnAI;
 
   //reference to higher level data
   vector<Build>* build;
@@ -20,7 +19,7 @@ class Player {
   Draw* draw;
 
   //Constructor
-  Player(string name, Draw* draw, vector<Build>* build);
+  Player(string name, Draw* draw, vector<Build>* build, Stock theStock);
 	
   //Methods
   void deal();
@@ -30,5 +29,6 @@ class Player {
   string getName();
   Hand getHand();
   vector<Discard> getDiscard();
-  vector<int> getStock();
+  Stock getStock();
+  bool isAI();
 };

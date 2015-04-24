@@ -23,7 +23,7 @@ Game::Game(vector<string> names){
 
   while(names.size()){
     name = names.last();
-    if(name.substr(0,3) == "AI "){
+    if(name.substr(0,2) == "AI"){
       players.push_back(new AI(name, d.take(stockSize)));
     }
     else{
@@ -38,6 +38,8 @@ Game::Game(vector<string> names){
     build.push_back(new Build());
   }
 }
+
+Game::Game() {}
 
 void Game::nextTurn(){
   turn++;
@@ -156,7 +158,7 @@ void Game::process(string input){
     return;
   }
 
-  string source = input.at(0);
+  char source = input.at(0);
   Move m;
 
   if (source == 's'){
@@ -196,7 +198,7 @@ void Game::process(string input){
     return;
   }
 
-  string dest  = input.substr(1,0);
+  char dest  = input.substr(1,0);
   int destIndex = 0;
 
   if (dest == 'b' || dest == 'd'){
@@ -205,12 +207,20 @@ void Game::process(string input){
 
     if (destIndex > 3){
       cout << "Invalid index " << endl;
+      return;
     }
 
     m.destIndex = destIndex;
   }
   else{
     cout << "Invalid destination" << endl;
+    return;
+  }
+  
+  if (dest == 'b' && m.value != 0){
+    if (build[destIndex]%12 != value - 1){
+      cout << "Invalid move" << endl;
+    }
   }
 
   this.play(m);
@@ -218,5 +228,15 @@ void Game::process(string input){
 }
 
 void Game::play(Move m){
+  
+}
 
+bool Game::AIPlaying() {
+	return players.at(turn%players.size()).isAI();
+	
+}
+  
+Player Game::getPlayer() {
+	
+	return players.at(turn%players.size());
 }

@@ -14,4 +14,4 @@ deck.o: Deck.h Deck.cpp Draw.cpp Build.cpp Hand.cpp Discard.cpp
 	$(CC) $(CXXFLAGS) -c Deck.cpp Draw.cpp Build.cpp Hand.cpp Discard.cpp
 
 clean: 
-	rm -f *~ *.o *.gcov a.out dTest
+	rm -f *~ *.o *.gcov *.gch a.out dTest

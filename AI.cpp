@@ -6,12 +6,17 @@
 #include "AI.h"
 #include <string>
 #include <vector>
+#include <ctime>
+#include <cstdlib>
+
 
 using std::string;
 using std::vector;
 
 AI::AI(string name, Draw* draw, vector<Build>* build) {
 	Player(name, draw, build);
+	seed = time(NULL);
+	isAI = true;
 }
 
 string AI::calculateMove() {
@@ -45,7 +50,14 @@ string AI::calculateMove() {
 	}
 	
 	//PICK RANDOM MOVE/BEST MOVE HERE
-	
+	srand(seed);
+	seed++;
+	int rand = rand() % moves.size();
+	string keep = string(moves.at(rand));
+	for (int i = 0; i < moves.size(); ++i) {
+		delete moves.at(i);
+	}
+	return moves.at(rand);
 	
 	
 	///////////////
