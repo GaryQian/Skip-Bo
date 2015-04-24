@@ -1,4 +1,6 @@
 #include "Deck.h"
+#include <math.h>
+#include <stdio.h>
 
 using std::vector;
 
@@ -60,10 +62,11 @@ void Draw::shuffle(vector<int> arr){
   }
   else{
     srand(time(NULL));
-    while(last--){
+    while(last>0){
       int num = rand() % last;
       shuffled.push_back(cards[num]);
       swap(cards[num],cards[last-1]);
+      last--;
     }
   }
   //replace the old vector with the new shuffled one
