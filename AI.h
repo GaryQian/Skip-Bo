@@ -19,4 +19,6 @@ class AI: public Player {
 	
 	bool contains(vector<int> vec, int num);
 	
+	int find(vector<int> vec, int num);
+	
 };

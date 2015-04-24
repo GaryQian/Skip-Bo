@@ -32,6 +32,8 @@ string AI::calculateMove() {
 		if (contains(validNums, hand.at(i))) {
 			temp = new string("h");
 			temp += convert(i + 1);
+			temp += " b";
+			temp += Display.comvert(find(validNums, hand.at(i));
 			moves.push_back(temp);
 		}
 	}
@@ -40,12 +42,16 @@ string AI::calculateMove() {
 		if (contains(validNums, discard[i].getTop())) {
 			temp = new string("d");
 			temp += convert(i + 1);
+			temp += " b";
+			temp += Display.comvert(find(validNums, hand.at(i));
 			moves.push_back(temp);
 		}
 	}
 	
 	if (contains(validNums, stock.getTop())) {
-		temp = new string("d");
+		temp = new string("s");
+		temp += " b";
+		temp += Display.comvert(find(validNums, hand.at(i));
 		moves.push_back(temp);
 	}
 	
@@ -66,9 +72,19 @@ string AI::calculateMove() {
 bool AI::contains(vector<int> vec, int num) {
 	if (num == 0) return true;
 	for (int j = 0; j < vec.size(); ++j) {
-		if (hand.at(i) == vec.at(j)) {
+		if (num == vec.at(j)) {
 			return true;
 		}
 	}
 	return false;
+}
+
+int AI::find(vector<int> vec, int num) {
+	if (num == 0) return -1;
+	for (int j = 0; j < vec.size(); ++j) {
+		if (num == vec.at(j)) {
+			return j;
+		}
+	}
+	return -1;
 }

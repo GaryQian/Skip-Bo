@@ -240,3 +240,45 @@ Player Game::getPlayer() {
 	
 	return players.at(turn%players.size());
 }
+
+bool Game::canMove() {
+	vector<int> validNums;
+	for (int i = 0; i < 4; ++i) {
+		if (*(getPlayer().build).at(i).getTop() != -1) {
+			validNums.push_back(*build[i].getTop() + 1);
+		}
+	}
+	vector<string> moves;
+	string temp;
+	for (int i = 0; i < hand.getSize(); ++i) {
+		if (contains(validNums, *(getPlayer().build).hand.at(i))) {
+			temp = new string("h");
+			temp += convert(i + 1);
+			moves.push_back(temp);
+		}
+	}
+	
+	for (int i = 0; i < 4; ++i) {
+		if (contains(validNums, *(getPlayer().build).at(i).getTop())) {
+			temp = new string("d");
+			temp += convert(i + 1);
+			moves.push_back(temp);
+		}
+	}
+	int movenum = moves.size();
+	for (int i = 0; i < moves.size(); ++i) {
+		delete moves.at(i);
+	}
+	if (movenu.size == 0) return false;
+	return true;
+}
+
+bool Game::contains(vector<int> vec, int num) {
+	if (num == 0) return true;
+	for (int j = 0; j < vec.size(); ++j) {
+		if (hand.at(i) == vec.at(j)) {
+			return true;
+		}
+	}
+	return false;
+}

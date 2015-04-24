@@ -36,4 +36,8 @@ class Game {
   bool AIPlaying();
   
   Player getPlayer();
+  
+  bool canMove();
+  
+  bool contains(vector<int> vec, int num);
 };
