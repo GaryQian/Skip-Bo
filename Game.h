@@ -17,13 +17,15 @@ class Game {
  public:
   //Constructor
   Game(std::vector<std::string> names); 
+  
+  Game();
 
   //Mutator functions
   void nextTurn();
   
   bool hasEnded(0;
   
-  void save_game(string filename);
+  void save_game()(string filename);
   
   void load_game(string filename);
   

@@ -39,6 +39,8 @@ Game::Game(vector<string> names){
   }
 }
 
+Game::Game() {}
+
 void Game::nextTurn(){
   turn++;
 }
