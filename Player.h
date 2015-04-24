@@ -13,6 +13,7 @@ class Player {
   Hand hand;       
   Stock stock;	
   vector<Discard> discard;
+  bool isAI;
 
   //reference to higher level data
   vector<Build>* build;
@@ -31,4 +32,5 @@ class Player {
   Hand getHand();
   vector<Discard> getDiscard();
   vector<int> getStock();
+  bool isAI();
 };

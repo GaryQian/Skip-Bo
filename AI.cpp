@@ -16,6 +16,7 @@ using std::vector;
 AI::AI(string name, Draw* draw, vector<Build>* build) {
 	Player(name, draw, build);
 	seed = time(NULL);
+	isAI = true;
 }
 
 string AI::calculateMove() {

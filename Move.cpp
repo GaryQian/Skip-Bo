@@ -24,10 +24,11 @@ int Move::getNumber() {
 	return move.at(2);
 }
 
-void setPlayer(int num) {
+void Move::setPlayer(int num) {
 	player = num;
 }
 
-void setMove(string str) {
+void Move::setMove(string str) {
 	move = str;
+	
 }

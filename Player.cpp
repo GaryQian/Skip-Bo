@@ -10,7 +10,8 @@ Player::Player(string name, Draw* draw, vector<Build>* build) {
   this->draw = *draw;
   this->name = name;
   this->build = build;
-  deal();	
+  deal();
+  isAI = false;
 }
 
 //do we have to accomodate for when there are more than 4 players; in which there would be 20 cards/player?
@@ -57,12 +58,16 @@ Hand Player::getHand()
   return hand;
 }
 
-vector<Discard> getDiscard()
+vector<Discard> Player::getDiscard()
 {
   return discard;
 }
 
-vector<int> getStock()
+vector<int> Player::getStock()
 {
   return stock;
+}
+
+bool Player::isAI() {
+	return isAI;
 }
