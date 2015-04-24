@@ -32,7 +32,7 @@ void Player::deal(int playerNum)
 }
 
 bool Player::hasWon() {
-  if (stock.isEmpty()) {
+  if (theStock.isEmpty()) {
     return true;
   }
   return false;
@@ -46,7 +46,7 @@ bool Player::playCard(Deck a, Deck b) {
 }
 
 bool Player::playCard(Deck b, int num) {
-  if (hand.move(Deck b, int num)) {
+  if (hand.move(b, num)) {
     return true;
   }
   return false;
@@ -64,7 +64,7 @@ vector<Discard> Player::getDiscard() {
   return discard;
 }
 
-vector<int> Player::getStock() {
+Stock Player::getStock() {
   return theStock;
 }
 

@@ -19,7 +19,7 @@ class Player {
   Draw* draw;
 
   //Constructor
-  Player(string name, Draw* draw, vector<Build>* build);
+  Player(string name, Draw* draw, vector<Build>* build, Stock theStock);
 	
   //Methods
   void deal();
@@ -29,6 +29,6 @@ class Player {
   string getName();
   Hand getHand();
   vector<Discard> getDiscard();
-  vector<int> getStock();
+  Stock getStock();
   bool isAI();
 };
