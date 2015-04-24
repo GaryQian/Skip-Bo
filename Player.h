@@ -7,6 +7,7 @@ using std::vector;
 
 class Player {
   //Instance fields
+  Draw* draw;
   string name;	
   Hand hand;       
   Stock theStock;	
@@ -16,14 +17,13 @@ class Player {
   //reference to higher level data
   vector<Build>* build;
 	
-  Draw* draw;
 
   //Constructor
   Player(string name, Draw* draw, vector<Build>* build, Stock theStock);
 	
   //Methods
-  void deal();
   bool hasWon();
+  bool move();
   bool playCard(Deck a, Deck b);
   bool playCard(Deck b, int num);
   string getName();
