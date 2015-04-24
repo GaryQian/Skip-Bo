@@ -11,8 +11,7 @@ class Deck {
   int getTop(); 
   virtual int takeCard();	
   bool isEmpty();
-  virtual bool move(Deck& d, int num = 1) = 0;	
-  //bool move(Deck& d, int num);	
+  virtual bool move(Deck& deck);	
   void operator +=(int value);	
   void operator +=(std::vector<int> list);
   std::string toString() const; 
@@ -22,35 +21,35 @@ class Hand: public Deck {
  public:
   Hand();
   int takeCard(int index);
-  bool move(Deck& d, int index);
+  bool move(Deck& deck, int index);
 };
 
 class Draw: public Deck {
+  friend class DrawTest;
  public: 
   Draw();
-  bool move(Deck& d,int num);
+  bool move(Hand& hand,int num);
   void shuffle(std::vector<int> arr = std::vector<int>());
-
+  void swap(int& a, int& b);
 };
 
 class Build: public Deck {
  public:
   Build();
-  bool move(Deck& d, int num = 1);
+  bool move(Draw& draw);
 };
 
 class Discard: public Deck { 
 public:
   Discard();
-  bool move(Build& b);
+  //bool move(Build& build);
 }; 
 
 class Stock: public Deck {
  public:
   Stock();
-  bool move(Stock& s);
 };
 
 std::ostream& operator << (std::ostream& os, const Deck& d);
-void shuffle(std::vector<int>& v, std::vector<int> arr = std::vector<int>());
-void swap(int& a, int& b);
+//void shuffle(std::vector<int>& v, std::vector<int> arr = std::vector<int>());
+//void swap(int& a, int& b);

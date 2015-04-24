@@ -15,14 +15,14 @@ Draw::Draw(){
   }
 }
 
-bool Draw::move(Deck& d, int num){
+bool Draw::move(Hand& hand, int num){
   vector<int> toMove;
   //if we have enough cards in the draw pile, take whatever is needed
   if(getSize() > num){
     for(int i = 0; i < num; i++){
       toMove.push_back(takeCard());
     }
-    d += toMove;
+    hand += toMove;
     return true;
   }
   //else if draw pile is not empty, but has less than the requested
@@ -31,7 +31,7 @@ bool Draw::move(Deck& d, int num){
     for(int i = 0; i < getSize(); i++){
       toMove.push_back(takeCard());
     }
-    d += toMove;
+    hand += toMove;
     return true;
   }
   return false;
@@ -70,3 +70,8 @@ void Draw::shuffle(vector<int> arr){
   cards = shuffled;
 }
 
+void Draw::swap(int& a, int& b){
+  int temp = b;
+  b = a; 
+  a = temp;
+}

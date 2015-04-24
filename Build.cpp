@@ -9,7 +9,7 @@ Build::Build(){
   cards = vector<int>();
 }
 
-bool Build::move(Deck& d, int num){  
+bool Build::move(Draw& draw){  
   if(getSize() > 12){
     //reverse the order of the cards, so the bottom cards are now the
     //last elements in the vector
@@ -20,12 +20,11 @@ bool Build::move(Deck& d, int num){
     //take 12k cards from the Build pile
     for(int i = 0; i < max; i++){
       toMove.push_back(takeCard());
-    }
-
-    shuffle(toMove);
+    }    
 
     //add the cards to the draw pile and shuffle them
-    d += toMove;
+    draw += toMove;
+    draw.shuffle();
 
     return true;
   }

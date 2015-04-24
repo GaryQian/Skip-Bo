@@ -25,6 +25,14 @@ bool Deck::isEmpty() {
   return getSize() == 0;
 }
 
+bool Deck::move(Deck& d){
+  if(getSize()){
+    d += takeCard();
+    return true;
+  }
+  return false;
+}
+
 void Deck::operator +=(int value) {
   cards.push_back(value);
 }
@@ -51,7 +59,7 @@ std::ostream& operator << (std::ostream& os, const Deck& d) {
   os << d.toString();
   return os;
 }
-
+/*
 void shuffle(vector<int> v){
   vector<int> shuffled;
   int last = getSize();
@@ -90,3 +98,4 @@ void swap(int&a , int& b){
   b = a;
   a = temp;
 }
+*/

@@ -13,9 +13,9 @@ int Hand::takeCard(int index){
   return chosenCard;
 }
 
-bool Hand::move(Deck& d, int index){
+bool Hand::move(Deck& deck, int index){
   if(index - 1 < getSize()){
-    d += takeCard(index);
+    deck += takeCard(index);
     return true;
   }
   else return false;

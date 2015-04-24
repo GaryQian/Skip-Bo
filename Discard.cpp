@@ -6,11 +6,11 @@ using std::vector;
 Discard::Discard(){
   cards = vector<int>();
 }
-
-bool Discard::move(Build& b){
+/*
+bool Discard::move(Build& build){
   if(getSize()){
-    b += takeCard();
+    build += takeCard();
     return true;
   }
   return false;
-}
+  }*/
