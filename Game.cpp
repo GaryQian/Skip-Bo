@@ -23,7 +23,7 @@ Game::Game(vector<string> names){
 
   while(names.size()){
     name = names.last();
-    if(name.substr(0,3) == "AI "){
+    if(name.substr(0,2) == "AI"){
       players.push_back(new AI(name, d.take(stockSize)));
     }
     else{
