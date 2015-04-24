@@ -14,10 +14,9 @@ Player::Player(string name, Draw* draw, vector<Build>* build) {
   this->name = name;
   this->build = build;
   deal();
-  isAI = false;
+  isAnAI = false;
 }
 
-//do we have to accomodate for when there are more than 4 players; in which there would be 20 cards/player?
 void Player::deal(int playerNum) 
 {
   //gives each player 30 cards if there are less than or equal to 4 players
@@ -69,5 +68,5 @@ vector<int> Player::getStock() {
 }
 
 bool Player::isAI() {
-  return isAI;
+  return isAnAI;
 }

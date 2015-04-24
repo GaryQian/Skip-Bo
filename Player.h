@@ -1,8 +1,6 @@
 #include <string>
 #include <vector>
-#include "Hand.h"
-#include "Discard.h"
-#include "Draw.h"
+#include "Deck.h"
 
 using std::string;
 using std::vector;
@@ -13,7 +11,7 @@ class Player {
   Hand hand;       
   Stock stock;	
   vector<Discard> discard;
-  bool isAI;
+  bool isAnAI;
 
   //reference to higher level data
   vector<Build>* build;
