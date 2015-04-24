@@ -9,7 +9,7 @@ Build::Build(){
   cards = vector<int>();
 }
 
-bool Build::move(Draw& d){
+bool Build::move(Deck& d, int num = 0){
   if(getSize() > 12){
     //reverse the order of the cards, so the bottom cards are now the
     //last elements in the vector

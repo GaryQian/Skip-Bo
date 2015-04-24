@@ -20,6 +20,14 @@ public:
   }
 };
 
+class BuildTest {
+public:
+  static void constructorTest(){
+    Build b = Build();
+    assert(b.getSize() == 0);
+  }
+};
+
 int main(void){
   cout << "Running Draw tests..." << endl;
   DrawTest::constructorTest();

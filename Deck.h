@@ -28,7 +28,7 @@ class Hand: public Deck {
 class Draw: public Deck {
   public: 
    Draw();
-   bool move(Deck& d,int num);
+   bool move(Deck& d, int num);
    void shuffle(std::vector<int> arr = std::vector<int>());
    void swap(int& a, int& b);
 };
@@ -36,7 +36,7 @@ class Draw: public Deck {
 class Build: public Deck {
  public:
   Build();
-  bool move(Draw& d);
+  bool move(Deck& d, int num);
 };
 
 class Discard: public Deck { 
