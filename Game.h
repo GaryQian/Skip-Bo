@@ -32,4 +32,8 @@ class Game {
   void process(string input);
   
   void play(Move m);
+  
+  bool AIPlaying();
+  
+  Player getPlayer();
 };

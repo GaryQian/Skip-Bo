@@ -230,3 +230,13 @@ void Game::process(string input){
 void Game::play(Move m){
   
 }
+
+bool Game::AIPlaying() {
+	return players.at(turn%players.size()).isAI();
+	
+}
+  
+Player Game::getPlayer() {
+	
+	return players.at(turn%players.size());
+}
