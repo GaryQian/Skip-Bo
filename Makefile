@@ -19,13 +19,13 @@ Deck.o: Deck.h Deck.cpp Draw.cpp Build.cpp Hand.cpp Discard.cpp
 Display.o: Display.cpp Display.h Player.o Player.cpp Player.h Build.h Build.o Build.cpp Deck.h Deck.cpp Deck.o Stock.h Stock.cpp Stock.o Draw.h Draw.cpp Draw.o Hand.h Hand.cpp Hand.o
 	$(CC) $(CXXFLAGS) -c Display.cpp Display.h -o Display.o
 	
-Game.o: Game.h Game.cpp Display.cpp Display.h Player.o Player.cpp Player.h Build.h Build.o Build.cpp Deck.h Deck.cpp Deck.o Stock.h Stock.cpp Stock.o Draw.h Draw.cpp Draw.o Hand.h Hand.cpp Hand.o
+Game.o: Game.h Game.cpp Display.cpp Display.h Player.o Player.cpp Player.h Build.o Build.cpp Deck.cpp Deck.o Stock.cpp Stock.o Draw.cpp Draw.o Hand.cpp Hand.o
 	$(CC) $(CXXFLAGS) -c Game.cpp Game.h -o Game.o
 	
-Player.o: Display.cpp Display.h Player.o Player.cpp Player.h Build.h Build.o Build.cpp Deck.h Deck.cpp Deck.o Stock.h Stock.cpp Stock.o Draw.h Draw.cpp Draw.o Hand.h Hand.cpp Hand.o
+Player.o: Display.cpp Display.h Player.cpp Player.h Build.o Build.cpp Deck.cpp Deck.o Stock.cpp Stock.o Draw.cpp Draw.o Hand.cpp Hand.o
 	$(CC) $(CXXFLAGS) -c Player.cpp Player.h -o Player.o
 	
-SkipBoMain.o: Game.h Game.cpp Display.cpp Display.h Player.o Player.cpp Player.h Build.h Build.o Build.cpp Deck.h Deck.cpp Deck.o Stock.h Stock.cpp Stock.o Draw.h Draw.cpp Draw.o Hand.h Hand.cpp Hand.o
+SkipBoMain.o: Game.h Game.cpp Display.cpp Display.h Player.o Player.cpp Player.h Build.o Build.cpp Deck.cpp Deck.o Stock.cpp Stock.o Draw.cpp Draw.o Hand.cpp Hand.o
 	$(CC) $(CXXFLAGS) -c Display.cpp Display.h -o Display.o
 	
 skipbo: Game.o Deck.o Display.o Game.o Player.o SkipBoMain.o
