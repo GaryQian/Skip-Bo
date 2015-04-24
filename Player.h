@@ -9,7 +9,7 @@ class Player {
   //Instance fields
   string name;	
   Hand hand;       
-  Stock stock;	
+  Stock theStock;	
   vector<Discard> discard;
   bool isAnAI;
 

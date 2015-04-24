@@ -7,9 +7,9 @@ Stock::Stock(){
   cards = vector<int>();
 }
 
-bool Stock::move(Build& b) {
+bool Stock::move(Stock& s) {
   if(getSize()) {
-    b+= takeCard();
+    s += takeCard();
     return true:
   }
   return false;
