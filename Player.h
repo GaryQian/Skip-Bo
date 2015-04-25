@@ -1,5 +1,6 @@
 #include <string>
 #include <vector>
+#include "Move.h"
 #include "Deck.h"
 #ifndef PLAYER_H
 #define PLAYER_H
@@ -22,6 +23,7 @@ class Player {
 
   //Constructor
   Player(string name, Draw* draw, vector<Build>* build, Stock stock);
+  Player(string nmae, Draw* draw, vector<Build>* build, Stock stock, Hand hand, vector<Discard> discard);
 
  public:	
   //Methods

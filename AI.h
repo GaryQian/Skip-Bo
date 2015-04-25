@@ -14,6 +14,8 @@ class AI: public Player {
  public:
   
   AI(string name, Draw* draw, vector<Build>* build, Stock* stock);
+
+  AI(string name, Draw* draw, vector<Build>* build, Stock stock, Hand hand, vector<Discard> discard);
   
   string getMove();
   

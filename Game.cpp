@@ -98,10 +98,9 @@ void Game::save_game(string filename){
   outFile << move.size() << endl;
 
   for(unsigned long i = 0; i < move.size(); i++){
-    outFile << move[i].player << " " << move[i].source << " " << move[i].dest << endl;
+    outFile << move[i].player << " " << move[i].value << " " << move[i].source << " " << move[i].sourceIndex << " " << move[i].destIndex << " " << move[i].dest << " ";
   }
-
-  outFile << turn << endl;
+  outFile << endl << turn << endl;
 }
 
 void Game::load_game(string filename){
@@ -111,12 +110,8 @@ void Game::load_game(string filename){
   int numPlayers;
   int numMoves;
   string name;
-  vector<int> hand;
   vector<int> set;
-  vector<vector<int>> discard;
-  vector<int> stock;
-
-
+  
   inFile >> numPlayers;
   inFile >> num;
 
@@ -125,50 +120,63 @@ void Game::load_game(string filename){
     inFile >> num;
   }
 
+  build.resize(4);
 
   for(int i = 0; i < 4; i++){
     inFile >> num;
     while(num != -1){
-      build[i].push_back(num);
+      build[i] += num;
       inFile >> num;
     }
   }
 
-  build.resize(4);
-
   for(int i = 0; i < numPlayers; i++){
+    Stock* s = new Stock();
+    Hand* h = new Hand();
+    vector<Discard> discard;
+    discard.resize(4);
+    
     inFile >> name;
     inFile >> num;
     while(num != -1){
-      hand.push_back(num);
+      *h+=num;
       inFile >> num;
     }
 
     for(int i = 0; i < 4;){
-      if((inFile >> num) != -1){
-        discard[i].push_back(num);
+      inFile >> num;
+      if(num != -1){
+        discard[i]+=num;
       }
       else{
         ++i;
       }
     }
-
-    while((inFile >> num)!= -1){
-      stock.push_back(num);
+    
+    inFile >> num;
+    while(num != -1){
+      *s += num;
+      inFile >> num;
     }
 
-    players.push_back(new Player(name, hand, discard, stock));
-    hand.clear();
-    discard.clear();
-    stock.clear();
+    if (name.substr(0,3) == "AI "){
+      players.push_back(*(new AI(name, &draw, &build, *s, *h, discard)));
+    }
+    else {
+      players.push_back(*(new HumanPlayer(name, &draw, &build, *s, *h, discard)));
+    }
+    
   }
 
   inFile >> numMoves;
 
   for(int i = 0; i < numMoves; i++){
     Move m;
-    inFile >> m.playerNum;
+    inFile >> m.player;
+    inFile >> m.value;
     inFile >> m.source;
+    inFile >> m.sourceIndex;
+    inFile >> m.destIndex;
     inFile >> m.dest;
     move.push_back(m);
   }
@@ -187,42 +195,41 @@ void Game::process(string input){
 
   if (source == 's'){
     input = input.substr(1);
-    m.source == s;
-    m.index = 0;
-    m.value = players[turn%players.size()].getStock()[0];
+    m.source = source;
+    m.sourceIndex = 0;
+    m.value = players[(turn-1)%players.size()].getStock().getTop();
   }
   else if (source == 'd'){
     m.source = source;
-    m.index = (input.at(1) - '0')-1;
-    if (index > 3){
+    m.sourceIndex = (input.at(1) - '0')-1;
+    if (m.sourceIndex > 3){
       cout << "invalid index" << endl;
       return;
     }
     input = input.substr(2);
-    m.value = players[turn%players.size()].getDiscard()[m.index][0];
+    m.value = players[(turn-1)%players.size()].getDiscard()[m.sourceIndex].getTop();
   }
   else if (source == 'h'){
     m.source = source;
-    m.index = (input.at(1) - '0')-1;
-    if (index > 4){
+    m.sourceIndex = (input.at(1) - '0')-1;
+    if (m.sourceIndex > 4){
       cout << "invalid index" << endl;
       return;
     }
     input = input.substr(2);
-    m.value = players[turn%players.size()].getHand()[m.index];
+    m.value = players[turn%players.size()].getHand()[m.sourceIndex];
   }
   else{
     cout << "Invalid card source" << endl;
     return;
   }
 
-  if (input.at(0) != " "){
-    cout << "source and destination must be separated with a single whitespace"\
-	 << endl;
+  if (input.at(0) != ' '){
+    cout << "source and destination must be separated with a single whitespace"<< endl;
     return;
   }
 
-  char dest  = input.substr(1,0);
+  char dest  = input.at(1);
   int destIndex = 0;
 
   if (dest == 'b' || dest == 'd'){

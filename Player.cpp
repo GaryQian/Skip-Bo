@@ -19,6 +19,19 @@ Player::Player(string name, Draw* draw, vector<Build>* build, Stock stock) {
   isAnAI = false;
 }
 
+Player::Player(string name, Draw* draw, vector<Build>* build, Stock stock, Hand hand, vector<Discard> discard){
+  this->draw = draw;
+this->name = name;
+this->build = build;
+this->stock = stock;
+this->hand = hand;
+this->discard = discard;
+
+deal();
+isAnAI = false;
+
+}
+
 bool Player::move(Move yourMove) {
 
 

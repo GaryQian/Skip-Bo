@@ -12,7 +12,7 @@ class Game {
   std::vector<Build> build;
   Draw draw;
   int turn;
-
+  
  public:
   //Constructor
   Game(std::vector<std::string> names); 
