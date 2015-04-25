@@ -1,6 +1,9 @@
 #include <string>
 #include <vector>
 #include "Deck.h"
+#ifndef PLAYER_H
+#define PLAYER_H
+
 using std::string;
 using std::vector;
 
@@ -34,3 +37,5 @@ class Player {
   
   virtual string getMove() = 0;
 };
+
+#endif

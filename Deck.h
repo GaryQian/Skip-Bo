@@ -1,6 +1,8 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#ifndef DECK_H
+#define DECK_H
 
 class Deck {
  protected:  
@@ -55,3 +57,5 @@ class Stock: public Deck {
 std::ostream& operator << (std::ostream& os, const Deck& d);
 //void shuffle(std::vector<int>& v, std::vector<int> arr = std::vector<int>());
 //void swap(int& a, int& b);
+
+#endif
