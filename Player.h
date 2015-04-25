@@ -1,34 +1,38 @@
 #include <string>
 #include <vector>
-#include "Deck.h"
+#include "Hand.h"
+#include "Discard.h"
+#include "Draw.h"
 
 using std::string;
 using std::vector;
 
 class Player {
   //Instance fields
-  Draw* draw;
   string name;	
   Hand hand;       
-  Stock theStock;	
+  Stock stock;	
   vector<Discard> discard;
-  bool isAnAI;
+  bool isAI;
 
   //reference to higher level data
   vector<Build>* build;
 	
+  Draw* draw;
 
   //Constructor
-  Player(string name, Draw* draw, vector<Build>* build, Stock theStock);
+  Player(string name, Draw* draw, vector<Build>* build);
 	
   //Methods
+  void deal();
   bool hasWon();
-  bool move();
   bool playCard(Deck a, Deck b);
   bool playCard(Deck b, int num);
   string getName();
   Hand getHand();
   vector<Discard> getDiscard();
-  Stock getStock();
+  vector<int> getStock();
   bool isAI();
+  
+  virtual string getMove() = 0;
 };

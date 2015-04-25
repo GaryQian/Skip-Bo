@@ -19,7 +19,7 @@ AI::AI(string name, Draw* draw, vector<Build>* build) {
 	isAI = true;
 }
 
-string AI::calculateMove() {
+string AI::getMove() {
 	vector<int> validNums;
 	for (int i = 0; i < 4; ++i) {
 		if (*build[i].getTop() != -1) {

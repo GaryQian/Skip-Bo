@@ -15,7 +15,7 @@ class AI: public Player {
 	
 	AI(string name, Draw* draw, vector<Build>* build);
 	
-	string calculateMove();
+	string getMove();
 	
 	bool contains(vector<int> vec, int num);
 	
