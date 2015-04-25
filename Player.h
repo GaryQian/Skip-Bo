@@ -1,9 +1,6 @@
 #include <string>
 #include <vector>
-#include "Hand.h"
-#include "Discard.h"
-#include "Draw.h"
-
+#include "Deck.h"
 using std::string;
 using std::vector;
 

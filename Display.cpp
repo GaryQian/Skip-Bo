@@ -1,9 +1,5 @@
 ﻿#include "Player.h"
-#include "Build.h"
 #include "Deck.h"
-#include "Stock.h"
-#include "Draw.h"
-#include "Hand.h"
 #include "Display.h"
 #include <string>
 #include <vector>

@@ -52,12 +52,7 @@ int main(){
 	while (!game.hasEnded()) {
 		game.nextTurn();
 		while (game.canMove()) {
-			if (game.AIPlaying()) {
-				input = ((AI) game.getPlayer()).calculateMove();
-			}
-			else {
-				cin >> input;
-			}
+			input = game.getPlayer().getMove();
 			game.process(input);
 		}
 		
