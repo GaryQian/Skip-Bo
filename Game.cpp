@@ -187,7 +187,7 @@ void Game::process(string input){
 
   if (source == 's'){
     input = input.substr(1);
-    m.source == s;
+    m.source = source;
     m.index = 0;
     m.value = players[turn%players.size()].getStock()[0];
   }
