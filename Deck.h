@@ -18,6 +18,7 @@ class Deck {
 };
 
 class Hand: public Deck {
+  friend class DrawTest;
  public:
   Hand();
   int takeCard(int index);
@@ -34,6 +35,7 @@ class Draw: public Deck {
 };
 
 class Build: public Deck {
+  friend class BuildTest;
  public:
   Build();
   bool move(Draw& draw);

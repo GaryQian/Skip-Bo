@@ -41,7 +41,7 @@ bool Draw::move(Hand& hand, int num){
 
 void Draw::shuffle(vector<int> arr){
   vector<int> shuffled;
-  int last = getSize();
+  int last = getSize() - 1;
 
   //if the user passes in a given arrangement in the form of a vector
   //of integers, use each element of the vector as the index of the
@@ -56,7 +56,7 @@ void Draw::shuffle(vector<int> arr){
       shuffled.push_back(cards[*it]);
       //move the chosen card to the back, and decrement last so that
       //the chosen card can't be re-chosen
-      swap(cards[*it], cards[last-1]);
+      swap(cards[*it], cards[last]);
       last--;
     }
   }
@@ -65,9 +65,10 @@ void Draw::shuffle(vector<int> arr){
     while(last>0){
       int num = rand() % last;
       shuffled.push_back(cards[num]);
-      swap(cards[num],cards[last-1]);
+      swap(cards[num],cards[last]);
       last--;
     }
+    shuffled.push_back(cards[0]);
   }
   //replace the old vector with the new shuffled one
   cards = shuffled;
