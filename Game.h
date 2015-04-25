@@ -22,9 +22,9 @@ class Game {
   //Mutator functions
   void nextTurn();
   
-  bool hasEnded(0;
+  bool hasEnded();
   
-  void save_game()(string filename);
+  void save_game(string filename);
   
   void load_game(string filename);
   

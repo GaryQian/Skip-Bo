@@ -9,8 +9,8 @@ using std::string;
 using std::getline;
 
 Game::Game(vector<string> names){
-  Draw d = new Draw(); 
-  stockSize = 0;
+  Draw* d = new Draw(); 
+  int stockSize = 0;
   string name;
   turn = 0;
 
@@ -22,12 +22,12 @@ Game::Game(vector<string> names){
   }
 
   while(names.size()){
-    name = names.last();
+    name = names.back();
     if(name.substr(0,3) == "AI "){
-      players.push_back(new AI(name, &d, &build, Stock(d.take(stockSize))));
+      players.push_back(new AI(name, d, &build, Stock(d->take(stockSize))));
     }
     else{
-      players.push_back(new HumanPlayer(name, &d, &build, Stock(d.take(stockSize))));
+      players.push_back(new HumanPlayer(name, d, &build, Stock(d->take(stockSize))));
     }
     names.pop();
   }
@@ -35,7 +35,7 @@ Game::Game(vector<string> names){
   draw = d;
 
   for(int i = 0; i < 4; i++){
-    build.push_back(new Build());
+    build.push_back(*(new Build()));
   }
 }
 
@@ -62,31 +62,31 @@ bool Game::hasEnded(){
 }
 
 void Game::save_game(string filename){
-  int numP = Players.size();
+  int numP = players.size();
   std::ofstream outFile(filename);
 
   outFile << numP << endl;
   
   for(int i = 0; i < numP; i++){
-    outFile << Players[i].getName() << endl;
+    outFile << players[i].getName() << endl;
   }
   
-  outFile << draw.print() << endl;
+  outFile << draw.toString() << endl;
 
   for(int i = 0; i < 4; i++){
-    outFile << build[i].print() << -1 << " ";
+    outFile << build[i].toString() << -1 << " ";
   }
   outFile << endl;
 
   for(int i = 0; i < numP; i++){
-    outFile << Players[i].getHand().print() << endl;
+    outFile << players[i].getHand().toString() << endl;
     
     for(int j = 0; j < 4; j++){
-      outFile << (Players[i].getDiscard())[j].print() << -1 << " ";
+      outFile << (players[i].getDiscard())[j].toString() << -1 << " ";
     }
     outFile << endl;
 
-    outFile << Players[i].getStock().print() << endl;
+    outFile << players[i].getStock().print() << endl;
   }
 
   outFile << move.size() << endl;
@@ -111,14 +111,14 @@ void Game::load_game(string filename){
   vector<int> stock;
 
 
-  inFile > numPlayers;
+  inFile >> numPlayers;
 
-  while((inFile > num) != -1){
+  while((inFile >> num) != -1){
     draw.push_back(num);
   }
 
   for(int i = 0; i < 4; i++){
-    while((inFile>num) != -1){
+    while((inFile >> num) != -1){
       build[i].push_back(num);
     }
   }
@@ -126,14 +126,14 @@ void Game::load_game(string filename){
   build.resize(4);
 
   for(int i = 0; i < numPlayers; i++){
-    inFile > name;
+    inFile >> name;
 
-    while((inFile > num)!= -1){
+    while((inFile >> num)!= -1){
       hand.push_back(num);
     }
 
     for(int i = 0; i < 4;){
-      if((inFile > num) != -1){
+      if((inFile >> num) != -1){
         discard[i].push_back(num);
       }
       else{
@@ -141,7 +141,7 @@ void Game::load_game(string filename){
       }
     }
 
-    while((inFile > num)!= -1){
+    while((inFile >> num)!= -1){
       stock.push_back(num);
     }
 

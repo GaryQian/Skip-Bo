@@ -22,7 +22,8 @@ class Player {
 
   //Constructor
   Player(string name, Draw* draw, vector<Build>* build, Stock stock);
-	
+
+ public:	
   //Methods
   void deal();
   bool move();
