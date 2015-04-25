@@ -23,11 +23,11 @@ Game::Game(vector<string> names){
 
   while(names.size()){
     name = names.last();
-    if(name.substr(0,2) == "AI"){
-      players.push_back(new AI(name, d.take(stockSize)));
+    if(name.substr(0,3) == "AI "){
+      players.push_back(new AI(name, &d, &build, Stock(d.take(stockSize))));
     }
     else{
-      players.push_back(new Player(name, d.take(stockSize)));
+      players.push_back(new Human(name, &d, &build, Stock(d.take(stockSize))));
     }
     names.pop();
   }
@@ -39,14 +39,26 @@ Game::Game(vector<string> names){
   }
 }
 
-Game::Game() {}
-
 void Game::nextTurn(){
   turn++;
+  if (5 - players[(turn-1)%players.size()].getHand().getSize() > draw.getSize()){
+    vector<int> left;
+    left.resize(draw.getSize());
+    
+    for(int i = draw.getSize()-1; i >= 0 ; i--){
+      left[i] = draw.takeCard();
+    }
+
+    for (int i = 0; i < 4; i++){
+      build[i].move(draw);
+    }
+
+    draw+=left;
+  } 
 }
 
 bool Game::hasEnded(){
-  return players[turn%players.size()].hasWon();
+  return players[(turn-1)%players.size()].hasWon();
 }
 
 void Game::save_game(string filename){
@@ -228,7 +240,7 @@ void Game::process(string input){
 }
 
 void Game::play(Move m){
-  
+  players[turn%players.size()]
 }
 
 bool Game::AIPlaying() {
