@@ -1,10 +1,10 @@
-struct Move {
+typedef struct Move {
 
   int player;    
   int value;
   char source;
-  int index;
+  int sourceIndex;
   int destIndex;
-  char dest;
-	
-};
+  char dest;	
+
+} Move;

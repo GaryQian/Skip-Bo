@@ -19,9 +19,10 @@ Player::Player(string name, Draw* draw, vector<Build>* build, Stock stock) {
   isAnAI = false;
 }
 
-bool Player::move() {
-	//temp
-	return true;
+bool Player::move(Move yourMove) {
+
+
+  return true;
 }
 
 bool Player::hasWon() {
