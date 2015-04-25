@@ -251,18 +251,17 @@ void Game::process(string input){
   return;
 }
 
+//Modifies Player's cards based on the move provided
 void Game::play(Move m){
-  players[turn%players.size()]
+  players[turn%players.size()].move(m);
 }
 
 bool Game::AIPlaying() {
-	return players.at(turn%players.size()).isAI();
-	
+  return players.at(turn%players.size()).isAI();	
 }
   
-Player Game::getPlayer() {
-	
-	return players.at(turn%players.size());
+Player Game::getPlayer() {	
+  return players.at(turn%players.size());
 }
 
 bool Game::canMove() {

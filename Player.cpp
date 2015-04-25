@@ -20,7 +20,23 @@ Player::Player(string name, Draw* draw, vector<Build>* build, Stock stock) {
 }
 
 bool Player::move(Move yourMove) {
+  if (yourMove.source == 'h' || yourMove.source == 'H') {
+    //
+  }
+  else if (yourMove.source == 'd' || yourMove.source == 'D') {
+    //
+  }
+  else /*assumed that source is stock*/ {
+    //
+  }
 
+  if (yourMove.dest == 'b' || yourMove.dest == 'B') {
+
+  }
+  //discard problem: which discard pile to place the card in cannot be encapsulated into a single char
+  else if (yourMove.dest == 'd' || yourMove.dest == 'D'){
+
+  }
 
   return true;
 }
