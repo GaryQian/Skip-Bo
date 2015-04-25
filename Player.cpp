@@ -3,9 +3,6 @@
 #include <string>
 #include <vector>
 
-#define LESSPLAYERS 30
-#define MOREPLAYERS 20
-
 using std::string;
 using std::vector;
 
@@ -32,9 +29,29 @@ isAnAI = false;
 
 }
 
+//How to know from Move data which discard/build pile to put dest. card into?
 bool Player::move(Move yourMove) {
+  if (yourMove.source == 's') {
+    if (yourMove.dest == 'b') {
+      stock.move(build /*which index?*/);
+    }
+    else if (yourMove.dest == 'd') {
+      stock.move(discard /* which discard pile?*/);
+    }
+  }
+  else if (yourMove.source == 'd') {
+    //implementation
+  }
+  else /*assumed that source is hand*/ {
+    hand.takeCard(yourMove.index);
 
-
+    if (yourMove.dest == 'b') {
+      hand.move(build /*which index*/);
+    }
+    else if (yourMove.dest == 'd') {
+      hand.move(discard /*which discard pile*/);
+    }
+  }
   return true;
 }
 
