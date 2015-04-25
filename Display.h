@@ -1,5 +1,7 @@
 #include "Player.h"
 #include "Deck.h"
+#ifndef DISPLAY_H
+#define DISPLAY_H
 
 class Display {
     
@@ -7,3 +9,5 @@ class Display {
   static string convert(int num);
 
 };
+
+#endif

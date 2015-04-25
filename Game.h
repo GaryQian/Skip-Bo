@@ -1,6 +1,6 @@
 #include <vector>
 #include <string>
-#include "Player.h"
+#include "HumanPlayer.h"
 #include "Display.h"
 #include "Move.h"
 #include "AI.h"

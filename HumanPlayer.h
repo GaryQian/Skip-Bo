@@ -2,9 +2,10 @@
 #include "Player.h"
 
 class HumanPlayer: public Player {
-	
-	HumanPlayer(string name, Draw* draw, vector<Build>* build);
+
+ public:
+  HumanPlayer(string name, Draw* draw, vector<Build>* build, Stock* stock);
 	
 	string getMove();
 
-}
+};

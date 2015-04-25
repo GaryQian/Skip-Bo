@@ -23,16 +23,22 @@ Game::Game(vector<string> names){
 
   while(names.size()){
     name = names.back();
+    
+    Stock* s = new Stock();
+    for(int i = 0; i < stockSize; i++){
+      d->Deck::move(*s);
+    }
+
     if(name.substr(0,3) == "AI "){
-      players.push_back(new AI(name, d, &build, Stock(d->take(stockSize))));
+      players.push_back(*(new AI(name, d, &build, s)));
     }
     else{
-      players.push_back(new HumanPlayer(name, d, &build, Stock(d->take(stockSize))));
+      players.push_back(*(new HumanPlayer(name, d, &build, s)));
     }
-    names.pop();
+    names.pop_back();
   }
 
-  draw = d;
+  draw = *d;
 
   for(int i = 0; i < 4; i++){
     build.push_back(*(new Build()));
@@ -86,13 +92,13 @@ void Game::save_game(string filename){
     }
     outFile << endl;
 
-    outFile << players[i].getStock().print() << endl;
+    outFile << players[i].getStock().toString() << endl;
   }
 
   outFile << move.size() << endl;
 
-  for(int i = 0; i < move.size(); i++){
-    outFile << move[i].playerNum << " " << move[i].source << " " << move[i].dest << endl;
+  for(unsigned long i = 0; i < move.size(); i++){
+    outFile << move[i].player << " " << move[i].source << " " << move[i].dest << endl;
   }
 
   outFile << turn << endl;
@@ -112,14 +118,19 @@ void Game::load_game(string filename){
 
 
   inFile >> numPlayers;
+  inFile >> num;
 
-  while((inFile >> num) != -1){
-    draw.push_back(num);
+  while(num != -1){
+    draw+=num;
+    inFile >> num;
   }
 
+
   for(int i = 0; i < 4; i++){
-    while((inFile >> num) != -1){
+    inFile >> num;
+    while(num != -1){
       build[i].push_back(num);
+      inFile >> num;
     }
   }
 
@@ -127,9 +138,10 @@ void Game::load_game(string filename){
 
   for(int i = 0; i < numPlayers; i++){
     inFile >> name;
-
-    while((inFile >> num)!= -1){
+    inFile >> num;
+    while(num != -1){
       hand.push_back(num);
+      inFile >> num;
     }
 
     for(int i = 0; i < 4;){

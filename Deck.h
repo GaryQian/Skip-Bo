@@ -11,9 +11,9 @@ class Deck {
  public: 
   int getSize();	
   int getTop(); 
-  virtual int takeCard();	
+  int takeCard();	
   bool isEmpty();
-  virtual bool move(Deck& deck);	
+  bool move(Deck& deck);	
   void operator +=(int value);	
   void operator +=(std::vector<int> list);
   std::string toString() const; 

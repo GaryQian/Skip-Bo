@@ -9,14 +9,16 @@ using std::vector;
 
 class AI: public Player {
 	
-	int seed;
+  int seed;
 	
-	AI(string name, Draw* draw, vector<Build>* build);
-	
-	string getMove();
-	
-	bool contains(vector<int> vec, int num);
-	
-	int find(vector<int> vec, int num);
+ public:
+  
+  AI(string name, Draw* draw, vector<Build>* build, Stock* stock);
+  
+  string getMove();
+  
+  bool contains(vector<int> vec, int num);
+  
+  int find(vector<int> vec, int num);
 	
 };

@@ -11,8 +11,8 @@
 using std::string;
 using std::vector;
 
-AI::AI(string name, Draw* draw, vector<Build>* build) {
-	Player(name, draw, build);
+AI::AI(string name, Draw* draw, vector<Build>* build, Stock* stock) {
+  Player(name, draw, build, stock);
 	seed = time(NULL);
 	isAnAI = true;
 }
