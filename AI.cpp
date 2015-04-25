@@ -1,6 +1,4 @@
 #include "Player.h"
-#include "Draw.h"
-#include "Build.h"
 #include "Deck.h"
 #include "Display.h"
 #include "AI.h"
@@ -16,7 +14,7 @@ using std::vector;
 AI::AI(string name, Draw* draw, vector<Build>* build) {
 	Player(name, draw, build);
 	seed = time(NULL);
-	isAI = true;
+	isAnAI = true;
 }
 
 string AI::getMove() {

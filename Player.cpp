@@ -9,21 +9,23 @@
 using std::string;
 using std::vector;
 
-Player::Player(string name, Draw* draw, vector<Build>* build, Stock yourStock) {
-  this->draw = *draw;
+Player::Player(string name, Draw* draw, vector<Build>* build, Stock stock) {
+  this->draw = draw;
   this->name = name;
   this->build = build;
-  this->theStock = yourStock;
+  this->stock = stock;
   
   deal();
   isAnAI = false;
 }
 
 bool Player::move() {
+	//temp
+	return true;
 }
 
 bool Player::hasWon() {
-  if (theStock.isEmpty()) {
+  if (stock.isEmpty()) {
     return true;
   }
   return false;
@@ -56,7 +58,7 @@ vector<Discard> Player::getDiscard() {
 }
 
 Stock Player::getStock() {
-  return theStock;
+  return stock;
 }
 
 bool Player::isAI() {

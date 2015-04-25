@@ -10,7 +10,7 @@ using std::getline;
 
 Game::Game(vector<string> names){
   Draw d = new Draw(); 
-  int stockSize = 0;
+  stockSize = 0;
   string name;
   turn = 0;
 
@@ -27,7 +27,7 @@ Game::Game(vector<string> names){
       players.push_back(new AI(name, &d, &build, Stock(d.take(stockSize))));
     }
     else{
-      players.push_back(new Human(name, &d, &build, Stock(d.take(stockSize))));
+      players.push_back(new HumanPlayer(name, &d, &build, Stock(d.take(stockSize))));
     }
     names.pop();
   }

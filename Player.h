@@ -10,7 +10,7 @@ class Player {
   Hand hand;       
   Stock stock;	
   vector<Discard> discard;
-  bool isAI;
+  bool isAnAI;
 
   //reference to higher level data
   vector<Build>* build;
@@ -18,17 +18,18 @@ class Player {
   Draw* draw;
 
   //Constructor
-  Player(string name, Draw* draw, vector<Build>* build);
+  Player(string name, Draw* draw, vector<Build>* build, Stock stock);
 	
   //Methods
   void deal();
+  bool move();
   bool hasWon();
   bool playCard(Deck a, Deck b);
   bool playCard(Deck b, int num);
   string getName();
   Hand getHand();
   vector<Discard> getDiscard();
-  vector<int> getStock();
+  Stock getStock();
   bool isAI();
   
   virtual string getMove() = 0;
