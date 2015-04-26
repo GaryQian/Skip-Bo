@@ -5,7 +5,6 @@
 #include <sstream>
 #include <cassert>
 #include <cstdlib>
-#include <stdexcept>
 
 using std::vector;
 using std::string;
@@ -167,10 +166,8 @@ public:
     }
     catch(std::invalid_argument & e){
       cout << "Caught!" << endl;
-    }
-    
-  }
-  
+    }    
+  }  
 };
 
 int main(void){
@@ -186,5 +183,7 @@ int main(void){
   BuildTest::moveTest();
   cout << "Passed Build tests." << endl;
 
+  cout << "Running Hand tests..." << endl;
   HandTest::takeCardTest();
+  cout << "Passed Hand tests." << endl;
 }
