@@ -44,6 +44,7 @@ class Build: public Deck {
  public:
   Build();
   bool move(Draw& draw);
+  void operator +=(int value) throw (std::invalid_argument);	
 };
 
 class Discard: public Deck { 

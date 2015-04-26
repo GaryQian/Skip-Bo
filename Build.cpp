@@ -30,3 +30,14 @@ bool Build::move(Draw& draw){
   }
   return false;
 }
+
+void Build::operator +=(int value) throw (std::invalid_argument){
+  if((value == 1) && (getTop() != 12) && (getTop() != 0) && 
+		     (getTop() != -1)){
+    throw std::invalid_argument("Can't add card - not in sequence!\n");
+  }
+  else if(value != 1 && getTop() != value - 1 && getTop() != 0){
+    throw std::invalid_argument("Can't add card - not in sequence!\n");
+  }  
+  else (Deck::operator +=(value));
+}

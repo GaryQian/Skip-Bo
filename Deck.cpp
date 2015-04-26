@@ -18,6 +18,7 @@ int Deck::takeCard() {
   }
 
 int Deck::getTop() {
+  if(getSize() == 0) return -1;
   return cards[getSize() - 1];
 }
  

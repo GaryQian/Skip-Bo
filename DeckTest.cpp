@@ -53,7 +53,7 @@ public:
     for(int i = 0; i < 144; i++){
       assert(d.takeCard() == 12 - i % 12);
       assert(d.getSize() == size - i - 1);
-    }    
+    }
     assert(d.getSize() == 0);
   }
 
@@ -127,9 +127,14 @@ public:
     Build b = Build();
     Draw d = Draw();
 
+    int i;
     //add 145 cards, numbered 1-12 at every iteration 
-    for(int i = 0; i < 145; i++){
+    try{
+    for(i = 0; i < 145; i++){
       b += i % 12 + 1;
+    }
+    } catch (std::invalid_argument){
+      cout << i;
     }
 
     //assert that Build has 145 cards now
