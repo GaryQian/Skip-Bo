@@ -7,7 +7,8 @@ Hand::Hand(){
   cards = vector<int>();
 }
 
-int Hand::takeCard(int index) throw(std::invalid_argument){
+int Hand::takeCard(int index) throw(std::invalid_argument, std::logic_error){
+  if(isEmpty()) throw std::logic_error("Hand is empty.\n");
   if(index < 0 || index >= getSize()){
     throw std::invalid_argument("Invalid index\n");
   }

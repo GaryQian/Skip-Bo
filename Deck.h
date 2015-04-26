@@ -13,7 +13,7 @@ class Deck {
  public: 
   int getSize() const;	
   int getTop() const; 
-  int takeCard();	
+  int takeCard() throw (std::logic_error);	
   bool isEmpty() const;
   void move(Deck& deck) throw (std::logic_error);	
   void operator +=(int value);	
@@ -26,7 +26,7 @@ class Hand: public Deck {
   friend class HandTest;
  public:
   Hand();
-  int takeCard(int index) throw (std::invalid_argument);
+  int takeCard(int index) throw (std::invalid_argument, std::logic_error);
   void move(Deck& deck, int index) throw (std::invalid_argument, 
 					  std::logic_error);
 };
