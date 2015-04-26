@@ -62,13 +62,15 @@ bool Player::move(Move yourMove) {
 
   //source card is hand 
   else {
-    hand.takeCard(yourMove.index);
-
     if (yourMove.dest == 'b') {
-      hand.move(build /*which index*/);
+    int i = 0;
+    while((build->at(i).getTop() != (yourMove.value - 1)) || (build->at(i).getTop() != 0)) {
+      i++;
+    }
+    hand.move(build->at(i), yourMove.index);
     }
     else if (yourMove.dest == 'd') {
-      hand.move(discard /*which discard pile*/);
+      hand.move(discard.at(yourMove.destIndex), yourMove.index);
     }
   }
   return true;
