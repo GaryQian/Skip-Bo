@@ -17,26 +17,27 @@ Draw::Draw(){
   }
 }
 
-bool Draw::move(Hand& hand, int num){
+void Draw::move(Hand& hand, int num) throw(std::logic_error){
+  if(getSize() < num) 
+    throw std::logic_error("Draw pile doesn't have enough cards.");
+  
   vector<int> toMove;
   //if we have enough cards in the draw pile, take whatever is needed
-  if(getSize() > num){
-    for(int i = 0; i < num; i++){
-      toMove.push_back(takeCard());
-    }
-    hand += toMove;
-    return true;
+  
+  for(int i = 0; i < num; i++){
+    toMove.push_back(takeCard());
   }
+  hand += toMove;
+  /*
   //else if draw pile is not empty, but has less than the requested
   //number of cards, just take what remains in the draw pile
   else if(!isEmpty() && getSize() < num){
-    for(int i = 0; i < getSize(); i++){
-      toMove.push_back(takeCard());
-    }
-    hand += toMove;
-    return true;
+  for(int i = 0; i < getSize(); i++){
+  toMove.push_back(takeCard());
   }
-  return false;
+  hand += toMove;
+  return true;
+  }*/
 }
 
 void Draw::shuffle(vector<int> arr){

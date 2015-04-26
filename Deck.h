@@ -11,11 +11,11 @@ class Deck {
   std::vector<int> cards; //the vector of integers that represent cards  
 
  public: 
-  int getSize();	
-  int getTop(); 
+  int getSize() const;	
+  int getTop() const; 
   int takeCard();	
-  bool isEmpty();
-  bool move(Deck& deck);	
+  bool isEmpty() const;
+  void move(Deck& deck) throw (std::logic_error);	
   void operator +=(int value);	
   void operator +=(std::vector<int> list);
   std::string toString() const; 
@@ -27,14 +27,15 @@ class Hand: public Deck {
  public:
   Hand();
   int takeCard(int index) throw (std::invalid_argument);
-  bool move(Deck& deck, int index) throw (std::invalid_argument);
+  void move(Deck& deck, int index) throw (std::invalid_argument, 
+					  std::logic_error);
 };
 
 class Draw: public Deck {
   friend class DrawTest;
  public: 
   Draw();
-  bool move(Hand& hand,int num);
+  void move(Hand& hand, int num) throw (std::logic_error);
   void shuffle(std::vector<int> arr = std::vector<int>());
   void swap(int& a, int& b);
 };
@@ -43,7 +44,7 @@ class Build: public Deck {
   friend class BuildTest;
  public:
   Build();
-  bool move(Draw& draw);
+  void move(Draw& draw) throw (std::logic_error);
   void operator +=(int value) throw (std::invalid_argument);	
 };
 
@@ -59,7 +60,5 @@ class Stock: public Deck {
 };
 
 std::ostream& operator << (std::ostream& os, const Deck& d);
-//void shuffle(std::vector<int>& v, std::vector<int> arr = std::vector<int>());
-//void swap(int& a, int& b);
 
 #endif

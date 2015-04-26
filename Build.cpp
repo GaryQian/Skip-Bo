@@ -9,26 +9,24 @@ Build::Build(){
   cards = vector<int>();
 }
 
-bool Build::move(Draw& draw){  
-  if(getSize() > 12){
-    //reverse the order of the cards, so the bottom cards are now the
-    //last elements in the vector
-    reverse(cards.begin(), cards.end());
-    int max = (getSize()/12) * 12;
-    vector<int> toMove;
+void Build::move(Draw& draw) throw(std::logic_error){
+  if(getSize() < 12) 
+    throw std::logic_error("Build pile doesn't have a completed set yet.");
 
-    //take 12k cards from the Build pile
-    for(int i = 0; i < max; i++){
-      toMove.push_back(takeCard());
-    }    
+  //reverse the order of the cards, so the bottom cards are now the
+  //last elements in the vector
+  reverse(cards.begin(), cards.end());
+  int max = (getSize()/12) * 12;
+  vector<int> toMove;
 
-    //add the cards to the draw pile and shuffle them
-    draw += toMove;
-    draw.shuffle();
+  //take 12k cards from the Build pile
+  for(int i = 0; i < max; i++){
+    toMove.push_back(takeCard());
+  }    
 
-    return true;
-  }
-  return false;
+  //add the cards to the draw pile and shuffle them
+  draw += toMove;
+  draw.shuffle();
 }
 
 void Build::operator +=(int value) throw (std::invalid_argument){

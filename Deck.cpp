@@ -7,7 +7,7 @@ using std::ostringstream;
 using std::ostream;
 using std::iterator;
 
-int Deck::getSize() {
+int Deck::getSize() const {
   return cards.size();
 }
 
@@ -17,21 +17,18 @@ int Deck::takeCard() {
   return topCard;
   }
 
-int Deck::getTop() {
+int Deck::getTop() const {
   if(getSize() == 0) return -1;
   return cards[getSize() - 1];
 }
  
-bool Deck::isEmpty() {
+bool Deck::isEmpty() const {
   return getSize() == 0;
 }
 
-bool Deck::move(Deck& d){
-  if(getSize()){
-    d += takeCard();
-    return true;
-  }
-  return false;
+void Deck::move(Deck& d) throw(std::logic_error){
+  if(!getSize()) throw std::logic_error("Deck is empty.\n");
+  d += takeCard();
 }
 
 void Deck::operator +=(int value) {
