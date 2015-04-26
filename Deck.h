@@ -27,7 +27,7 @@ class Hand: public Deck {
  public:
   Hand();
   int takeCard(int index) throw (std::invalid_argument);
-  bool move(Deck& deck, int index);
+  bool move(Deck& deck, int index) throw (std::invalid_argument);
 };
 
 class Draw: public Deck {

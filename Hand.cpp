@@ -16,10 +16,7 @@ int Hand::takeCard(int index) throw(std::invalid_argument){
   return chosenCard;
 }
 
-bool Hand::move(Deck& deck, int index){
-  if(index - 1 < getSize()){
-    deck += takeCard(index);
-    return true;
-  }
-  else return false;
+bool Hand::move(Deck& deck, int index) throw (std::invalid_argument){
+  deck += takeCard(index);
+  return true;
 }

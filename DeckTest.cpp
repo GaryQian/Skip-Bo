@@ -155,19 +155,71 @@ public:
   }
 
   static void takeCardTest(){
-    Hand h = Hand();
-    h += 5;
+    ostringstream oss;
     
+    //add 5 cards to the hand
+    Hand h = Hand();
+    vector<int> value = {5, 3, 4, 2, 1};
+    h += value;
+
+    int index = 0;
     try {
-      int num = h.takeCard(0);
-      assert(num == 5);
-      num = h.takeCard(0);
+      //check that takeCard takes the right card
+      assert(h.takeCard(index) == 5);
+      assert(h.takeCard(index) == 3);
+      assert(h.takeCard(index = 2) == 1);
+
+      //try inputting an invalid index, and make sure the exception is
+      //caught if exception is caught, then assert(false) will not be
+      //executed and the program will not abort
+      h.takeCard(index = 5);
       assert(false);
     }
     catch(std::invalid_argument & e){
-      cout << "Caught!" << endl;
-    }    
+      oss << "Failed after trying to take card at index " << index << "!";
+    }
+
+    //assert that the code inside the catch block is caught
+    assert(oss.str() == "Failed after trying to take card at index 5!");
   }  
+
+  static void moveTest(){
+    //initialize all variables
+    ostringstream oss;
+    Discard discard = Discard();
+    Build build = Build();
+    Hand hand = Hand();
+    vector<int> value = {5, 0, 3, 2, 4, 5};
+    int index;
+
+    //add the values to hand
+    hand += value;
+    
+    //assert that hand successfully moves cards to build correctly
+    hand.move(build, index = 1);
+    assert(hand.getSize() == 5);
+    assert(build.getSize() == 1);
+    assert(build.getTop() == 0);
+    
+    //try moving cards from hand to discard
+    try{
+      //assert that the cards are moved correctly
+      hand.move(discard, index = 3);
+      assert(hand.getSize() == 4);
+      assert(discard.getSize() == 1);
+
+      //assert that an exception is thrown, so that assert(false) will
+      //not be executed
+      hand.move(discard, index = 6);
+      assert(false);
+    }
+    catch(std::invalid_argument & e){
+      oss << "Failed after trying to take a card of index " << index << "!"; 
+    }
+
+    //assert that the code inside the catch block is executed
+    assert(oss.str() == "Failed after trying to take a card of index 6!");
+  }
 };
 
 int main(void){
@@ -185,5 +237,6 @@ int main(void){
 
   cout << "Running Hand tests..." << endl;
   HandTest::takeCardTest();
+  HandTest::moveTest();
   cout << "Passed Hand tests." << endl;
 }
