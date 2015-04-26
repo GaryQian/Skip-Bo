@@ -37,7 +37,13 @@ void Deck::operator +=(int value) throw (std::invalid_argument){
   cards.push_back(value);
 }
 
-void Deck::operator +=(vector<int> list) {
+void Deck::operator +=(vector<int> list) throw (std::invalid_argument){
+  //error check first
+  vector<int>::const_iterator it;
+  for(it = list.begin(); it < list.end(); it++){
+    if (*it < 0 || *it > 12)
+      throw std::invalid_argument("Invalid card value.\n");
+  }
   vector<int> newCards;
   newCards.reserve(getSize() + list.size());
   newCards.insert(newCards.end(), cards.begin(), cards.end());

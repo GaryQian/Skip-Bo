@@ -50,7 +50,7 @@ class Deck {
    * Overloaded operater that pushes a vector of integers to the
    * existing integer vector of a Deck instance
    */
-  void operator +=(std::vector<int> list);
+  void operator +=(std::vector<int> list) throw (std::invalid_argument);
 
   /*
    * Returns a string that shows the values in a Deck instance's
