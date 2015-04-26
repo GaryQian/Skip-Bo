@@ -27,6 +27,10 @@ bool Deck::isEmpty() const {
   return getSize() == 0;
 }
 
+int Deck::at(int num) {
+	return cards.at(num);
+}
+
 void Deck::move(Deck& d) throw(std::logic_error){
   d += takeCard();
 }

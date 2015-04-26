@@ -57,7 +57,7 @@ bool Player::move(Move yourMove) {
       i++;
     }
     //Moves from the discard pile provided by user to the correct build pile
-    discard.at(yourMove.index).move(build->at(i));
+    discard.at(yourMove.sourceIndex).move(build->at(i));
   }
 
   //source card is hand 
@@ -68,11 +68,11 @@ bool Player::move(Move yourMove) {
 	i++;
       }
       //Moves from hand card provided by user to the correct build pile  
-      hand.move(build->at(i), yourMove.index);
+      hand.move(build->at(i), yourMove.sourceIndex);
     }
     else if (yourMove.dest == 'd') {
       //Moves from the hand card to the discard pile whose index is provided by the user
-      hand.move(discard.at(yourMove.destIndex), yourMove.index);
+      hand.move(discard.at(yourMove.destIndex), yourMove.sourceIndex);
     }
   }
 

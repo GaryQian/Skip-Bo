@@ -32,6 +32,11 @@ class Deck {
    * Returns true if vector is empty.
    */
   bool isEmpty() const;
+  
+  /*
+   * Returns the card at the specified index.
+   */
+  int at(int num);
 
   /*
    * Moves cards (represented as integers) from a Deck instance's

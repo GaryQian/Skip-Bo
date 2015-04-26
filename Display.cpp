@@ -18,62 +18,62 @@ using std::endl;
 static void Display::display(HumanPlayer player, vector<Build> build, int num) {
 	vector<string> out;
 	
-	string temp;
+	string* temp;
 	
 	temp = new string("=======Build Piles======");
-	out.push_back(temp);
+	out.push_back(*temp);
 	
 	////////////////////////////////////
 	temp = new string("┌───┐ ┌───┐ ┌───┐ ┌───┐");
-	out.push_back(temp);
+	out.push_back(*temp);
 	
 	////////////////////////////////////
 	temp = new string("│ ");
-	temp += convert(build[0].getTop());
+	*temp += convert(build[0].getTop());
 	if (build[0].getTop() >= 10) {
-		temp += "│ │ ";
+		*temp += "│ │ ";
 	}
-	else temp += " │ │ ";
-	temp += convert(build[1].getTop());
+	else *temp += " │ │ ";
+	*temp += convert(build[1].getTop());
 	if (build[1].getTop() >= 10) {
-		temp += "│ │ ";
+		*temp += "│ │ ";
 	}
-	else temp += " │ │ ";
-	temp += convert(build[2].getTop());
+	else *temp += " │ │ ";
+	*temp += convert(build[2].getTop());
 	if (build[2].getTop() >= 10) {
-		temp += "│ │ ";
+		*temp += "│ │ ";
 	}
-	else temp += " │ │ ";
-	temp += convert(build[3].getTop());
+	else *temp += " │ │ ";
+	*temp += convert(build[3].getTop());
 	if (build[3].getTop() >= 10) {
-		temp += "│";
+		*temp += "│";
 	}
-	else temp += " │";
-	out.push_back(temp);
+	else *temp += " │";
+	out.push_back(*temp);
 	
 	////////////////////////////////////
 	temp = new string("└───┘ └───┘ └───┘ └───┘");
-	out.push_back(temp);
+	out.push_back(*temp);
 	
 	////////////////////////////////////
 	temp = new string("=======================");
-	out.push_back(temp);
+	out.push_back(*temp);
 	
 	////////////////////////////////////
 	temp = new string("Player ");
-	temp += convert(num);
-	temp += ": ";
-	temp += player.name;
-	temp += "'s Turn";
-	out.push_back(temp);
+	*temp += convert(num);
+	*temp += ": ";
+	*temp += player.name;
+	*temp += "'s Turn";
+	out.push_back(*temp);
 	
 	////////////////////////////////////
 	temp = new string("=======================");
-	out.push_back(temp);
+	out.push_back(*temp);
 	
 	////////////////////////////////////
 	temp = new string("Hand:");
-	out.push_back(temp);
+	out.push_back(*temp);
 	
 	////////////////////////////////////
 	switch(player.hand.getSize()) {
@@ -84,7 +84,7 @@ static void Display::display(HumanPlayer player, vector<Build> build, int num) {
 	case 4: temp = new string(" -1-   -2-   -3-   -4-"); break;
 	case 5: temp = new string(" -1-   -2-   -3-   -4-   -5-"); break;
 	}
-	out.push_back(temp);
+	out.push_back(*temp);
 	
 	////////////////////////////////////
 	switch(player.hand.getSize()) {
@@ -95,7 +95,7 @@ static void Display::display(HumanPlayer player, vector<Build> build, int num) {
 	case 4: temp = new string("┌───┐ ┌───┐ ┌───┐ ┌───┐"); break;
 	case 5: temp = new string("┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐"); break;
 	}
-	out.push_back(temp);
+	out.push_back(*temp);
 	
 	////////////////////////////////////
 	if (player.hand.getSize() > 0) {
@@ -104,21 +104,21 @@ static void Display::display(HumanPlayer player, vector<Build> build, int num) {
 	else temp = new string(" ");
 	
 	for (int i = 0; i < player.hand.getSize(); ++i) {
-		temp += convert(player.hand.at(i));
+		*temp += convert(player.hand.at(i));
 		if (i == player.hand.getSize() - 1) {
 			if (player.hand.at(i) >= 10) {
-				temp += "│";
+				*temp += "│";
 			}
-			else temp += " │";
+			else *temp += " │";
 		}
 		else {
 			if (player.hand.at(i) >= 10) {
-				temp += "│ │ ";
+				*temp += "│ │ ";
 			}
-			else temp += " │ │ ";
+			else *temp += " │ │ ";
 		}
 	}
-	out.push_back(temp);
+	out.push_back(*temp);
 	
 	////////////////////////////////////
 	temp = new string("└───┘ └───┘ └───┘ └───┘ └───┘");
@@ -130,73 +130,73 @@ static void Display::display(HumanPlayer player, vector<Build> build, int num) {
 	case 4: temp = new string("└───┘ └───┘ └───┘ └───┘"); break;
 	case 5: temp = new string("└───┘ └───┘ └───┘ └───┘ └───┘"); break;
 	}
-	out.push_back(temp);
+	out.push_back(*temp);
 	
 	////////////////////////////////////
 	temp = new string("Discard:");
-	out.push_back(temp);
+	out.push_back(*temp);
 	
 	////////////////////////////////////
 	temp = new string(" -1-   -2-   -3-   -4-");
-	out.push_back(temp);
+	out.push_back(*temp);
 	
 	////////////////////////////////////
 	temp = new string("┌───┐ ┌───┐ ┌───┐ ┌───┐");
-	out.push_back(temp);
+	out.push_back(*temp);
 	
 	////////////////////////////////////
 	temp = new string("│ ");
-	temp += convert(player.discard[0].getTop());
+	*temp += convert(player.discard[0].getTop());
 	if (player.discard[0].getTop() >= 10) {
-		temp += "│ │ ";
+		*temp += "│ │ ";
 	}
-	else temp += " │ │ ";
-	temp += convert(player.discard[1].getTop());
+	else *temp += " │ │ ";
+	*temp += convert(player.discard[1].getTop());
 	if (player.discard[1].getTop() >= 10) {
-		temp += "│ │ ";
+		*temp += "│ │ ";
 	}
-	else temp += " │ │ ";
-	temp += convert(player.discard[2].getTop());
+	else *temp += " │ │ ";
+	*temp += convert(player.discard[2].getTop());
 	if (player.discard[2].getTop() >= 10) {
-		temp += "│ │ ";
+		*temp += "│ │ ";
 	}
-	else temp += " │ │ ";
-	temp += convert(player.discard[3].getTop());
+	else *temp += " │ │ ";
+	*temp += convert(player.discard[3].getTop());
 	if (player.discard[3].getTop() >= 10) {
-		temp += "│";
+		*temp += "│";
 	}
-	else temp += " │";
-	out.push_back(temp);
+	else *temp += " │";
+	out.push_back(*temp);
 	
 	////////////////////////////////////
 	temp = new string("└───┘ └───┘ └───┘ └───┘");
-	out.push_back(temp);
+	out.push_back(*temp);
 	
 	////////////////////////////////////
 	temp = new string("Stockpile:");
-	out.push_back(temp);
+	out.push_back(*temp);
 	
 	////////////////////////////////////
 	temp = new string("┌───┐");
-	out.push_back(temp);
+	out.push_back(*temp);
 	
 	////////////////////////////////////
 	temp = new string("│ ");
-	temp += convert(player.stock.getTop());
+	*temp += convert(player.stock.getTop());
 	if (player.stock.getTop() >= 10) {
-		temp += "│ ";
+		*temp += "│ ";
 	}
-	else temp += " │ ";
-	temp += convert(player.stock.getSize());
-	temp += " cards left";
+	else *temp += " │ ";
+	*temp += convert(player.stock.getSize());
+	*temp += " cards left";
 	
 	////////////////////////////////////
 	temp = new string("└───┘");
-	out.push_back(temp);
+	out.push_back(*temp);
 	
 	////////////////////////////////////
 	temp = new string("└Your Move: ");
-	out.push_back(temp);
+	out.push_back(*temp);
 	
 	
 	for (int i = 0; i < out.size(); ++i) {

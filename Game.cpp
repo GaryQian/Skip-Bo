@@ -217,7 +217,7 @@ void Game::process(string input){
       return;
     }
     input = input.substr(2);
-    m.value = players[turn%players.size()].getHand()[m.sourceIndex];
+    m.value = players[turn%players.size()].getHand().at(m.sourceIndex);
   }
   else{
     cout << "Invalid card source" << endl;
@@ -249,12 +249,12 @@ void Game::process(string input){
   }
   
   if (dest == 'b' && m.value != 0){
-    if (build[destIndex]%12 != value - 1){
+    if (build.at(destIndex).getTop()%12 != m.value - 1){
       cout << "Invalid move" << endl;
     }
   }
 
-  this.play(m);
+  this->play(m);
   return;
 }
 
@@ -279,20 +279,20 @@ bool Game::canMove() {
 		}
 	}
 	vector<string> moves;
-	string temp;
+	string* temp;
 	for (int i = 0; i < hand.getSize(); ++i) {
 		if (contains(validNums, *(getPlayer().build).hand.at(i))) {
 			temp = new string("h");
-			temp += convert(i + 1);
-			moves.push_back(temp);
+			*temp += convert(i + 1);
+			moves.push_back(*temp);
 		}
 	}
 	
 	for (int i = 0; i < 4; ++i) {
 		if (contains(validNums, *(getPlayer().build).at(i).getTop())) {
 			temp = new string("d");
-			temp += convert(i + 1);
-			moves.push_back(temp);
+			*temp += convert(i + 1);
+			moves.push_back(*temp);
 		}
 	}
 	int movenum = moves.size();
