@@ -83,6 +83,11 @@ class Hand: public Deck {
 class Draw: public Deck {
   friend class DrawTest;
  public: 
+
+  /*
+   * Constructor that creates Draw pile of 162 cards, containing 18
+   * Skip-Bo wild cards and 144 regular cards with values 1 to 12
+   */
   Draw();
 
   /*

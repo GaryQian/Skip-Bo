@@ -19,8 +19,8 @@ int Hand::takeCard(int index) throw(std::invalid_argument, std::logic_error){
 
 void Hand::move(Deck& deck, int index) throw (std::invalid_argument,
 					      std::logic_error){ 
-  if(getSize() == 0){
-    throw std::logic_error("Hand is empty.");
+  if(isEmpty()){
+    throw std::logic_error("Hand is empty.\n");
   }
   deck += takeCard(index);
 }
