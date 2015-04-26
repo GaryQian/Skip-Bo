@@ -10,9 +10,11 @@
 
 using std::string;
 using std::vector;
+using std::cout;
+using std::endl;
 
 AI::AI(string name, Draw* draw, vector<Build>* build, Stock stock) {
-  Player(name, draw, build, stock);
+	Player(name, draw, build, stock);
 	seed = time(NULL);
 	isAnAI = true;
 }
@@ -67,6 +69,12 @@ string AI::getMove() {
 	for (int i = 0; i < moves.size(); ++i) {
 		delete moves.at(i);
 	}
+	//wait so that AI does not move instantaneously
+	cout << moves.at(rand) << endl;
+	
+	sleep(300);
+	
+	
 	return moves.at(rand);
 	
 	

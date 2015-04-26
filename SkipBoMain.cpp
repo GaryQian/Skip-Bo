@@ -52,6 +52,7 @@ int main(){
 	while (!game.hasEnded()) {
 		game.nextTurn();
 		while (game.canMove()) {
+			Display.display(game.getPlayer(), build, game.getPlayerNumber);
 			input = game.getPlayer().getMove();
 			game.process(input);
 		}
