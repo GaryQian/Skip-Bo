@@ -32,4 +32,4 @@ skipbo: Game.o Deck.o Display.o Game.o Player.o SkipBoMain.o
 	$(CC) $(CXXFLAGS) Game.o Deck.o Display.o Game.o Player.o SkipBoMain.o -o skipbo
 
 clean: 
-	rm -f *~ *.o *.gcov *.gch a.out DeckTest
+	rm -f *~ *.o *# *.gcov *.gch a.out DeckTest

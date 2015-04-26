@@ -23,15 +23,15 @@ class Player {
 
   //Constructor
   Player(string name, Draw* draw, vector<Build>* build, Stock stock);
-  Player(string nmae, Draw* draw, vector<Build>* build, Stock stock, Hand hand, vector<Discard> discard);
+  Player(string name, Draw* draw, vector<Build>* build, Stock stock, Hand hand, vector<Discard> discard);
 
  public:	
   //Methods
   void deal();
   bool move(Move yourMove);
   bool hasWon();
-  bool playCard(Deck a, Deck b);
-  bool playCard(Deck b, int num);
+  //  bool playCard(Deck a, Deck b);
+  //  bool playCard(Deck b, int num);
   string getName();
   Hand getHand();
   vector<Discard> getDiscard();

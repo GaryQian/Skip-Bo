@@ -16,33 +16,41 @@ Player::Player(string name, Draw* draw, vector<Build>* build, Stock stock) {
   isAnAI = false;
 }
 
-Player::Player(string name, Draw* draw, vector<Build>* build, Stock stock, Hand hand, vector<Discard> discard){
+Player::Player(string name, Draw* draw, vector<Build>* build, Stock stock, Hand hand, vector<Discard> discard) {
   this->draw = draw;
-this->name = name;
-this->build = build;
-this->stock = stock;
-this->hand = hand;
-this->discard = discard;
+  this->name = name;
+  this->build = build;
+  this->stock = stock;
+  this->hand = hand;
+  this->discard = discard;
 
-deal();
-isAnAI = false;
-
+  deal();
+  isAnAI = false;
 }
 
 //How to know from Move data which discard/build pile to put dest. card into?
 bool Player::move(Move yourMove) {
-  if (yourMove.source == 's') {
+
+  //source card is stockpile
+  if (yourMove.source == 's') {  
     if (yourMove.dest == 'b') {
-      stock.move(build /*which index?*/);
+      //Loops until the top card of build is skip-bo or the current-card - 1
+      int i = 0;
+      while((build->at(i).getTop() != (yourMove.value - 1)) || (build->at(i).getTop() != 0)) {
+	i++;
+      }
+      stock.move(build->at(i));
     }
     else if (yourMove.dest == 'd') {
       stock.move(discard /* which discard pile?*/);
     }
   }
+  //source card is discard
   else if (yourMove.source == 'd') {
     //implementation
   }
-  else /*assumed that source is hand*/ {
+  //source card is hand 
+  else {
     hand.takeCard(yourMove.index);
 
     if (yourMove.dest == 'b') {
@@ -62,6 +70,7 @@ bool Player::hasWon() {
   return false;
 }
 
+/*
 bool Player::playCard(Deck a, Deck b) {
   if (a.move(b)) {
     return true;
@@ -75,6 +84,7 @@ bool Player::playCard(Deck b, int num) {
   }
   return false;
 }
+*/
 
 string Player::getName() {
   return name;
