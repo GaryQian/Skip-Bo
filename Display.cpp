@@ -1,4 +1,6 @@
 ﻿#include "Player.h"
+#include "HumanPlayer.h"
+#include "AI.h"
 #include "Deck.h"
 #include "Display.h"
 #include <string>
@@ -13,7 +15,7 @@ using std::cout;
 using std::endl;
 
 //Displays game onto the screen
-static void Display::display(Player player, vector<Build> build, int num) {
+static void Display::display(HumanPlayer player, vector<Build> build, int num) {
 	vector<string> out;
 	
 	string temp;
@@ -207,6 +209,10 @@ static void Display::display(Player player, vector<Build> build, int num) {
 			delete out.at(i);
 		}
 	}
+}
+
+static void Display::display(AI player, vector<Build> build, int num) {
+	display((HumanPlayer) player, build num);
 }
 
 static string Display::convert(int num) {

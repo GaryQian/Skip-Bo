@@ -1,7 +1,6 @@
 #include <vector>
 #include <string>
 #include "HumanPlayer.h"
-#include "Display.h"
 #include "Move.h"
 #include "AI.h"
 
@@ -34,7 +33,7 @@ class Game {
   
   bool AIPlaying();
   
-  Player getPlayer();
+  HumanPlayer getPlayer();
   
   bool canMove();
   

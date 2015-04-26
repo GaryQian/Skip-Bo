@@ -267,7 +267,7 @@ bool Game::AIPlaying() {
   return players.at(turn%players.size()).isAI();	
 }
   
-Player Game::getPlayer() {	
+HumanPlayer Game::getPlayer() {	
   return players.at(turn%players.size());
 }
 
