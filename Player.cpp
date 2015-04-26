@@ -31,6 +31,7 @@ Player::Player(string name, Draw* draw, vector<Build>* build, Stock stock, Hand 
 //How to know from Move data which discard/build pile to put dest. card into?
 bool Player::move(Move yourMove) {
 
+  //////////IMPLEMENTED////////////
   //source card is stockpile
   if (yourMove.source == 's') {  
     if (yourMove.dest == 'b') {
@@ -42,13 +43,23 @@ bool Player::move(Move yourMove) {
       stock.move(build->at(i));
     }
     else if (yourMove.dest == 'd') {
-      stock.move(discard /* which discard pile?*/);
+      stock.move(discard.at(yourMove.destIndex));
     }
   }
+
   //source card is discard
   else if (yourMove.source == 'd') {
-    //implementation
+    //Destination must be a build pile
+    int i = 0;
+    while((build->at(i).getTop() != (yourMove.value - 1)) || (build->at(i).getTop() != 0)) {
+      i++;
+    }
+    //Moves from the particular discard pile to the chosen build pile
+    discard.at(yourMove.index).move(build->at(i));
   }
+
+  ///////////NOT IMPLEMENTED YET//////////
+
   //source card is hand 
   else {
     hand.takeCard(yourMove.index);
