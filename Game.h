@@ -38,5 +38,7 @@ class Game {
   
   bool canMove();
   
+  int getPlayerNumber();
+  
   bool contains(vector<int> vec, int num);
 };

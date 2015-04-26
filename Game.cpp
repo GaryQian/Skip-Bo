@@ -312,3 +312,7 @@ bool Game::contains(vector<int> vec, int num) {
 	}
 	return false;
 }
+
+int Game::getPlayerNumber() {
+	return (turn-1)%players.size();
+}
