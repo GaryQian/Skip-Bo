@@ -19,8 +19,13 @@ Draw::Draw(){
 
 void Draw::move(Hand& hand, int num) throw(std::logic_error){
   if(getSize() < num) 
-    throw std::logic_error("Draw pile doesn't have enough cards.");
-  
+    throw std::logic_error("Draw pile doesn't have enough cards.\n");
+
+  //if user tries to take more than 5 cards, or if Hand is already full
+  //throw an exception
+  if(num > 5 || hand.getSize() == 5)
+    throw std::logic_error("Shouldn't draw more than five cards!\n");
+
   vector<int> toMove;
   //if we have enough cards in the draw pile, take whatever is needed
   

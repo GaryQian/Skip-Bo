@@ -100,7 +100,13 @@ public:
     //declare new empty Hand and a Draw pile
     Hand h = Hand();
     Draw d = Draw();
-    
+    ostringstream oss;
+
+
+    try {
+      
+    }
+
     //move 5 cards from Draw pile to Hand
     d.move(h,5);
     
@@ -125,6 +131,19 @@ public:
     for(it = (d.cards).begin() + 144; it < (d.cards).end(); it++){
       assert(*it == 0);
     }
+    
+
+    //try drawing more cards to the full Hand
+    try {
+      d.move(h,1);
+      assert(false);
+    }
+    catch (std::logic_error & e){
+      oss << "Hand is full.";
+    }
+
+    //assert exception is caught
+    assert(oss.str() == "Hand is full.");
   }
 };
 
@@ -243,6 +262,22 @@ public:
     
     //add 5 cards to the hand
     Hand h = Hand();
+
+    //try taking a card from an empty Hand., should catch exception
+    //before assert(false)
+    try {
+      h.takeCard(0);
+      assert(false);
+    }
+    catch(std::logic_error & e){
+      oss << "Hand is empty.\n";
+    }
+
+    //assert that exception is caught, then empty ostringstream buffer
+    assert(oss.str() == "Hand is empty.\n");
+    oss.str("");
+    oss.clear();
+
     vector<int> value = {5, 3, 4, 2, 1};
     h += value;
 
@@ -286,7 +321,7 @@ public:
     assert(build.getTop() == 0);
     
     //try moving cards from hand to discard
-    try{
+    try {
       //assert that the cards are moved correctly
       hand.move(discard, index = 3);
       assert(hand.getSize() == 4);
