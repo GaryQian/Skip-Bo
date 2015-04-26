@@ -5,6 +5,7 @@
 #include <sstream>
 #include <cassert>
 #include <cstdlib>
+#include <stdexcept>
 
 using std::vector;
 using std::string;
@@ -147,6 +148,31 @@ public:
   }
 };
 
+class HandTest {
+public:
+  static void constructorTest(){
+    Hand h = Hand();
+    assert(h.getSize() == 0);
+  }
+
+  static void takeCardTest(){
+    Hand h = Hand();
+    h += 5;
+    
+    try {
+      int num = h.takeCard(0);
+      assert(num == 5);
+      num = h.takeCard(0);
+      assert(false);
+    }
+    catch(std::invalid_argument & e){
+      cout << "Caught!" << endl;
+    }
+    
+  }
+  
+};
+
 int main(void){
   cout << "Running Draw tests..." << endl;
   DrawTest::constructorTest();
@@ -159,4 +185,6 @@ int main(void){
   BuildTest::constructorTest();
   BuildTest::moveTest();
   cout << "Passed Build tests." << endl;
+
+  HandTest::takeCardTest();
 }

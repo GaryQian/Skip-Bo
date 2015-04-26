@@ -1,6 +1,8 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <stdexcept>
+
 #ifndef DECK_H
 #define DECK_H
 
@@ -21,9 +23,10 @@ class Deck {
 
 class Hand: public Deck {
   friend class DrawTest;
+  friend class HandTest;
  public:
   Hand();
-  int takeCard(int index);
+  int takeCard(int index) throw (std::invalid_argument);
   bool move(Deck& deck, int index);
 };
 

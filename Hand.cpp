@@ -1,5 +1,6 @@
 #include "Deck.h"
 #include <vector>
+#include <stdexcept>
 
 using std::vector;
 
@@ -7,9 +8,12 @@ Hand::Hand(){
   cards = vector<int>();
 }
 
-int Hand::takeCard(int index){
-  int chosenCard = cards[index-1];
-  cards.erase(cards.begin() + index - 1);
+int Hand::takeCard(int index) throw(std::invalid_argument){
+  if(index < 0 || index >= getSize()){
+    throw std::invalid_argument("Invalid index\n");
+  }
+  int chosenCard = cards[index];
+  cards.erase(cards.begin() + index);
   return chosenCard;
 }
 
