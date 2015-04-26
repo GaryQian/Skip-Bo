@@ -135,18 +135,65 @@ public:
     assert(b.getSize() == 0); 
   }
 
+  static void opsTest(){
+    Build b = Build();
+    ostringstream oss;
+    
+    int num;
+    try {
+      num = 2;
+      b += num;
+      assert(false);
+    }
+    catch (std::logic_error & e){
+      oss << "Failed when trying to add card of value " << num;
+    }
+
+    assert(oss.str() == "Failed when trying to add card of value 2");
+
+    try {
+      num = 1;
+      b += num;
+      assert(b.getTop() == 1);
+      
+      for(num = 2; num < 13; num++){
+	b += num;
+      }
+      //try adding the number 13 to Build
+      b += num;
+    }
+    catch (std::invalid_argument & e){
+      oss << " and " << num;
+    }
+
+    //assert that exception is caught
+    assert(oss.str() == "Failed when trying to add card of value 2 and 13");
+
+    //assert that now the topmost card is of value 12
+    assert(b.getTop() == 12);
+
+    try {
+      for(int i = 0; i < 12; i++){
+	b += 0;      
+      }
+    }
+    catch(std::invalid_argument & e){
+      assert(false); //should not be executed
+    }
+  }
+  
   static void moveTest(){
     Build b = Build();
     Draw d = Draw();
 
     int i;
     //add 145 cards, numbered 1-12 at every iteration 
-    try{
-    for(i = 0; i < 145; i++){
-      b += i % 12 + 1;
-    }
+    try {
+      for(i = 0; i < 145; i++){
+	b += i % 12 + 1;
+      }
     } catch (std::invalid_argument){
-      cout << i;
+      assert(false); //shouldn't be executed
     }
 
     //assert that Build has 145 cards now
@@ -161,6 +208,20 @@ public:
     //assert that the Draw pile now has 144 additional cards (will not
     //happen in the real game - only for testing purposes)
     assert(d.getSize() == 162 + 144);    
+
+    //assert that the topmost card in the Draw pile is still the
+    //topmost card from before the move was made
+    assert(d.getTop() == 0);
+
+    //now assert that the topmost 162 cards are the cards from the
+    //original Draw pile
+    for(int i = 0; i < 18; i++){
+      assert(d.takeCard() == 0);
+    }
+
+    for(int i = 0; i < 144; i++){
+      assert(d.takeCard() == 12 - i % 12);
+    }
   }
 };
 
@@ -249,6 +310,7 @@ int main(void){
 
   cout << "Running Build tests..." << endl;
   BuildTest::constructorTest();
+  BuildTest::opsTest();
   BuildTest::moveTest();
   cout << "Passed Build tests." << endl;
 

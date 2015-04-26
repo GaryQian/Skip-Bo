@@ -24,17 +24,31 @@ void Build::move(Draw& draw) throw(std::logic_error){
     toMove.push_back(takeCard());
   }    
 
-  //add the cards to the draw pile and shuffle them
+  //reverse the vector again, so they are now in the original order
+  reverse(cards.begin(), cards.end());
+
+  //take all the leftover cards in the Draw pile
+  vector<int> leftover;  
+  while(!(draw.isEmpty())){
+    leftover.push_back(draw.takeCard());
+  }
+  reverse(leftover.begin(), leftover.end());
+
+  //add the cards to the empty draw pile and shuffle them
   draw += toMove;
   draw.shuffle();
+
+  //now add the saved leftover cards from before to the top of the pile
+  draw += leftover;
 }
 
 void Build::operator +=(int value) throw (std::invalid_argument){
-  if((value == 1) && (getTop() != 12) && (getTop() != 0) && 
+  if(value < 0 || value > 12) throw std::invalid_argument("Invalid card value.\n");
+  else if((value == 1) && (getTop() != 12) && (getTop() != 0) && 
 		     (getTop() != -1)){
     throw std::invalid_argument("Can't add card - not in sequence!\n");
   }
-  else if(value != 1 && getTop() != value - 1 && getTop() != 0){
+  else if(value != 0 && value != 1 && getTop() != value - 1 && getTop() != 0){
     throw std::invalid_argument("Can't add card - not in sequence!\n");
   }  
   else (Deck::operator +=(value));
