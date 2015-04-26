@@ -31,7 +31,9 @@ void Deck::move(Deck& d) throw(std::logic_error){
   d += takeCard();
 }
 
-void Deck::operator +=(int value) {
+void Deck::operator +=(int value) throw (std::invalid_argument){
+  if(value < 0 || value > 12) 
+    throw std::invalid_argument("Invalid card value.\n");
   cards.push_back(value);
 }
 

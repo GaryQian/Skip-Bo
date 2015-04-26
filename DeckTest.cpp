@@ -138,8 +138,10 @@ public:
   static void opsTest(){
     Build b = Build();
     ostringstream oss;
-    
     int num;
+
+    //try adding card of value 2 to an empty Build pile
+    //should throw an exception before assert(false)
     try {
       num = 2;
       b += num;
@@ -149,8 +151,10 @@ public:
       oss << "Failed when trying to add card of value " << num;
     }
 
+    //assert that exception is caught correctly
     assert(oss.str() == "Failed when trying to add card of value 2");
 
+    //try adding 1 to 12, then 13
     try {
       num = 1;
       b += num;
@@ -159,27 +163,29 @@ public:
       for(num = 2; num < 13; num++){
 	b += num;
       }
-      //try adding the number 13 to Build
+
+      //add 13 to Build
       b += num;
     }
     catch (std::invalid_argument & e){
       oss << " and " << num;
     }
 
-    //assert that exception is caught
+    //assert that exception is caught correctly
     assert(oss.str() == "Failed when trying to add card of value 2 and 13");
 
     //assert that now the topmost card is of value 12
     assert(b.getTop() == 12);
 
+    //try adding wild Skip-Bo cards - should not throw an exception
     try {
-      for(int i = 0; i < 12; i++){
+      for(int i = 0; i < 30; i++){
 	b += 0;      
       }
     }
     catch(std::invalid_argument & e){
       assert(false); //should not be executed
-    }
+    }    
   }
   
   static void moveTest(){

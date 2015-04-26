@@ -43,8 +43,7 @@ void Build::move(Draw& draw) throw(std::logic_error){
 }
 
 void Build::operator +=(int value) throw (std::invalid_argument){
-  if(value < 0 || value > 12) throw std::invalid_argument("Invalid card value.\n");
-  else if((value == 1) && (getTop() != 12) && (getTop() != 0) && 
+  if((value == 1) && (getTop() != 12) && (getTop() != 0) && 
 		     (getTop() != -1)){
     throw std::invalid_argument("Can't add card - not in sequence!\n");
   }

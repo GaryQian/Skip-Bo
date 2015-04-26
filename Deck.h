@@ -41,9 +41,10 @@ class Deck {
 
   /*
    * Overloaded operator that pushes an integer to the integer vector
-   * of a Deck instance
+   * of a Deck instance. Throws an exception if we try to add an
+   * invalid card number
    */
-  void operator +=(int value);	
+  void operator +=(int value) throw (std::invalid_argument);	
 
   /*
    * Overloaded operater that pushes a vector of integers to the
@@ -83,8 +84,23 @@ class Draw: public Deck {
   friend class DrawTest;
  public: 
   Draw();
+
+  /*
+   * Moves num of cards from Draw pile to Hand. Throws logic error if
+   * Draw pile is empty
+   */
   void move(Hand& hand, int num) throw (std::logic_error);
+
+  /*
+   * Shuffles the Draw pile based on the arrangement vector that is
+   * passed in as an argument/parameter. If the input arrangement
+   * vector is empty, then a randomized arrangement will be used.
+   */
   void shuffle(std::vector<int> arr = std::vector<int>());
+
+  /*
+   * Swaps two elements in a vector of integers
+   */
   void swap(int& a, int& b);
 };
 
@@ -92,14 +108,25 @@ class Build: public Deck {
   friend class BuildTest;
  public:
   Build();
+
+  /*
+   * Moves cards from Build pile to Draw pile - used when the Draw
+   * pile is empty and the Build pile has a number of completed 1-12
+   * sets.
+   */
   void move(Draw& draw) throw (std::logic_error);
+
+  /*
+   * Overloaded operator that adds cards to the Build pile. Throws an
+   * exception if the cards added are not in sequence, or are not
+   * Skip-Bo wild cards.
+   */
   void operator +=(int value) throw (std::invalid_argument);	
 };
 
 class Discard: public Deck { 
 public:
   Discard();
-  //bool move(Build& build);
 }; 
 
 class Stock: public Deck {
@@ -107,6 +134,10 @@ class Stock: public Deck {
   Stock();
 };
 
+
+/*
+ * Overloaded << operator for Deck instances
+ */
 std::ostream& operator << (std::ostream& os, const Deck& d);
 
 #endif
