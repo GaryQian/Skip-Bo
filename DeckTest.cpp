@@ -362,6 +362,27 @@ public:
     assert(s.getSize() == 0);
     assert(s.isEmpty());
   }  
+
+  static void opsTest() {
+    Stock s = Stock();
+    vector<int> list;
+    ostringstream oss;
+
+    for(int i = 1; i < 13; i++){
+      list.push_back(i);
+    }
+
+    int num = 1;
+    try {
+      s += list; num++;
+      s += list; num++;
+      s += list; num++; //this num++ should not be executed
+    }
+    catch (std::invalid_argument & e){
+      oss << "Failed at num = " << num;
+    }
+    assert(oss.str() == "Failed at num = 3");
+  }
 };
 
 int main(void){
@@ -385,5 +406,6 @@ int main(void){
 
   cout << "Running Stock tests..." << endl;
   StockTest::constructorTest();
+  StockTest::opsTest();
   cout << "Passed Stock tests." << endl;
 }
