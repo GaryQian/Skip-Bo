@@ -8,13 +8,13 @@ test: DeckTest
 	@./DeckTest
 
 DeckTest: DeckTest.o Deck.o
-	$(CC) $(CXXFLAGS) -o DeckTest DeckTest.o Deck.o Build.o Hand.o Draw.o Discard.o 
+	$(CC) $(CXXFLAGS) -o DeckTest DeckTest.o Deck.o Build.o Hand.o Draw.o Discard.o Stock.o
 
 DeckTest.o: DeckTest.cpp Deck.h
 	$(CC) $(CXXFLAGS) -c DeckTest.cpp
 
-Deck.o: Deck.h Deck.cpp Draw.cpp Build.cpp Hand.cpp Discard.cpp
-	$(CC) $(CXXFLAGS) -c Deck.cpp Draw.cpp Build.cpp Hand.cpp Discard.cpp
+Deck.o: Deck.h Deck.cpp Draw.cpp Build.cpp Hand.cpp Discard.cpp Stock.cpp
+	$(CC) $(CXXFLAGS) -c Deck.cpp Draw.cpp Build.cpp Hand.cpp Discard.cpp Stock.cpp
 
 Display.o: Display.cpp Display.h Player.o Player.cpp Player.h Build.h Build.o Build.cpp Deck.h Deck.cpp Deck.o Stock.h Stock.cpp Stock.o Draw.h Draw.cpp Draw.o Hand.h Hand.cpp Hand.o
 	$(CC) $(CXXFLAGS) -c Display.cpp -o Display.o

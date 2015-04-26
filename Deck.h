@@ -137,8 +137,9 @@ public:
 class Stock: public Deck {
  public:
   Stock();
+  void operator += (int value) throw (std::invalid_argument);
+  void operator += (std::vector<int> list) throw (std::invalid_argument);
 };
-
 
 /*
  * Overloaded << operator for Deck instances

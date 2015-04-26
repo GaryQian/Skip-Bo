@@ -102,10 +102,20 @@ public:
     Draw d = Draw();
     ostringstream oss;
 
-
+    //try drawing more than 5 cards to Hand
+    //exception should be caught before assert(false)
     try {
-      
+      d.move(h,6);
+      assert(false);
     }
+    catch(std::logic_error & e){
+      oss << "Can't move!";
+    }
+
+    //assert exception is caught and clear buffer
+    assert(oss.str() == "Can't move!");
+    oss.str("");
+    oss.clear();
 
     //move 5 cards from Draw pile to Hand
     d.move(h,5);
@@ -332,13 +342,26 @@ public:
       hand.move(discard, index = 6);
       assert(false);
     }
+    //should catch invalid_argument, not logic_error
     catch(std::invalid_argument & e){
       oss << "Failed after trying to take a card of index " << index << "!"; 
+    }
+    catch(std::logic_error & e){
+      oss << "I shouldn't be thrown!";
     }
 
     //assert that the code inside the catch block is executed
     assert(oss.str() == "Failed after trying to take a card of index 6!");
   }
+};
+
+class StockTest {
+public:
+  static void constructorTest() {
+    Stock s = Stock();
+    assert(s.getSize() == 0);
+    assert(s.isEmpty());
+  }  
 };
 
 int main(void){
@@ -359,4 +382,8 @@ int main(void){
   HandTest::takeCardTest();
   HandTest::moveTest();
   cout << "Passed Hand tests." << endl;
+
+  cout << "Running Stock tests..." << endl;
+  StockTest::constructorTest();
+  cout << "Passed Stock tests." << endl;
 }
