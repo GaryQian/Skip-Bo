@@ -36,6 +36,7 @@ public:
   }
 
   static void takeCardTest(){
+    ostringstream oss;
     //construct a draw pile and save the original size
     Draw d = Draw();
     int size = d.getSize();
@@ -55,6 +56,17 @@ public:
       assert(d.getSize() == size - i - 1);
     }
     assert(d.getSize() == 0);
+  
+    //since draw pile is now empty, try calling takeCard
+    //method should throw an exception and assert(false) will not be executed
+    try { 
+      d.takeCard();
+      assert(false);
+    }
+    catch(std::logic_error & e){
+      oss << "Failure.";
+    }
+    assert(oss.str() == "Failure.");
   }
 
   static void shuffleTest(){
