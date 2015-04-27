@@ -41,4 +41,25 @@ class Player {
   virtual string getMove() = 0;
 };
 
+class HumanPlayer: public Player {
+
+ public:
+  HumanPlayer(string name, Draw* draw, vector<Build>* build, Stock* stock);
+  HumanPlayer(string name, Draw* draw, vector<Build>* build, Stock stock, Hand hand, vector<Discard> discard);
+  string getMove();
+
+};
+
+class AI: public Player {
+  int seed;
+
+ public:
+
+  AI(string name, Draw* draw, vector<Build>* build, Stock* stock);
+  AI(string name, Draw* draw, vector<Build>* build, Stock stock, Hand hand, vector<Discard> discard);
+  string getMove();
+  bool contains(vector<int> vec, int num);
+  int find(vector<int> vec, int num);
+};
+
 #endif

@@ -1,6 +1,4 @@
 ﻿#include "Player.h"
-#include "HumanPlayer.h"
-#include "AI.h"
 #include "Deck.h"
 #include "Display.h"
 #include <string>

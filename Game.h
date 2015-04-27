@@ -1,8 +1,7 @@
 #include <vector>
 #include <string>
-#include "HumanPlayer.h"
+#include "Player.h"
 #include "Move.h"
-#include "AI.h"
 
 class Game {
  private:

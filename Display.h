@@ -1,7 +1,5 @@
 #include "Player.h"
 #include "Deck.h"
-#include "HumanPlayer.h"
-#include "AI.h"
 
 class Display {
     
