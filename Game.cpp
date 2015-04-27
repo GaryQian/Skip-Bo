@@ -8,6 +8,11 @@ using std::vector;
 using std::string;
 using std::getline;
 
+Game::Game() {
+	turn = 0;
+	
+}
+
 Game::Game(vector<string> names){
   Draw* d = new Draw(); 
   int stockSize = 0;

@@ -17,6 +17,8 @@ class Game {
   Game(std::vector<std::string> names); 
   
   ~Game();
+  
+  Game();
 
   void nextTurn();
 
