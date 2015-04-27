@@ -13,7 +13,7 @@ Player::Player(string name, Draw* draw, vector<Build>* build, Stock stock) {
   this->build = build;
   this->stock = stock;
   
-  deal();
+  //  deal();
   isAnAI = false;
 }
 
@@ -25,7 +25,13 @@ Player::Player(string name, Draw* draw, vector<Build>* build, Stock stock, Hand 
   this->hand = hand;
   this->discard = discard;
 
+<<<<<<< Updated upstream
   deal();
+
+ public:
+=======
+  //  deal();
+>>>>>>> Stashed changes
   isAnAI = false;
 }
 

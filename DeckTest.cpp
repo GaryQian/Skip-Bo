@@ -64,9 +64,11 @@ public:
       assert(false);
     }
     catch(std::logic_error & e){
-      oss << "Failure.";
+      oss << e.what();
     }
-    assert(oss.str() == "Failure.");
+
+    cout << oss.str();
+    assert(oss.str() == "Deck is empty.\n");
   }
 
   static void shuffleTest(){
@@ -109,11 +111,11 @@ public:
       assert(false);
     }
     catch(std::logic_error & e){
-      oss << "Can't move!";
+      oss << e.what();
     }
 
     //assert exception is caught and clear buffer
-    assert(oss.str() == "Can't move!");
+    assert(oss.str() == "Shouldn't draw more than five cards!\n");
     oss.str("");
     oss.clear();
 
@@ -149,11 +151,11 @@ public:
       assert(false);
     }
     catch (std::logic_error & e){
-      oss << "Hand is full.";
+      oss << e.what();
     }
 
     //assert exception is caught
-    assert(oss.str() == "Hand is full.");
+    assert(oss.str() == "Shouldn't draw more than five cards!\n");
   }
 };
 
@@ -218,6 +220,7 @@ public:
   }
   
   static void moveTest(){
+    ostringstream oss;
     Build b = Build();
     Draw d = Draw();
 
@@ -249,7 +252,8 @@ public:
     assert(d.getTop() == 0);
 
     //now assert that the topmost 162 cards are the cards from the
-    //original Draw pile
+    //original Draw pile, in the original order (to make sure the leftover 
+    //cards are not shuffled)
     for(int i = 0; i < 18; i++){
       assert(d.takeCard() == 0);
     }
@@ -257,6 +261,18 @@ public:
     for(int i = 0; i < 144; i++){
       assert(d.takeCard() == 12 - i % 12);
     }
+  
+    //try moving from Build to Draw - should fail because there is only
+    //one card left in Build now
+    try {
+      b.move(d);
+    }
+    catch(std::logic_error & e){
+      oss << e.what();
+    }
+
+    //assert exception is caught
+    assert(oss.str() == "Build pile doesn't have a completed set yet.\n");
   }
 };
 
@@ -382,6 +398,42 @@ public:
       oss << "Failed at num = " << num;
     }
     assert(oss.str() == "Failed at num = 3");
+    oss.str("");
+    oss.clear();
+
+    //assert Stock pile has 24 cards now
+    assert(s.getSize() == 24);
+
+    try {
+      s += 13;
+    }
+    catch (std::invalid_argument & e){
+      oss << e.what();
+    }
+
+    //assert exception is caught
+    assert(oss.str() == "Invalid card value.\n");
+    oss.str("");
+    oss.clear();
+
+    vector<int> list2 = {5, 3, 2, 1, 0, 1};
+
+    try{
+      s += list2;
+    } catch(std::invalid_argument & e){
+      assert(false); //should not be executed
+    }
+
+    assert(s.getSize() == 30);
+
+    try {
+      s += 1;
+    }catch(std::logic_error & e){
+      oss << e.what();
+    }
+
+    assert(oss.str() == "Stock pile is full!\n");
+
   }
 };
 

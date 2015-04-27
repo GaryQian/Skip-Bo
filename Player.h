@@ -57,7 +57,6 @@ class AI: public Player {
   int seed;
 
  public:
-
   AI(string name, Draw* draw, vector<Build>* build, Stock* stock);
   AI(string name, Draw* draw, vector<Build>* build, Stock stock, Hand hand, vector<Discard> discard);
   string getMove();

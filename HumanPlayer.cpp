@@ -1,5 +1,6 @@
 #include "Player.h"
 #include <string>
+#include <iostream>
 
 using std::string;
 using std::cin;
