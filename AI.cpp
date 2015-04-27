@@ -100,6 +100,7 @@ int AI::find(vector<int> vec, int num) {
 	return -1;
 }
 
-operator HumanPlayer() {
+/*operator HumanPlayer() {
 	return HumanPlayer(name, draw, build, stock, hand, discard);
 }
+*/

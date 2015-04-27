@@ -24,6 +24,8 @@ class Player {
   //Constructor
   Player(string name, Draw* draw, vector<Build>* build, Stock stock);
   Player(string name, Draw* draw, vector<Build>* build, Stock stock, Hand hand, vector<Discard> discard);
+  
+  friend class HumanPlayer;
 
  public:	
   //Methods
@@ -47,6 +49,7 @@ class HumanPlayer: public Player {
   HumanPlayer(string name, Draw* draw, vector<Build>* build, Stock* stock);
   HumanPlayer(string name, Draw* draw, vector<Build>* build, Stock stock, Hand hand, vector<Discard> discard);
   string getMove();
+  //AI operator AI();
 
 };
 
@@ -60,7 +63,7 @@ class AI: public Player {
   string getMove();
   bool contains(vector<int> vec, int num);
   int find(vector<int> vec, int num);
-  operator HumanPlayer();
+  //HumanPlayer operator HumanPlayer();
 };
 
 #endif
