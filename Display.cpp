@@ -13,7 +13,7 @@ using std::cout;
 using std::endl;
 
 //Displays game onto the screen
-void Display::display(HumanPlayer player, vector<Build> build, int num) {
+void Display::display(Player* player, vector<Build> build, int num) {
 	vector<string> out;
 	
 	string* temp;
@@ -61,7 +61,7 @@ void Display::display(HumanPlayer player, vector<Build> build, int num) {
 	temp = new string("Player ");
 	*temp += convert(num);
 	*temp += ": ";
-	*temp += player.getName();
+	*temp += player->getName();
 	*temp += "'s Turn";
 	out.push_back(*temp);
 	
@@ -74,7 +74,7 @@ void Display::display(HumanPlayer player, vector<Build> build, int num) {
 	out.push_back(*temp);
 	
 	////////////////////////////////////
-	switch(player.getHand().getSize()) {
+	switch(player->getHand().getSize()) {
 	case 0: temp = new string("          No Cards"); break;
 	case 1: temp = new string(" -1-"); break;
 	case 2: temp = new string(" -1-   -2-"); break;
@@ -85,7 +85,7 @@ void Display::display(HumanPlayer player, vector<Build> build, int num) {
 	out.push_back(*temp);
 	
 	////////////////////////////////////
-	switch(player.getHand().getSize()) {
+	switch(player->getHand().getSize()) {
 	case 0: temp = new string(" "); break;
 	case 1: temp = new string("┌───┐"); break;
 	case 2: temp = new string("┌───┐ ┌───┐"); break;
@@ -96,21 +96,21 @@ void Display::display(HumanPlayer player, vector<Build> build, int num) {
 	out.push_back(*temp);
 	
 	////////////////////////////////////
-	if (player.getHand().getSize() > 0) {
+	if (player->getHand().getSize() > 0) {
 		temp = new string("│ ");
 	}
 	else temp = new string(" ");
 	
-	for (int i = 0; i < player.getHand().getSize(); ++i) {
-	  *temp += convert(player.getHand().at(i));
-	  if (i == player.getHand().getSize() - 1) {
-	    if (player.getHand().at(i) >= 10) {
+	for (int i = 0; i < player->getHand().getSize(); ++i) {
+	  *temp += convert(player->getHand().at(i));
+	  if (i == player->getHand().getSize() - 1) {
+	    if (player->getHand().at(i) >= 10) {
 	      *temp += "│";
 	    }
 	    else *temp += " │";
 	  }
 	  else {
-	    if (player.getHand().at(i) >= 10) {
+	    if (player->getHand().at(i) >= 10) {
 	      *temp += "│ │ ";
 	    }
 	    else *temp += " │ │ ";
@@ -120,7 +120,7 @@ void Display::display(HumanPlayer player, vector<Build> build, int num) {
 	
 	////////////////////////////////////
 	temp = new string("└───┘ └───┘ └───┘ └───┘ └───┘");
-	switch(player.getHand().getSize()) {
+	switch(player->getHand().getSize()) {
 	case 0: temp = new string(" "); break;
 	case 1: temp = new string("└───┘"); break;
 	case 2: temp = new string("└───┘ └───┘"); break;
@@ -144,23 +144,23 @@ void Display::display(HumanPlayer player, vector<Build> build, int num) {
 	
 	////////////////////////////////////
 	temp = new string("│ ");
-	*temp += convert(player.getDiscard().at(0).getTop());
-	if (player.getDiscard().at(0).getTop() >= 10) {
+	*temp += convert(player->getDiscard().at(0).getTop());
+	if (player->getDiscard().at(0).getTop() >= 10) {
 		*temp += "│ │ ";
 	}
 	else *temp += " │ │ ";
-	*temp += convert(player.getDiscard().at(1).getTop());
-	if (player.getDiscard().at(1).getTop() >= 10) {
+	*temp += convert(player->getDiscard().at(1).getTop());
+	if (player->getDiscard().at(1).getTop() >= 10) {
 		*temp += "│ │ ";
 	}
 	else *temp += " │ │ ";
-	*temp += convert(player.getDiscard().at(2).getTop());
-	if (player.getDiscard().at(2).getTop() >= 10) {
+	*temp += convert(player->getDiscard().at(2).getTop());
+	if (player->getDiscard().at(2).getTop() >= 10) {
 		*temp += "│ │ ";
 	}
 	else *temp += " │ │ ";
-	*temp += convert(player.getDiscard().at(3).getTop());
-	if (player.getDiscard().at(3).getTop() >= 10) {
+	*temp += convert(player->getDiscard().at(3).getTop());
+	if (player->getDiscard().at(3).getTop() >= 10) {
 		*temp += "│";
 	}
 	else *temp += " │";
@@ -180,12 +180,12 @@ void Display::display(HumanPlayer player, vector<Build> build, int num) {
 	
 	////////////////////////////////////
 	temp = new string("│ ");
-	*temp += convert(player.getStock().getTop());
-	if (player.getStock().getTop() >= 10) {
+	*temp += convert(player->getStock().getTop());
+	if (player->getStock().getTop() >= 10) {
 		*temp += "│ ";
 	}
 	else *temp += " │ ";
-	*temp += convert(player.getStock().getSize());
+	*temp += convert(player->getStock().getSize());
 	*temp += " cards left";
 	
 	////////////////////////////////////
@@ -208,7 +208,7 @@ void Display::display(HumanPlayer player, vector<Build> build, int num) {
 }
 
 void Display::display(AI player, vector<Build> build, int num) {
-  display((HumanPlayer) player, build, num);
+  display(player, build, num);
 }
 
 string Display::convert(int num) {

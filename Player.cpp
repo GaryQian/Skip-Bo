@@ -25,13 +25,13 @@ Player::Player(string name, Draw* draw, vector<Build>* build, Stock stock, Hand 
   this->hand = hand;
   this->discard = discard;
 
-<<<<<<< Updated upstream
+//<<<<<<< Updated upstream
   deal();
 
- public:
-=======
+ //public:
+//=======
   //  deal();
->>>>>>> Stashed changes
+//>>>>>>> Stashed changes
   isAnAI = false;
 }
 
