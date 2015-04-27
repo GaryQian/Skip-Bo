@@ -8,13 +8,18 @@ using std::vector;
 using std::string;
 using std::getline;
 
-Game::Game(vector<string> names){
+Game::Game() {
+	turn = 0;
+	
+}
+
+Game::Game(vector<string> names, vector<int> arrangement){
   Draw* d = new Draw(); 
   int stockSize = 0;
   string name;
   turn = 0;
 
-  d->shuffle();
+  d->shuffle(arrangement);
 
   if (names.size() < 5){
     stockSize = 30;

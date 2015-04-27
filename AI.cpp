@@ -5,6 +5,7 @@
 #include <vector>
 #include <ctime>
 #include <cstdlib>
+#include <iostream>
 
 
 using std::string;
@@ -13,13 +14,23 @@ using std::cout;
 using std::endl;
 
 AI::AI(string name, Draw* draw, vector<Build>* build, Stock stock) {
-	Player(name, draw, build, stock);
+	this->draw = draw;
+	this->name = name;
+	this->build = build;
+	this->stock = stock;
+  
+
 	seed = time(NULL);
 	isAnAI = true;
 }
 
 AI::AI(string name, Draw* draw, vector<Build>* build, Stock stock, Hand hand, vector<Discard> discard){
-  Player(name, draw, build, stock, hand, discard);
+  this->draw = draw;
+  this->name = name;
+  this->build = build;
+  this->stock = stock;
+  this->hand = hand;
+  this->discard = discard;
   seed = time(NULL);
   isAnAI = true;
 }
@@ -27,7 +38,7 @@ AI::AI(string name, Draw* draw, vector<Build>* build, Stock stock, Hand hand, ve
 string AI::getMove() {
 	vector<int> validNums;
 	for (int i = 0; i < 4; ++i) {
-		if (*build[i].getTop() != -1) {
+		if (build[i]->getTop() != -1) {
 			validNums.push_back(*build[i].getTop() + 1);
 		}
 	}
@@ -48,7 +59,7 @@ string AI::getMove() {
 			temp = new string("d");
 			temp += convert(i + 1);
 			temp += " b";
-			temp += Display.comvert(find(validNums, hand.at(i));
+			temp += Display.comvert(find(validNums, hand.at(i)));
 			moves.push_back(temp);
 		}
 	}
@@ -100,6 +111,7 @@ int AI::find(vector<int> vec, int num) {
 	return -1;
 }
 
-operator HumanPlayer() {
+/*operator HumanPlayer() {
 	return HumanPlayer(name, draw, build, stock, hand, discard);
 }
+*/

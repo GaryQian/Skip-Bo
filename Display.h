@@ -4,7 +4,7 @@
 class Display {
   
  public:
-  void display(HumanPlayer player, vector<Build> build, int num);
+  void display(Player* player, vector<Build> build, int num);
   
   void display(AI player, vector<Build> build, int num); 
   
