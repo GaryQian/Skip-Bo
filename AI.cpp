@@ -14,13 +14,23 @@ using std::cout;
 using std::endl;
 
 AI::AI(string name, Draw* draw, vector<Build>* build, Stock stock) {
-	Player(name, draw, build, stock);
+	this->draw = draw;
+	this->name = name;
+	this->build = build;
+	this->stock = stock;
+  
+
 	seed = time(NULL);
 	isAnAI = true;
 }
 
 AI::AI(string name, Draw* draw, vector<Build>* build, Stock stock, Hand hand, vector<Discard> discard){
-  Player(name, draw, build, stock, hand, discard);
+  this->draw = draw;
+  this->name = name;
+  this->build = build;
+  this->stock = stock;
+  this->hand = hand;
+  this->discard = discard;
   seed = time(NULL);
   isAnAI = true;
 }
