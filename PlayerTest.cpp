@@ -17,18 +17,28 @@ using std::iterator;
 class PlayerTest {
 public:
   static void constructorTest() {
-    Player* p = new Player("Laura", 
-  }
-  
+
+  }  
   static void moveTest() {
 
   }
-
+  
   static void hasWonTest() {
+    
+  }
+  
+  static void accessorTest() {
+    
+  }
+};
+
+class HumanPlayerTest {
+public:
+  static void constructorTest() {
 
   }
 
-  static void accessorTest() {
+  static void getMoveTest() {
 
   }
 };

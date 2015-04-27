@@ -59,7 +59,7 @@ string AI::getMove() {
 			temp = new string("d");
 			temp += convert(i + 1);
 			temp += " b";
-			temp += Display.comvert(find(validNums, hand.at(i)));
+			temp += Display.convert(find(validNums, hand.at(i)));
 			moves.push_back(temp);
 		}
 	}
@@ -67,7 +67,7 @@ string AI::getMove() {
 	if (contains(validNums, stock.getTop())) {
 		temp = new string("s");
 		temp += " b";
-		temp += Display.comvert(find(validNums, hand.at(i));
+		temp += Display.convert(find(validNums, hand.at(i));
 		moves.push_back(temp);
 	}
 	
