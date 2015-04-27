@@ -47,7 +47,8 @@ int main(){
 	while (!game->hasEnded()) {
 		game->nextTurn();
 		while (game->canMove()) {
-		  d.display(*(game->getPlayer()), game->getBuild(), game->getPlayerNumber());
+			if (game->getPlayer()->isAI()) d.display((HumanPlayer) *(game->getPlayer()), game->getBuild(), game->getPlayerNumber());
+			else d.display((AI) *(game->getPlayer()), game->getBuild(), game->getPlayerNumber());
 			input = game->getPlayer()->getMove();
 			game->process(input);
 		}

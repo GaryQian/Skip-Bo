@@ -54,12 +54,12 @@ class AI: public Player {
   int seed;
 
  public:
-
   AI(string name, Draw* draw, vector<Build>* build, Stock* stock);
   AI(string name, Draw* draw, vector<Build>* build, Stock stock, Hand hand, vector<Discard> discard);
   string getMove();
   bool contains(vector<int> vec, int num);
   int find(vector<int> vec, int num);
+  operator HumanPlayer();
 };
 
 #endif

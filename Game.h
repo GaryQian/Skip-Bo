@@ -4,6 +4,7 @@
 #include "Move.h"
 
 class Game {
+  friend class GameTest;
  private:
   std::vector<Player*> players;
   std::vector<Move> move;
@@ -15,7 +16,7 @@ class Game {
   //Constructor
   Game(std::vector<std::string> names); 
   
-  Game();
+  ~Game();
 
   void nextTurn();
 
