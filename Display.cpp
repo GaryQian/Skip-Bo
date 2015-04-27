@@ -13,7 +13,7 @@ using std::cout;
 using std::endl;
 
 //Displays game onto the screen
-void Display::display(Player player, vector<Build> build, int num) {
+void Display::display(HumanPlayer player, vector<Build> build, int num) {
 	vector<string> out;
 	
 	string* temp;
