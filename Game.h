@@ -14,7 +14,7 @@ class Game {
   
  public:
   //Constructor
-  Game(std::vector<std::string> names); 
+  Game(std::vector<std::string> names, std::vector<int> arrangement = {}); 
   
   ~Game();
   
