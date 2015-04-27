@@ -11,7 +11,7 @@ Build::Build(){
 
 void Build::move(Draw& draw) throw(std::logic_error){
   if(getSize() < 12) 
-    throw std::logic_error("Build pile doesn't have a completed set yet.");
+    throw std::logic_error("Build pile doesn't have a completed set yet.\n");
 
   //reverse the order of the cards, so the bottom cards are now the
   //last elements in the vector
