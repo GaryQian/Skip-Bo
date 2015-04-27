@@ -27,8 +27,8 @@ Display.o: Display.cpp Display.h Player.o Player.cpp HumanPlayer.cpp AI.cpp Play
 Game.o: Game.h Game.cpp Display.cpp Display.h Player.o Player.cpp Player.h Build.o Build.cpp Deck.cpp Deck.o Stock.cpp Stock.o Draw.cpp Draw.o Hand.cpp Hand.o
 	$(CC) $(CXXFLAGS) -c Game.cpp -o Game.o
 
-Player.o: Display.cpp Display.h Player.cpp Player.h Build.o Build.cpp Deck.cpp Deck.o Stock.cpp Stock.o Draw.cpp Draw.o Hand.cpp Hand.o
-	$(CC) $(CXXFLAGS) -c Player.cpp -o Player.o
+Player.o: Display.cpp Display.h Player.cpp Player.h Build.o Build.cpp Deck.cpp Deck.o Stock.cpp Stock.o Draw.cpp Draw.o Hand.cpp Hand.o AI.cpp HumanPlayer.cpp
+	$(CC) $(CXXFLAGS) -c Player.cpp AI.cpp HumanPlayer.cpp
 
 SkipBoMain.o: Game.h Game.cpp Display.cpp Display.h Player.o Player.cpp Player.h Build.o Build.cpp Deck.cpp Deck.o Stock.cpp Stock.o Draw.cpp Draw.o Hand.cpp Hand.o
 	$(CC) $(CXXFLAGS) -c SkipBoMain.cpp -o SkipBoMain.o
