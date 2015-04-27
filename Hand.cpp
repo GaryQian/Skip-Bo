@@ -24,3 +24,19 @@ void Hand::move(Deck& deck, int index) throw (std::invalid_argument,
   }
   deck += takeCard(index);
 }
+
+void Hand::operator += (int value) throw (std::invalid_argument) {
+  //if user tries to take more than 5 cards, or if Hand is already full
+  //throw an exception
+  if(getSize() == 5)
+    throw std::invalid_argument("Shouldn't draw more than five cards!\n");
+
+  Deck::operator += (value);
+}
+
+void Hand::operator += (vector<int> list) throw (std::invalid_argument) {
+  if(getSize() + list.size() > 5)
+    throw std::invalid_argument("Shouldn't draw more than five cards!\n");
+
+  Deck::operator += (list);
+}

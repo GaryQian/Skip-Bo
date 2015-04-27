@@ -83,6 +83,19 @@ class Hand: public Deck {
    */
   void move(Deck& deck, int index) throw (std::invalid_argument, 
 					  std::logic_error);
+
+  void operator += (int value)  throw (std::invalid_argument);
+
+  void operator += (std::vector<int> list) throw (std::invalid_argument);
+
+};
+
+
+class Stock: public Deck {
+ public:
+  Stock();
+  void operator += (int value) throw (std::invalid_argument);
+  void operator += (std::vector<int> list) throw (std::invalid_argument);
 };
 
 class Draw: public Deck {
@@ -99,7 +112,9 @@ class Draw: public Deck {
    * Moves num of cards from Draw pile to Hand. Throws logic error if
    * Draw pile is empty
    */
-  void move(Hand& hand, int num) throw (std::logic_error);
+  void move(Hand& hand, int num) throw (std::invalid_argument);
+
+  void move(Stock& stock, int num) throw (std::invalid_argument);
 
   /*
    * Shuffles the Draw pile based on the arrangement vector that is
@@ -138,13 +153,6 @@ class Discard: public Deck {
 public:
   Discard();
 }; 
-
-class Stock: public Deck {
- public:
-  Stock();
-  void operator += (int value) throw (std::invalid_argument);
-  void operator += (std::vector<int> list) throw (std::invalid_argument);
-};
 
 /*
  * Overloaded << operator for Deck instances

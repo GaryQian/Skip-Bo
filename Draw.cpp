@@ -17,14 +17,12 @@ Draw::Draw(){
   }
 }
 
-void Draw::move(Hand& hand, int num) throw(std::logic_error){
+void Draw::move(Hand& hand, int num) throw(std::invalid_argument){
   if(getSize() < num) 
-    throw std::logic_error("Draw pile doesn't have enough cards.\n");
+    throw std::invalid_argument("Draw pile doesn't have enough cards.\n");
 
-  //if user tries to take more than 5 cards, or if Hand is already full
-  //throw an exception
-  if(num > 5 || hand.getSize() == 5)
-    throw std::logic_error("Shouldn't draw more than five cards!\n");
+  if(hand.getSize() == 5 || hand.getSize() + num > 5)
+    throw std::invalid_argument("Shouldn't draw more than five cards!\n");
 
   vector<int> toMove;
   //if we have enough cards in the draw pile, take whatever is needed
@@ -33,16 +31,22 @@ void Draw::move(Hand& hand, int num) throw(std::logic_error){
     toMove.push_back(takeCard());
   }
   hand += toMove;
-  /*
-  //else if draw pile is not empty, but has less than the requested
-  //number of cards, just take what remains in the draw pile
-  else if(!isEmpty() && getSize() < num){
-  for(int i = 0; i < getSize(); i++){
-  toMove.push_back(takeCard());
+}
+
+void Draw::move(Stock& stock, int num) throw(std::invalid_argument){
+  if(getSize() < num) 
+    throw std::logic_error("Draw pile doesn't have enough cards.\n");
+
+  if(stock.getSize() == 30 || stock.getSize() + num > 30)
+    throw std::invalid_argument("Can't have more than 30 cards in Stock pile!\n");
+
+  vector<int> toMove;
+  //if we have enough cards in the draw pile, take whatever is needed
+  
+  for(int i = 0; i < num; i++){
+    toMove.push_back(takeCard());
   }
-  hand += toMove;
-  return true;
-  }*/
+  stock += toMove;
 }
 
 void Draw::shuffle(vector<int> arr){

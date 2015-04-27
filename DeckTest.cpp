@@ -110,7 +110,7 @@ public:
       d.move(h,6);
       assert(false);
     }
-    catch(std::logic_error & e){
+    catch(std::invalid_argument & e){
       oss << e.what();
     }
 
@@ -132,6 +132,7 @@ public:
       assert(*it == 0);
     }
 
+    cout << d.getSize();
     //assert that the size of the Draw pile is decreased by 5
     assert(d.getSize() == 162 - 5);
 
@@ -334,7 +335,7 @@ public:
     Discard discard = Discard();
     Build build = Build();
     Hand hand = Hand();
-    vector<int> value = {5, 0, 3, 2, 4, 5};
+    vector<int> value = {5, 0, 3, 2, 4};
     int index;
 
     //add the values to hand
@@ -342,7 +343,7 @@ public:
     
     //assert that hand successfully moves cards to build correctly
     hand.move(build, index = 1);
-    assert(hand.getSize() == 5);
+    assert(hand.getSize() == 4);
     assert(build.getSize() == 1);
     assert(build.getTop() == 0);
     
@@ -350,7 +351,7 @@ public:
     try {
       //assert that the cards are moved correctly
       hand.move(discard, index = 3);
-      assert(hand.getSize() == 4);
+      assert(hand.getSize() == 3);
       assert(discard.getSize() == 1);
 
       //assert that an exception is thrown, so that assert(false) will
@@ -432,8 +433,26 @@ public:
       oss << e.what();
     }
 
-    assert(oss.str() == "Stock pile is full!\n");
+    assert(oss.str() == "Can't have more than 30 cards in Stock pile!\n");
+  }
 
+  static void moveTest(){
+    ostringstream oss;
+    Stock stock = Stock();
+    Draw draw = Draw();
+
+    int size;
+    try {
+      draw.move(stock, size = 26);
+      assert(stock.getSize() == 26);
+      
+      draw.move(stock, size = 5);
+    } catch(std::logic_error & e){
+      oss << "Failure while trying to take " << size << " cards!";
+    }
+    assert(oss.str() == "Failure while trying to take 5 cards!");
+
+    
   }
 };
 
@@ -452,6 +471,7 @@ int main(void){
   cout << "Passed Build tests." << endl;
 
   cout << "Running Hand tests..." << endl;
+  HandTest::constructorTest();
   HandTest::takeCardTest();
   HandTest::moveTest();
   cout << "Passed Hand tests." << endl;
