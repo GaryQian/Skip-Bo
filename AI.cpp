@@ -5,6 +5,7 @@
 #include <vector>
 #include <ctime>
 #include <cstdlib>
+#include <iostream>
 
 
 using std::string;
@@ -27,7 +28,7 @@ AI::AI(string name, Draw* draw, vector<Build>* build, Stock stock, Hand hand, ve
 string AI::getMove() {
 	vector<int> validNums;
 	for (int i = 0; i < 4; ++i) {
-		if (*build[i].getTop() != -1) {
+		if (build[i]->getTop() != -1) {
 			validNums.push_back(*build[i].getTop() + 1);
 		}
 	}
@@ -48,7 +49,7 @@ string AI::getMove() {
 			temp = new string("d");
 			temp += convert(i + 1);
 			temp += " b";
-			temp += Display.comvert(find(validNums, hand.at(i));
+			temp += Display.comvert(find(validNums, hand.at(i)));
 			moves.push_back(temp);
 		}
 	}

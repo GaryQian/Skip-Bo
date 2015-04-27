@@ -26,6 +26,7 @@ class Player {
   Player(string name, Draw* draw, vector<Build>* build, Stock stock, Hand hand, vector<Discard> discard);
   
   friend class HumanPlayer;
+  friend class AI;
 
  public:	
   //Methods
