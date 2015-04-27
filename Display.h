@@ -2,11 +2,13 @@
 #include "Deck.h"
 
 class Display {
-    
-  static void display(HumanPlayer player, vector<Build> build, int num);
   
-  static void display(AI player, vector<Build> build, int num); 
+ public:
+  void display(Player player, vector<Build> build, int num);
   
-  static string convert(int num);
+  void display(AI player, vector<Build> build, int num); 
+  
+ private:
+  string convert(int num);
 
 };

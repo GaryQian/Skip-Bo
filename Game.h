@@ -17,8 +17,9 @@ class Game {
   
   Game();
 
-  //Mutator functions
   void nextTurn();
+
+  std::vector<Build> getBuild();
   
   bool hasEnded();
   

@@ -26,7 +26,7 @@ Player.o: Display.cpp Display.h Player.cpp Player.h Build.o Build.cpp Deck.cpp D
 	$(CC) $(CXXFLAGS) -c Player.cpp -o Player.o
 
 SkipBoMain.o: Game.h Game.cpp Display.cpp Display.h Player.o Player.cpp Player.h Build.o Build.cpp Deck.cpp Deck.o Stock.cpp Stock.o Draw.cpp Draw.o Hand.cpp Hand.o
-	$(CC) $(CXXFLAGS) -c Display.cpp -o Display.o
+	$(CC) $(CXXFLAGS) -c SkipBoMain.cpp -o SkipBoMain.o
 
 skipbo: Game.o Deck.o Display.o Game.o Player.o SkipBoMain.o
 	$(CC) $(CXXFLAGS) Game.o Deck.o Display.o Game.o Player.o SkipBoMain.o -o skipbo

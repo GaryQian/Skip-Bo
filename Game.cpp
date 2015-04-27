@@ -14,6 +14,8 @@ Game::Game(vector<string> names){
   string name;
   turn = 0;
 
+  d->shuffle();
+
   if (names.size() < 5){
     stockSize = 30;
   }
@@ -43,6 +45,10 @@ Game::Game(vector<string> names){
   for(int i = 0; i < 4; i++){
     build.push_back(*(new Build()));
   }
+}
+
+vector<Build> Game::getBuild(){
+  return build;
 }
 
 void Game::nextTurn(){
