@@ -48,6 +48,8 @@ void Deck::operator +=(vector<int> list) throw (std::invalid_argument){
     if (*it < 0 || *it > 12)
       throw std::invalid_argument("Invalid card value.\n");
   }
+
+  //if no invalid card values, then append the list to cards
   vector<int> newCards;
   newCards.reserve(getSize() + list.size());
   newCards.insert(newCards.end(), cards.begin(), cards.end());
