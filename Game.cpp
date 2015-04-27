@@ -30,10 +30,10 @@ Game::Game(vector<string> names){
     }
 
     if(name.substr(0,3) == "AI "){
-      players.push_back(*(new AI(name, d, &build, s)));
+      players.push_back(new AI(name, d, &build, s));
     }
     else{
-      players.push_back(*(new HumanPlayer(name, d, &build, s)));
+      players.push_back(new HumanPlayer(name, d, &build, s));
     }
     names.pop_back();
   }
@@ -47,7 +47,7 @@ Game::Game(vector<string> names){
 
 void Game::nextTurn(){
   turn++;
-  if (5 - players[(turn-1)%players.size()].getHand().getSize() > draw.getSize()){
+  if (5 - getPlayer()->getHand().getSize() > draw.getSize()){
     vector<int> left;
     left.resize(draw.getSize());
     
@@ -64,7 +64,7 @@ void Game::nextTurn(){
 }
 
 bool Game::hasEnded(){
-  return players[(turn-1)%players.size()].hasWon();
+  return getPlayer()->hasWon();
 }
 
 void Game::save_game(string filename){
@@ -74,7 +74,7 @@ void Game::save_game(string filename){
   outFile << numP << endl;
   
   for(int i = 0; i < numP; i++){
-    outFile << players[i].getName() << endl;
+    outFile << players[i]->getName() << endl;
   }
   
   outFile << draw.toString() << endl;
@@ -85,14 +85,14 @@ void Game::save_game(string filename){
   outFile << endl;
 
   for(int i = 0; i < numP; i++){
-    outFile << players[i].getHand().toString() << endl;
+    outFile << players[i]->getHand().toString() << endl;
     
     for(int j = 0; j < 4; j++){
-      outFile << (players[i].getDiscard())[j].toString() << -1 << " ";
+      outFile << (players[i]->getDiscard())[j].toString() << -1 << " ";
     }
     outFile << endl;
 
-    outFile << players[i].getStock().toString() << endl;
+    outFile << players[i]->getStock().toString() << endl;
   }
 
   outFile << move.size() << endl;
@@ -160,10 +160,10 @@ void Game::load_game(string filename){
     }
 
     if (name.substr(0,3) == "AI "){
-      players.push_back(*(new AI(name, &draw, &build, *s, *h, discard)));
+      players.push_back(new AI(name, &draw, &build, *s, *h, discard));
     }
     else {
-      players.push_back(*(new HumanPlayer(name, &draw, &build, *s, *h, discard)));
+      players.push_back(new HumanPlayer(name, &draw, &build, *s, *h, discard));
     }
     
   }
@@ -197,7 +197,7 @@ void Game::process(string input){
     input = input.substr(1);
     m.source = source;
     m.sourceIndex = 0;
-    m.value = players[(turn-1)%players.size()].getStock().getTop();
+    m.value = getPlayer()->getStock().getTop();
   }
   else if (source == 'd'){
     m.source = source;
@@ -207,7 +207,7 @@ void Game::process(string input){
       return;
     }
     input = input.substr(2);
-    m.value = players[(turn-1)%players.size()].getDiscard()[m.sourceIndex].getTop();
+    m.value = getPlayer()->getDiscard()[m.sourceIndex].getTop();
   }
   else if (source == 'h'){
     m.source = source;
@@ -217,7 +217,7 @@ void Game::process(string input){
       return;
     }
     input = input.substr(2);
-    m.value = players[turn%players.size()].getHand().at(m.sourceIndex);
+    m.value = getPlayer()->getHand().at(m.sourceIndex);
   }
   else{
     cout << "Invalid card source" << endl;
@@ -260,53 +260,35 @@ void Game::process(string input){
 
 //Modifies Player's cards based on the move provided
 void Game::play(Move m){
-  players[turn%players.size()].move(m);
+  getPlayer()->move(m);
 }
 
 bool Game::AIPlaying() {
-  return players.at(turn%players.size()).isAI();	
+  return getPlayer()->isAI();	
 }
   
-HumanPlayer Game::getPlayer() {	
-  return players.at(turn%players.size());
+Player* Game::getPlayer() {	
+  return players.at((turn-1)%players.size());
 }
 
 bool Game::canMove() {
 	vector<int> validNums;
 	for (int i = 0; i < 4; ++i) {
-		if (*(getPlayer().build).at(i).getTop() != -1) {
-			validNums.push_back(*build[i].getTop() + 1);
-		}
-	}
-	vector<string> moves;
-	string* temp;
-	for (int i = 0; i < hand.getSize(); ++i) {
-		if (contains(validNums, *(getPlayer().build).hand.at(i))) {
-			temp = new string("h");
-			*temp += convert(i + 1);
-			moves.push_back(*temp);
-		}
+	  validNums.push_back(build[i].getSize()%12 + 1);
 	}
 	
-	for (int i = 0; i < 4; ++i) {
-		if (contains(validNums, *(getPlayer().build).at(i).getTop())) {
-			temp = new string("d");
-			*temp += convert(i + 1);
-			moves.push_back(*temp);
-		}
+	for (int i = 0; i < getPlayer()->getHand().getSize(); ++i) {
+	  if (contains(validNums, getPlayer()->getHand().at(i))) {
+	    return true;
+	  }
 	}
-	int movenum = moves.size();
-	for (int i = 0; i < moves.size(); ++i) {
-		delete moves.at(i);
-	}
-	if (movenu.size == 0) return false;
-	return true;
+	return false;
 }
 
 bool Game::contains(vector<int> vec, int num) {
 	if (num == 0) return true;
-	for (int j = 0; j < vec.size(); ++j) {
-		if (hand.at(i) == vec.at(j)) {
+	for (unsigned long j = 0; j < vec.size(); ++j) {
+		if (num == vec.at(j)) {
 			return true;
 		}
 	}

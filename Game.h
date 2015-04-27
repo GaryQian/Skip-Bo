@@ -6,7 +6,7 @@
 
 class Game {
  private:
-  std::vector<Player> players;
+  std::vector<Player*> players;
   std::vector<Move> move;
   std::vector<Build> build;
   Draw draw;
@@ -33,7 +33,7 @@ class Game {
   
   bool AIPlaying();
   
-  HumanPlayer getPlayer();
+  Player* getPlayer();
   
   bool canMove();
   
