@@ -208,7 +208,7 @@ void Display::display(HumanPlayer player, vector<Build> build, int num) {
 }
 
 void Display::display(AI player, vector<Build> build, int num) {
-  display(player, build, num);
+  display((HumanPlayer) player, build, num);
 }
 
 string Display::convert(int num) {

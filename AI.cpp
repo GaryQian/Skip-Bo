@@ -1,7 +1,6 @@
 #include "Player.h"
 #include "Deck.h"
 #include "Display.h"
-#include "AI.h"
 #include <string>
 #include <vector>
 #include <ctime>
@@ -99,4 +98,8 @@ int AI::find(vector<int> vec, int num) {
 		}
 	}
 	return -1;
+}
+
+operator HumanPlayer() {
+	return HumanPlayer(name, draw, build, stock, hand, discard);
 }
