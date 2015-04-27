@@ -26,6 +26,8 @@ Player::Player(string name, Draw* draw, vector<Build>* build, Stock stock, Hand 
   this->discard = discard;
 
   deal();
+
+ public:
   isAnAI = false;
 }
 
