@@ -34,7 +34,7 @@ SkipBoMain.o: Game.h Game.cpp Display.cpp Display.h Player.o Player.cpp Player.h
 	$(CC) $(CXXFLAGS) -c SkipBoMain.cpp -o SkipBoMain.o
 
 skipbo: Game.o Deck.o Display.o Game.o Player.o SkipBoMain.o
-	$(CC) $(CXXFLAGS) Game.o Deck.o Display.o Player.o SkipBoMain.o -o skipbo
+	$(CC) $(CXXFLAGS) Game.o Deck.o Stock.o Hand.o Build.o Draw.o AI.o HumanPlayer.o Discard.o Display.o Player.o SkipBoMain.o -o skipbo
 
 clean: 
 	rm -f *~ *.o *# *.gcov *.gch a.out DeckTest PlayerTest

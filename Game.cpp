@@ -32,15 +32,13 @@ Game::Game(vector<string> names, vector<int> arrangement){
     name = names.back();
     
     Stock* s = new Stock();
-    for(int i = 0; i < stockSize; i++){
-      d->Deck::move(*s);
-    }
+    d->move(*s, stockSize);
 
     if(name.substr(0,3) == "AI "){
-      players.push_back(new AI(name, d, &build, s));
+      players.push_back(new AI(name, d, &build, *s));
     }
     else{
-      players.push_back(new HumanPlayer(name, d, &build, s));
+      players.push_back(new HumanPlayer(name, d, &build, *s));
     }
     names.pop_back();
   }
