@@ -12,11 +12,17 @@ DeckTest: DeckTest.o Deck.o
 PlayerTest: PlayerTest.o Player.o
 	$(CC) $(CXXFLAGS) -o PlayerTest PlayerTest.o Player.o Deck.o Build.o Hand.o Draw.o Discard.o Stock.o
 
+GameTest: GameTest.o Game.o Display.o
+	$(CC) $(CXXFLAGS) -o GameTest GameTest.o Game.o Player.o Display.o AI.o HumanPlayer.o Build.o Hand.o Draw.o Discard.o Stock.o Deck.o 
+
 DeckTest.o: DeckTest.cpp Deck.h
 	$(CC) $(CXXFLAGS) -c DeckTest.cpp
 
 PlayerTest.o: PlayerTest.cpp Player.h
 	$(CC) $(CXXFLAGS) -c PlayerTest.cpp
+
+GameTest.o: GameTest.cpp Game.h
+	$(CC) $(CXXFLAGS) -c GameTest.cpp
 
 Deck.o: Deck.h Deck.cpp Draw.cpp Build.cpp Hand.cpp Discard.cpp Stock.cpp
 	$(CC) $(CXXFLAGS) -c Deck.cpp Draw.cpp Build.cpp Hand.cpp Discard.cpp Stock.cpp

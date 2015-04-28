@@ -27,9 +27,9 @@ Game::Game(vector<string> names, vector<int> arrangement){
   else{
     stockSize = 20;
   }
-
-  while(names.size()){
-    name = names.back();
+  
+  for(unsigned long i = 0; i < names.size(); i++){
+    name = names[i];
     
     Stock* s = new Stock();
     d->move(*s, stockSize);
@@ -40,7 +40,6 @@ Game::Game(vector<string> names, vector<int> arrangement){
     else{
       players.push_back(new HumanPlayer(name, d, &build, *s));
     }
-    names.pop_back();
   }
 
   draw = *d;
@@ -56,6 +55,7 @@ vector<Build> Game::getBuild(){
 
 void Game::nextTurn(){
   turn++;
+  cout << "Name of player is " << getPlayer()->getName() << endl;
   if (5 - getPlayer()->getHand().getSize() > draw.getSize()){
     vector<int> left;
     left.resize(draw.getSize());
@@ -277,7 +277,7 @@ bool Game::AIPlaying() {
   return getPlayer()->isAI();	
 }
   
-Player* Game::getPlayer() {	
+Player* Game::getPlayer() {
   return players.at((turn-1)%players.size());
 }
 

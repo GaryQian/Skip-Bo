@@ -22,21 +22,25 @@ public:
     assert(g->players.at(3)->getName() == "Kathleen");
 
     assert(g->build.size() == 4);
-    assert(!g->build.at(0)->getSize());
-    assert(!g->build.at(1)->getSize());
-    assert(!g->build.at(2)->getSize());
-    assert(!g->build.at(3)->getSize());
+    assert(!g->build.at(0).getSize());
+    assert(!g->build.at(1).getSize());
+    assert(!g->build.at(2).getSize());
+    assert(!g->build.at(3).getSize());
 
     assert(!g->move.size());
 
-    assert(g->players.at(0)->getStock()->getSize() == 30);
-    assert(g->players.at(1)->getStock()->getSize() == 30);
-    assert(g->players.at(2)->getStock()->getSize() == 30);
-    assert(g->players.at(3)->getStock()->getSize() == 30);
-    
-    assert(g->players.at(0)->
+    assert(g->players.at(0)->getStock().getSize() == 30);
+    assert(g->players.at(1)->getStock().getSize() == 30);
+    assert(g->players.at(2)->getStock().getSize() == 30);
+    assert(g->players.at(3)->getStock().getSize() == 30);
 
-    delete g;
+    cout << g->draw.toString() << endl;
+    cout << g->players.at(0)->getStock().toString() << endl;
+    cout << g->players.at(1)->getStock().toString() << endl;
+    cout << g->players.at(2)->getStock().toString() << endl;
+    cout << g->players.at(3)->getStock().toString() << endl;
+    
+    
   }
   
 };
