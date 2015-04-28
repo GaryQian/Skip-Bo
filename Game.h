@@ -15,7 +15,7 @@ class Game {
   
  public:
   //regular constructor
-  Game(std::vector<std::string> names, std::vector<int> arrangement); 
+  Game(std::vector<std::string> names, std::vector<int> arrangement = {}); 
   
   //regular destructor
   ~Game();

@@ -88,6 +88,9 @@ public:
     //turn is 0
     assert(!g->turn);
     
+    names.push_back("Adam");
+    g1 = new Game(names);
+
     //empty constructor for game
     Game* g2 = new Game();
     //most variables are NULL or empty or 0
