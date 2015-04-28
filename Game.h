@@ -2,6 +2,7 @@
 #include <string>
 #include "Player.h"
 #include "Move.h"
+#include <stdexcept>
 
 class Game {
   friend class GameTest;
@@ -22,15 +23,14 @@ class Game {
   //constructor that sets every variable to 0 or NULL
   Game();
   
-
   //This method increments turn and allows next player to draw cards until size of hand is 5. Also refills the draw pile if insufficient cards to refill hand
   void nextTurn();
 
   //checks if stock of player whose turn just ended is 0
-  bool hasEnded();
+  bool hasEnded() const;
 
   //saves the game by writing all data into a file whose name is specified by the string parameter
-  void save_game(string filename);
+  void save_game(string filename) const;
 
   //loads a previous game by reading all the data from a file whose name is specified by the string parameter. May throw exception if file not found
   void load_game(string filename);
@@ -42,14 +42,14 @@ class Game {
   void play(Move m);
 
   //Checks if current player is AI
-  bool AIPlaying();
+  bool AIPlaying() const;
 
   //Returns a pointer to the current player
-  Player* getPlayer();
+  Player* getPlayer() const;
 
   //Checks hand and stock of current player and the build pile to see if there are valid moves remaining 
-  bool canMove();
+  bool canMove() const;
 
   //checks if num is found within the vector of ints
-  bool contains(vector<int> vec, int num);
+  bool contains(vector<int> vec, int num) const;
 };

@@ -1,6 +1,7 @@
 #include "Game.h"
 #include <iostream>
 #include <fstream>
+#include <cassert>
 
 using std::cout;
 using std::endl;
@@ -70,11 +71,11 @@ void Game::nextTurn(){
   getPlayer()->drawCards();
 }
 
-bool Game::hasEnded(){
+bool Game::hasEnded() const{
   return getPlayer()->hasWon();
 }
 
-void Game::save_game(string filename){
+void Game::save_game(string filename) const{
   int numP = players.size();
   std::ofstream outFile(filename);
 
@@ -87,19 +88,19 @@ void Game::save_game(string filename){
   outFile << draw.toString() << endl;
 
   for(int i = 0; i < 4; i++){
-    outFile << build[i].toString() << -1 << " ";
+    outFile << build[i] << -1 << " ";
   }
   outFile << endl;
 
   for(int i = 0; i < numP; i++){
-    outFile << players[i]->getHand().toString() << endl;
+    outFile << players[i]->getHand() << endl;
     
     for(int j = 0; j < 4; j++){
-      outFile << (players[i]->getDiscard())[j].toString() << -1 << " ";
+      outFile << (players[i]->getDiscard())[j] << -1 << " ";
     }
     outFile << endl;
 
-    outFile << players[i]->getStock().toString() << endl;
+    outFile << players[i]->getStock() << endl;
   }
 
   outFile << move.size() << endl;
@@ -192,10 +193,7 @@ void Game::load_game(string filename){
 }
 
 void Game::process(string input){
-  if (input.length() < 4){
-    cout << "Invalid input" << endl;
-    return;
-  }
+  if (input.length() < 4) throw std::invalid_argument("Invalid input length\n");
 
   char source = input.at(0);
   Move m;
@@ -205,36 +203,29 @@ void Game::process(string input){
     m.source = source;
     m.sourceIndex = 0;
     m.value = getPlayer()->getStock().getTop();
+    if (input.at(0) != ' ') throw std::invalid_argument("Stock does not take an index\n");
   }
   else if (source == 'd'){
     m.source = source;
     m.sourceIndex = (input.at(1) - '0')-1;
-    if (m.sourceIndex > 3){
-      cout << "invalid index" << endl;
-      return;
-    }
+    if (m.sourceIndex > 3 || m.sourceIndex < 0) throw std::invalid_argument("Invalid discard pile index\n");
     input = input.substr(2);
     m.value = getPlayer()->getDiscard()[m.sourceIndex].getTop();
   }
   else if (source == 'h'){
     m.source = source;
     m.sourceIndex = (input.at(1) - '0')-1;
-    if (m.sourceIndex > 4){
-      cout << "invalid index" << endl;
-      return;
-    }
+    if (m.sourceIndex < 0 || m.sourceIndex > 3 || m.sourceIndex > getPlayer()->getHand().getSize() - 1) throw std::invalid_argument("Invalid hand index\n");
     input = input.substr(2);
     m.value = getPlayer()->getHand().at(m.sourceIndex);
   }
-  else{
-    cout << "Invalid card source" << endl;
-    return;
+  else {
+  throw std::invalid_argument("Unknown card source\nNote: possible sources are (h = hand, s = stock, d = deck)\n");
   }
 
-  if (input.at(0) != ' '){
-    cout << "source and destination must be separated with a single whitespace"<< endl;
-    return;
-  }
+
+  if (input.at(0) != ' ') throw std::invalid_argument("source and destination must be separated by a single whitespace");
+  
 
   char dest  = input.at(1);
   int destIndex = 0;
@@ -270,15 +261,15 @@ void Game::play(Move m){
   getPlayer()->move(m);
 }
 
-bool Game::AIPlaying() {
+bool Game::AIPlaying() const{
   return getPlayer()->isAI();	
 }
   
-Player* Game::getPlayer() {
+Player* Game::getPlayer() const{
   return players.at((turn-1)%players.size());
 }
 
-bool Game::canMove() {
+bool Game::canMove() const{
 	vector<int> validNums;
 	for (int i = 0; i < 4; ++i) {
 	  validNums.push_back(build[i].getSize()%12 + 1);
@@ -292,7 +283,7 @@ bool Game::canMove() {
 	return false;
 }
 
-bool Game::contains(vector<int> vec, int num) {
+bool Game::contains(vector<int> vec, int num) const{
 	if (num == 0) return true;
 	for (unsigned long j = 0; j < vec.size(); ++j) {
 		if (num == vec.at(j)) {

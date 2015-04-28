@@ -5,12 +5,19 @@
 using std::vector;
 using std::cout;
 using std::endl;
+using std::invalid_argument;
 
 class GameTest{
 
   Game* g;
+  Game* g1;
 
 public:
+  ~GameTest(){
+    delete g;
+    delete g1;
+  }
+
   void constructorTest(){
     vector<int> arrange;
 
@@ -63,6 +70,7 @@ public:
     assert(g->players.at(1)->getStock().getTop() == 12);
     assert(g->players.at(2)->getStock().getTop() == 6);
     assert(g->players.at(3)->getStock().getTop() == 12);
+    assert(g->draw.getSize() == 42);
     assert(g->draw.getTop() == 1);
 
     //each player has 0 cards in hand since they only draw during their turn
@@ -95,12 +103,36 @@ public:
     delete g2;
   }
 
-  void helperTest(){
+  void ProcessTest(){
     g->nextTurn();
     assert(g->turn == 1);
     assert(g->getPlayer()->getName() == "Matthew");
     assert(g->getPlayer()->getHand().getSize() == 5);
     assert(g->getPlayer()->getHand().toString() == "1 2 3 4 5 ");
+    assert(g->draw.getSize() == 37);
+    assert(g->draw.getTop() == 6);
+    
+    try {g->process("a");}
+    catch (invalid_argument &e) {assert(string(e.what()) == "Invalid input length\n");}
+    
+    try {g->process("fa bcd");}
+    catch (invalid_argument &e) {assert(string(e.what()) == "Unknown card source\nNote: possible sources are (h = hand, s = stock, d = deck)\n");}
+				  
+    try {g->process("d5 b4");}
+    catch (invalid_argument &e) {assert(string(e.what()) == "Invalid discard pile index\n");}
+ 
+    try {g->process("d0 b4");}
+    catch (invalid_argument &e) {assert(string(e.what()) == "Invalid discard pile index\n");}
+
+    try {g->process("da b4");}
+    catch (invalid_argument &e) {assert(string(e.what()) == "Invalid discard pile index\n");}
+
+    try {g->process("s1 b4");}
+    catch (invalid_argument &e) {assert(string(e.what()) == "Stock does not take an index\n");}
+    
+    try {g->process("h b1");}
+    catch (invalid_argument &e) {assert(string(e.what()) == "Invalid hand index\n");}
+
   }
   
 };
@@ -110,7 +142,8 @@ int main(){
   cout << "Running constructor tests" << endl;
   gt.constructorTest();
   cout << "Passed constructor tests" << endl;
-  cout << "Running helper method tests" << endl;
-  gt.helperTest();
-  cout << "Passed helper method tests" << endl;
+  cout << "Running process method tests" << endl;
+  gt.ProcessTest();
+  cout << "Passed process method tests" << endl;
+  return 0;
 }
