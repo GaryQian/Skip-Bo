@@ -9,8 +9,7 @@ using std::string;
 using std::getline;
 
 Game::Game() {
-	turn = 0;
-	
+  turn = 0;
 }
 
 Game::Game(vector<string> names, vector<int> arrangement){
@@ -47,10 +46,6 @@ Game::Game(vector<string> names, vector<int> arrangement){
   for(int i = 0; i < 4; i++){
     build.push_back(*(new Build()));
   }
-}
-
-vector<Build> Game::getBuild(){
-  return build;
 }
 
 void Game::nextTurn(){
@@ -305,6 +300,4 @@ bool Game::contains(vector<int> vec, int num) {
 	return false;
 }
 
-int Game::getPlayerNumber() {
-	return (turn-1)%players.size();
-}
+ 

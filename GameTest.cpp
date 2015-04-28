@@ -34,13 +34,24 @@ public:
     assert(g->players.at(2)->getStock().getSize() == 30);
     assert(g->players.at(3)->getStock().getSize() == 30);
 
-    cout << g->draw.toString() << endl;
-    cout << g->players.at(0)->getStock().toString() << endl;
-    cout << g->players.at(1)->getStock().toString() << endl;
-    cout << g->players.at(2)->getStock().toString() << endl;
-    cout << g->players.at(3)->getStock().toString() << endl;
+    assert(g->players.at(0)->getStock().getTop() == 6);
+    assert(g->players.at(1)->getStock().getTop() == 12);
+    assert(g->players.at(2)->getStock().getTop() == 6);
+    assert(g->players.at(3)->getStock().getTop() == 12);
     
+    assert(!g->players.at(0)->getHand().getSize());
+    assert(!g->players.at(1)->getHand().getSize());
+    assert(!g->players.at(2)->getHand().getSize());
+    assert(!g->players.at(3)->getHand().getSize());
+
+    assert(!g->turn);
     
+    Game* g2 = new Game();
+    assert(!g2->players.size());
+    assert(!g2->move.size());
+    assert(!g2->build.size());
+    assert(!g2->turn);
+    assert(g2->draw.getSize() == 162);
   }
   
 };
