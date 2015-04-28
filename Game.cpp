@@ -12,13 +12,18 @@ Game::Game() {
   turn = 0;
 }
 
-Game::Game(vector<string> names, vector<int> arrangement){
-  Draw* d = new Draw(); 
+Game::~Game() {
+  for (unsigned long i = 0; i < players.size(); i++){
+    delete players[i];
+  } 
+}
+
+Game::Game(vector<string> names, vector<int> arrangement){ 
   int stockSize = 0;
   string name;
   turn = 0;
 
-  d->shuffle(arrangement);
+  draw.shuffle(arrangement);
 
   if (names.size() < 5){
     stockSize = 30;
@@ -30,27 +35,24 @@ Game::Game(vector<string> names, vector<int> arrangement){
   for(unsigned long i = 0; i < names.size(); i++){
     name = names[i];
     
-    Stock* s = new Stock();
-    d->move(*s, stockSize);
+    Stock s;
+    draw.move(s, stockSize);
 
     if(name.substr(0,3) == "AI "){
-      players.push_back(new AI(name, d, &build, *s));
+      players.push_back(new AI(name, &draw, &build, s));
     }
     else{
-      players.push_back(new HumanPlayer(name, d, &build, *s));
+      players.push_back(new HumanPlayer(name, &draw, &build, s));
     }
   }
 
-  draw = *d;
-
   for(int i = 0; i < 4; i++){
-    build.push_back(*(new Build()));
+    build.push_back(Build());
   }
 }
 
 void Game::nextTurn(){
   turn++;
-  cout << "Name of player is " << getPlayer()->getName() << endl;
   if (5 - getPlayer()->getHand().getSize() > draw.getSize()){
     vector<int> left;
     left.resize(draw.getSize());

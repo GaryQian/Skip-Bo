@@ -10,6 +10,7 @@ HumanPlayer::HumanPlayer(string name, Draw* draw, vector<Build>* build, Stock st
   this->name = name;
   this->build = build;
   this->stock = stock;
+  discard.resize(4);
   isAnAI = false;
 
 }
@@ -22,6 +23,8 @@ HumanPlayer::HumanPlayer(string name, Draw* draw, vector<Build>* build, Stock st
   this->hand = hand;
   this->discard = discard;
 }
+
+HumanPlayer::~HumanPlayer(){}
 
 /*HumanPlayer::HumanPlayer(Player& player) {
   this->draw = draw;

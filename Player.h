@@ -19,17 +19,14 @@ class Player {
   //reference to higher level data
   vector<Build>* build;
 	
-  Draw* draw;
-
-  //Constructor
-  Player(string name, Draw* draw, vector<Build>* build, Stock stock);
-  Player(string name, Draw* draw, vector<Build>* build, Stock stock, Hand hand, vector<Discard> discard);
-  Player();
-  
+  Draw* draw;  
   friend class HumanPlayer;
   friend class AI;
 
- public:	
+ public:
+  //Destructor
+  virtual ~Player();
+	
   //Methods
   void drawCards();
   bool move(Move yourMove);
@@ -48,8 +45,14 @@ class Player {
 class HumanPlayer: public Player {
 
  public:
+
+  //constructors
   HumanPlayer(string name, Draw* draw, vector<Build>* build, Stock stock);
   HumanPlayer(string name, Draw* draw, vector<Build>* build, Stock stock, Hand hand, vector<Discard> discard);
+
+  //destructor
+  ~HumanPlayer();
+
   string getMove();
   //AI operator AI();
 
@@ -59,8 +62,13 @@ class AI: public Player {
   int seed;
 
  public:
+  //constructor
   AI(string name, Draw* draw, vector<Build>* build, Stock stock);
   AI(string name, Draw* draw, vector<Build>* build, Stock stock, Hand hand, vector<Discard> discard);
+
+  //destructor
+  ~AI();
+
   string getMove();
   bool contains(vector<int> vec, int num);
   int find(vector<int> vec, int num);

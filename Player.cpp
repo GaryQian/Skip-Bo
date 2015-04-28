@@ -5,38 +5,7 @@
 using std::string;
 using std::vector;
 
-//Constructors for player
-Player::Player(string name, Draw* draw, vector<Build>* build, Stock stock) {
-  this->draw = draw;
-  this->name = name;
-  this->build = build;
-  this->stock = stock;
-  
-  //deal();
-  isAnAI = false;
-}
-
-Player::Player(string name, Draw* draw, vector<Build>* build, Stock stock, Hand hand, vector<Discard> discard) {
-  this->draw = draw;
-  this->name = name;
-  this->build = build;
-  this->stock = stock;
-  this->hand = hand;
-  this->discard = discard;
-
-//<<<<<<< Updated upstream
-  //deal();
-
- //public:
-//=======
-  //  deal();
-//>>>>>>> Stashed changes
-  isAnAI = false;
-}
-
-Player::Player() {
-	
-}
+Player::~Player(){}
 
 void Player::drawCards(){
   while(hand.getSize() < 5){

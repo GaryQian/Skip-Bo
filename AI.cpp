@@ -20,7 +20,7 @@ AI::AI(string name, Draw* draw, vector<Build>* build, Stock stock) {
 	this->name = name;
 	this->build = build;
 	this->stock = stock;
-  
+	discard.resize(4);
 
 	seed = time(NULL);
 	isAnAI = true;
@@ -36,6 +36,8 @@ AI::AI(string name, Draw* draw, vector<Build>* build, Stock stock, Hand hand, ve
   seed = time(NULL);
   isAnAI = true;
 }
+
+AI::~AI(){}
 
 string AI::getMove() {
 	Display d;
