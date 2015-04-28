@@ -30,29 +30,26 @@ int main(){
 		game->load_game(input);
 	}
 	else {
-    	        //Else, begins a new game
-		
-		cout << "How many players? (Enter Integer):" << endl;
-		cin >> players;
-		
-		names.resize(players);
-		
-		for(int i = 0; i < players; i++){
-			cout << "Enter name of player " << i+1 << ". If player is an AI, prefix with \"AI \"." << endl;
-			cin >> names[ i ];
-		}
+	  //Else, begins a new game
+	  
+	  cout << "How many players? (Enter Integer):" << endl;
+	  cin >> players;
+	  
+	  names.resize(players);
+	  
+	  for(int i = 0; i < players; i++){
+	    cout << "Enter name of player " << i+1 << ". If player is an AI, prefix with \"AI \"." << endl;
+	    cin >> names[ i ];
+	    game = new Game(names);
+	  }
 	}	
-	game = new Game(names);
-	
 	while (!game->hasEnded()) {
-		game->nextTurn();
-		while (game->canMove()) {
-			d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber());
-			input = game->getPlayer()->getMove();
-			game->process(input);
-		}
-		
-		
+	  game->nextTurn();
+	  while (game->canMove()) {
+	    d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber());
+	    input = game->getPlayer()->getMove();
+	    game->process(input);
+	  } 
 	}
 	
 }

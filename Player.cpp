@@ -38,6 +38,12 @@ Player::Player() {
 	
 }
 
+void Player::drawCards(){
+  while(hand.getSize() < 5){
+    draw->move(hand, 5 - hand.getSize());
+  }
+}
+
 bool Player::move(Move yourMove) {
   //source card is stockpile
   if (yourMove.source == 's') {  

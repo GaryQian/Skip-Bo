@@ -31,7 +31,7 @@ class Player {
 
  public:	
   //Methods
-  void deal();
+  void drawCards();
   bool move(Move yourMove);
   bool hasWon();
   //  bool playCard(Deck a, Deck b);

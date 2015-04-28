@@ -70,6 +70,7 @@ void Game::nextTurn(){
 
     draw+=left;
   } 
+  getPlayer()->drawCards();
 }
 
 bool Game::hasEnded(){
