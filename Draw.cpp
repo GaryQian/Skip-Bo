@@ -32,13 +32,7 @@ void Draw::move(Hand& hand, int num) throw(std::invalid_argument){
     toMove.push_back(takeCard());
   }
 
-  try {
-  hand += toMove;
-  }
-  catch(std::invalid_argument & e){
-    *this += toMove;
-  }
-  
+  hand += toMove;  
 }
 
 void Draw::move(Stock& stock, int num) throw(std::invalid_argument){
