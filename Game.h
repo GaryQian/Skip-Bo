@@ -46,6 +46,12 @@ class Game {
 
   //Returns a pointer to the current player
   Player* getPlayer() const;
+  
+  //returns the index of the current player
+  int getPlayerNumber();
+  
+  //return the build vector
+  vector<Build> getBuild();
 
   //Checks hand and stock of current player and the build pile to see if there are valid moves remaining 
   std::vector<Move*> canMove() const;

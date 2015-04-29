@@ -18,6 +18,11 @@ void Display::display(Player* player, vector<Build> build, int num) {
 	
 	string* temp;
 	
+	for (int i = 0; i < 10; ++i) {
+		temp = new string(" ");
+		out.push_back(*temp);
+	}
+	
 	temp = new string("=======Build Piles======");
 	out.push_back(*temp);
 	
@@ -59,7 +64,7 @@ void Display::display(Player* player, vector<Build> build, int num) {
 	
 	////////////////////////////////////
 	temp = new string("Player ");
-	*temp += convert(num);
+	*temp += convert(num + 1);
 	*temp += ": ";
 	*temp += player->getName();
 	*temp += "'s Turn";
@@ -187,6 +192,7 @@ void Display::display(Player* player, vector<Build> build, int num) {
 	else *temp += " │ ";
 	*temp += convert(player->getStock().getSize());
 	*temp += " cards left";
+	out.push_back(*temp);
 	
 	////////////////////////////////////
 	temp = new string("└───┘");

@@ -262,6 +262,7 @@ Player* Game::getPlayer() const{
   return players.at((turn-1)%players.size());
 }
 
+<<<<<<< HEAD
 vector<Move*> Game::canMove() const{
   vector<Move*> validMoves;
   int p = (turn-1)%players.size();
@@ -294,6 +295,28 @@ vector<Move*> Game::canMove() const{
   }
   
   return validMoves;
+=======
+int Game::getPlayerNumber() {
+	return (turn-1)%players.size();
+}
+
+vector<Build> Game::getBuild() {
+	return build;
+}
+
+bool Game::canMove() const{
+	vector<int> validNums;
+	for (int i = 0; i < 4; ++i) {
+	  validNums.push_back(build[i].getSize()%12 + 1);
+	}
+	
+	for (int i = 0; i < getPlayer()->getHand().getSize(); ++i) {
+	  if (contains(validNums, getPlayer()->getHand().at(i))) {
+	    return true;
+	  }
+	}
+	return false;
+>>>>>>> 05390af91f5875dddbf7d9ab89d7847fb1fe1030
 }
 
 bool Game::contains(vector<int> vec, int num) const{
