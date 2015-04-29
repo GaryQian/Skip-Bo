@@ -10,6 +10,7 @@ HumanPlayer::HumanPlayer(string name, Draw* draw, vector<Build>* build, Stock st
   this->name = name;
   this->build = build;
   this->stock = stock;
+  discard.resize(4);
   isAnAI = false;
 
 }
@@ -23,6 +24,8 @@ HumanPlayer::HumanPlayer(string name, Draw* draw, vector<Build>* build, Stock st
   this->discard = discard;
 }
 
+HumanPlayer::~HumanPlayer(){}
+
 /*HumanPlayer::HumanPlayer(Player& player) {
   this->draw = draw;
   this->name = name;
@@ -35,7 +38,7 @@ HumanPlayer::HumanPlayer(string name, Draw* draw, vector<Build>* build, Stock st
 
 string HumanPlayer::getMove() {
 	string temp;
-	cin >> temp;
+    	std::getline(cin, temp);
 	return temp;
 }
 

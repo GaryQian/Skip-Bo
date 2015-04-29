@@ -1,42 +1,16 @@
 #include "Player.h"
-
 #include <string>
 #include <vector>
 
 using std::string;
 using std::vector;
 
-//Constructors for player
-Player::Player(string name, Draw* draw, vector<Build>* build, Stock stock) {
-  this->draw = draw;
-  this->name = name;
-  this->build = build;
-  this->stock = stock;
-  
-  //deal();
-  isAnAI = false;
-}
+Player::~Player(){}
 
-Player::Player(string name, Draw* draw, vector<Build>* build, Stock stock, Hand hand, vector<Discard> discard) {
-  this->draw = draw;
-  this->name = name;
-  this->build = build;
-  this->stock = stock;
-  this->hand = hand;
-  this->discard = discard;
-
-//<<<<<<< Updated upstream
-  //deal();
-
- //public:
-//=======
-  //  deal();
-//>>>>>>> Stashed changes
-  isAnAI = false;
-}
-
-Player::Player() {
-	
+void Player::drawCards(){
+  while(hand.getSize() < 5){
+    draw->move(hand, 5 - hand.getSize());
+  }
 }
 
 bool Player::move(Move yourMove) {
@@ -44,14 +18,7 @@ bool Player::move(Move yourMove) {
   if (yourMove.source == 's') {  
     //destination of card is build 
     if (yourMove.dest == 'b') {
-      //Loops until the top card of build is skip-bo or the current-card - 1
-      int i = 0;
-      while((build->at(i).getTop() != (yourMove.value - 1)) || (build->at(i).getTop() != 0)) {
-	i++;
-      }
-      //Moves the card to the correct build pile
-      stock.move(build->at(i));
-    }
+      stock.move(build->at(yourMove.destIndex));}
     //destination of card is discard
     else if (yourMove.dest == 'd') {
       //Moves the card to the discard pile provided by user 
@@ -61,24 +28,15 @@ bool Player::move(Move yourMove) {
 
   //source card is discard
   else if (yourMove.source == 'd') {
-    //Destination must be a build pile
-    int i = 0;
-    while((build->at(i).getTop() != (yourMove.value - 1)) || (build->at(i).getTop() != 0)) {
-      i++;
-    }
     //Moves from the discard pile provided by user to the correct build pile
-    discard.at(yourMove.sourceIndex).move(build->at(i));
+    discard.at(yourMove.sourceIndex).move(build->at(yourMove.destIndex));
   }
 
   //source card is hand 
   else {
     if (yourMove.dest == 'b') {
-      int i = 0;
-      while((build->at(i).getTop() != (yourMove.value - 1)) || (build->at(i).getTop() != 0)) {
-	i++;
-      }
       //Moves from hand card provided by user to the correct build pile  
-      hand.move(build->at(i), yourMove.sourceIndex);
+      hand.move(build->at(yourMove.destIndex), yourMove.sourceIndex);
     }
     else if (yourMove.dest == 'd') {
       //Moves from the hand card to the discard pile whose index is provided by the user

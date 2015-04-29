@@ -1,6 +1,7 @@
 #include "Game.h"
 #include <iostream>
 #include <fstream>
+#include <cassert>
 
 using std::cout;
 using std::endl;
@@ -9,17 +10,24 @@ using std::string;
 using std::getline;
 
 Game::Game() {
-	turn = 0;
-	
+  turn = 0;
 }
 
-Game::Game(vector<string> names, vector<int> arrangement){
-  Draw* d = new Draw(); 
+Game::~Game() {
+  for (unsigned long i = 0; i < players.size(); i++){
+    delete players[i];
+  } 
+  for (unsigned long i = 0; i < move.size(); i++){
+    delete move[i];
+  }
+}
+
+Game::Game(vector<string> names, vector<int> arrangement){ 
   int stockSize = 0;
   string name;
   turn = 0;
 
-  d->shuffle(arrangement);
+  draw.shuffle(arrangement);
 
   if (names.size() < 5){
     stockSize = 30;
@@ -27,33 +35,24 @@ Game::Game(vector<string> names, vector<int> arrangement){
   else{
     stockSize = 20;
   }
-
-  while(names.size()){
-    name = names.back();
+  
+  for(unsigned long i = 0; i < names.size(); i++){
+    name = names[i];
     
-    Stock* s = new Stock();
-    for(int i = 0; i < stockSize; i++){
-      d->Deck::move(*s);
-    }
+    Stock s;
+    draw.move(s, stockSize);
 
     if(name.substr(0,3) == "AI "){
-      players.push_back(new AI(name, d, &build, s));
+      players.push_back(new AI(name, &draw, &build, s));
     }
     else{
-      players.push_back(new HumanPlayer(name, d, &build, s));
+      players.push_back(new HumanPlayer(name, &draw, &build, s));
     }
-    names.pop_back();
   }
-
-  draw = *d;
 
   for(int i = 0; i < 4; i++){
-    build.push_back(*(new Build()));
+    build.push_back(Build());
   }
-}
-
-vector<Build> Game::getBuild(){
-  return build;
 }
 
 void Game::nextTurn(){
@@ -72,13 +71,14 @@ void Game::nextTurn(){
 
     draw+=left;
   } 
+  getPlayer()->drawCards();
 }
 
-bool Game::hasEnded(){
+bool Game::hasEnded() const{
   return getPlayer()->hasWon();
 }
 
-void Game::save_game(string filename){
+void Game::save_game(string filename) const{
   int numP = players.size();
   std::ofstream outFile(filename);
 
@@ -91,25 +91,25 @@ void Game::save_game(string filename){
   outFile << draw.toString() << endl;
 
   for(int i = 0; i < 4; i++){
-    outFile << build[i].toString() << -1 << " ";
+    outFile << build[i] << -1 << " ";
   }
   outFile << endl;
 
   for(int i = 0; i < numP; i++){
-    outFile << players[i]->getHand().toString() << endl;
+    outFile << players[i]->getHand() << endl;
     
     for(int j = 0; j < 4; j++){
-      outFile << (players[i]->getDiscard())[j].toString() << -1 << " ";
+      outFile << (players[i]->getDiscard())[j] << -1 << " ";
     }
     outFile << endl;
 
-    outFile << players[i]->getStock().toString() << endl;
+    outFile << players[i]->getStock() << endl;
   }
 
   outFile << move.size() << endl;
 
   for(unsigned long i = 0; i < move.size(); i++){
-    outFile << move[i].player << " " << move[i].value << " " << move[i].source << " " << move[i].sourceIndex << " " << move[i].destIndex << " " << move[i].dest << " ";
+    outFile << move[i]->toString();
   }
   outFile << endl << turn << endl;
 }
@@ -182,13 +182,14 @@ void Game::load_game(string filename){
   inFile >> numMoves;
 
   for(int i = 0; i < numMoves; i++){
-    Move m;
-    inFile >> m.player;
-    inFile >> m.value;
-    inFile >> m.source;
-    inFile >> m.sourceIndex;
-    inFile >> m.destIndex;
-    inFile >> m.dest;
+    Move* m = new Move();
+    inFile >> m->player;
+    inFile >> m->value;
+    inFile >> m->source;
+    inFile >> m->dest;
+    inFile >> m->sourceIndex;
+    inFile >> m->destIndex;
+
     move.push_back(m);
   }
 
@@ -196,10 +197,7 @@ void Game::load_game(string filename){
 }
 
 void Game::process(string input){
-  if (input.length() < 4){
-    cout << "Invalid input" << endl;
-    return;
-  }
+  if (input.length() < 4) throw std::invalid_argument("Invalid input length\n");
 
   char source = input.at(0);
   Move m;
@@ -209,36 +207,30 @@ void Game::process(string input){
     m.source = source;
     m.sourceIndex = 0;
     m.value = getPlayer()->getStock().getTop();
+    if (input.at(0) != ' ') throw std::invalid_argument("Stock does not take an index\n");
   }
   else if (source == 'd'){
     m.source = source;
     m.sourceIndex = (input.at(1) - '0')-1;
-    if (m.sourceIndex > 3){
-      cout << "invalid index" << endl;
-      return;
-    }
+    if (m.sourceIndex > 3 || m.sourceIndex < 0) throw std::invalid_argument("Invalid discard pile index\n");
     input = input.substr(2);
     m.value = getPlayer()->getDiscard()[m.sourceIndex].getTop();
   }
   else if (source == 'h'){
     m.source = source;
     m.sourceIndex = (input.at(1) - '0')-1;
-    if (m.sourceIndex > 4){
-      cout << "invalid index" << endl;
-      return;
-    }
+    if (m.sourceIndex < 0 || m.sourceIndex > getPlayer()->getHand().getSize() - 1) throw std::invalid_argument("Invalid hand index\n");
     input = input.substr(2);
     m.value = getPlayer()->getHand().at(m.sourceIndex);
   }
-  else{
-    cout << "Invalid card source" << endl;
-    return;
+  else {
+  throw std::invalid_argument("Unknown card source\nNote: possible sources are (h = hand, s = stock, d = deck)\n");
   }
 
-  if (input.at(0) != ' '){
-    cout << "source and destination must be separated with a single whitespace"<< endl;
-    return;
-  }
+
+  if (input.at(0) != ' ' || input.at(1) == ' ') throw std::invalid_argument("Source and destination must be separated by a single whitespace\n");
+  
+  if (input.size() < 3) throw std::invalid_argument("Invalid input length\n");
 
   char dest  = input.at(1);
   int destIndex = 0;
@@ -247,24 +239,16 @@ void Game::process(string input){
     m.dest = dest;
     destIndex = (input.at(2) - '0')-1;
 
-    if (destIndex > 3){
-      cout << "Invalid index " << endl;
-      return;
-    }
+    if (destIndex > 3 || destIndex < 0) throw std::invalid_argument("Invalid index for destination\n");
 
     m.destIndex = destIndex;
   }
-  else{
-    cout << "Invalid destination" << endl;
-    return;
-  }
+  else throw std::invalid_argument("Unknown card destination\nNote: possible destinations are (d = discard, b = build pile)");
   
   if (dest == 'b' && m.value != 0){
-    if (build.at(destIndex).getTop()%12 != m.value - 1){
-      cout << "Invalid move" << endl;
-    }
+    if (build.at(destIndex).getSize()%12 != m.value - 1) throw std::invalid_argument("Source and destination do not match");
   }
-
+ 
   this->play(m);
   return;
 }
@@ -274,38 +258,54 @@ void Game::play(Move m){
   getPlayer()->move(m);
 }
 
-bool Game::AIPlaying() {
+bool Game::AIPlaying() const{
   return getPlayer()->isAI();	
 }
   
-Player* Game::getPlayer() {	
+Player* Game::getPlayer() const{
   return players.at((turn-1)%players.size());
 }
 
-bool Game::canMove() {
-	vector<int> validNums;
-	for (int i = 0; i < 4; ++i) {
-	  validNums.push_back(build[i].getSize()%12 + 1);
-	}
-	
-	for (int i = 0; i < getPlayer()->getHand().getSize(); ++i) {
-	  if (contains(validNums, getPlayer()->getHand().at(i))) {
-	    return true;
-	  }
-	}
-	return false;
-}
-
-bool Game::contains(vector<int> vec, int num) {
-	if (num == 0) return true;
-	for (unsigned long j = 0; j < vec.size(); ++j) {
-		if (num == vec.at(j)) {
-			return true;
-		}
-	}
-	return false;
+vector<Move*> Game::canMove() const{
+  vector<Move*> validMoves;
+  int p = (turn-1)%players.size();
+  
+  //checks all possible cards in hand
+  for (int i = 0; i < getPlayer()->getHand().getSize(); i++){
+    for (int j = 0; j < 4; j++){
+      //check all build piles if card in hand can be placed there
+      if (!getPlayer()->getHand().at(i) || getPlayer()->getHand().at(i) == build.at(j).getSize()%12+1){
+	validMoves.push_back(new Move(p, getPlayer()->getHand().at(i), 'h', 'b', i, j));   
+      }     
+    }
+  }
+  
+  //check all 4 discard piles
+  for (int i = 0; i < 4; i++){
+    //check if can be placed in any build pile
+    for (int j = 0; j < 4; j++){
+      if (!getPlayer()->getDiscard().at(i).getTop() || getPlayer()->getDiscard().at(i).getTop() == build.at(j).getSize()%12+1){
+	validMoves.push_back(new Move(p, getPlayer()->getDiscard().at(i).getTop(), 'd', 'b', i, j));
+      }
+    }
+  }
+  
+  //checks if stock can be placed in build pile
+  for (int i = 0; i < 4; i++){
+    if (!getPlayer()->getStock().getTop() || getPlayer()->getStock().getTop()== build.at(i).getSize()%12+1){
+      validMoves.push_back(new Move(p, getPlayer()->getStock().getTop(), 's', 'b', 0, i));
+    }
+  }
+  
+  return validMoves;
 }
 
 int Game::getPlayerNumber() {
 	return (turn-1)%players.size();
 }
+
+vector<Build> Game::getBuild() {
+	return build;
+}
+
+

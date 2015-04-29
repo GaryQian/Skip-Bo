@@ -2,6 +2,7 @@
 #include "Deck.h"
 
 class Display {
+  friend class AI;
   
  public:
   void display(Player* player, vector<Build> build, int num);
