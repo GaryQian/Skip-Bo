@@ -195,6 +195,9 @@ public:
   }
 
   void MoveTest(){
+    vector<Move*> choices = g->canMove();
+    assert(choices.size() == 1);
+    assert(choices.at(0)->toString() == "0 2 h b 0 0 ");
     
   }
   

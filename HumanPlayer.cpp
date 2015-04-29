@@ -38,7 +38,7 @@ HumanPlayer::~HumanPlayer(){}
 
 string HumanPlayer::getMove() {
 	string temp;
-	cin >> temp;
+    	std::getline(cin, temp);
 	return temp;
 }
 

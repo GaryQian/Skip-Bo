@@ -17,6 +17,9 @@ Game::~Game() {
   for (unsigned long i = 0; i < players.size(); i++){
     delete players[i];
   } 
+  for (unsigned long i = 0; i < move.size(); i++){
+    delete move[i];
+  }
 }
 
 Game::Game(vector<string> names, vector<int> arrangement){ 
@@ -106,7 +109,7 @@ void Game::save_game(string filename) const{
   outFile << move.size() << endl;
 
   for(unsigned long i = 0; i < move.size(); i++){
-    outFile << move[i].player << " " << move[i].value << " " << move[i].source << " " << move[i].sourceIndex << " " << move[i].destIndex << " " << move[i].dest << " ";
+    outFile << move[i]->toString();
   }
   outFile << endl << turn << endl;
 }
@@ -179,13 +182,14 @@ void Game::load_game(string filename){
   inFile >> numMoves;
 
   for(int i = 0; i < numMoves; i++){
-    Move m;
-    inFile >> m.player;
-    inFile >> m.value;
-    inFile >> m.source;
-    inFile >> m.sourceIndex;
-    inFile >> m.destIndex;
-    inFile >> m.dest;
+    Move* m = new Move();
+    inFile >> m->player;
+    inFile >> m->value;
+    inFile >> m->source;
+    inFile >> m->dest;
+    inFile >> m->sourceIndex;
+    inFile >> m->destIndex;
+
     move.push_back(m);
   }
 
@@ -215,7 +219,7 @@ void Game::process(string input){
   else if (source == 'h'){
     m.source = source;
     m.sourceIndex = (input.at(1) - '0')-1;
-    if (m.sourceIndex < 0 || m.sourceIndex > 3 || m.sourceIndex > getPlayer()->getHand().getSize() - 1) throw std::invalid_argument("Invalid hand index\n");
+    if (m.sourceIndex < 0 || m.sourceIndex > getPlayer()->getHand().getSize() - 1) throw std::invalid_argument("Invalid hand index\n");
     input = input.substr(2);
     m.value = getPlayer()->getHand().at(m.sourceIndex);
   }
@@ -262,7 +266,6 @@ Player* Game::getPlayer() const{
   return players.at((turn-1)%players.size());
 }
 
-<<<<<<< HEAD
 vector<Move*> Game::canMove() const{
   vector<Move*> validMoves;
   int p = (turn-1)%players.size();
@@ -295,7 +298,8 @@ vector<Move*> Game::canMove() const{
   }
   
   return validMoves;
-=======
+}
+
 int Game::getPlayerNumber() {
 	return (turn-1)%players.size();
 }
@@ -304,29 +308,4 @@ vector<Build> Game::getBuild() {
 	return build;
 }
 
-bool Game::canMove() const{
-	vector<int> validNums;
-	for (int i = 0; i < 4; ++i) {
-	  validNums.push_back(build[i].getSize()%12 + 1);
-	}
-	
-	for (int i = 0; i < getPlayer()->getHand().getSize(); ++i) {
-	  if (contains(validNums, getPlayer()->getHand().at(i))) {
-	    return true;
-	  }
-	}
-	return false;
->>>>>>> 05390af91f5875dddbf7d9ab89d7847fb1fe1030
-}
 
-bool Game::contains(vector<int> vec, int num) const{
-	if (num == 0) return true;
-	for (unsigned long j = 0; j < vec.size(); ++j) {
-		if (num == vec.at(j)) {
-			return true;
-		}
-	}
-	return false;
-}
-
- 

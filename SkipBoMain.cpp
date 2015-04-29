@@ -46,12 +46,16 @@ int main(){
     
     game = new Game(names);
   }
+
+  cin.ignore();
+
   try{
     while (!game->hasEnded()) {
       game->nextTurn();
-      while (game->canMove()) {
+      while (game->canMove().size()) {
 	d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber());
 	input = game->getPlayer()->getMove();
+	cout << "Your input is " << input << endl;
 	game->process(input);
       } 
     }
