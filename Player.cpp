@@ -18,14 +18,7 @@ bool Player::move(Move yourMove) {
   if (yourMove.source == 's') {  
     //destination of card is build 
     if (yourMove.dest == 'b') {
-      //Loops until the top card of build is skip-bo or the current-card - 1
-      int i = 0;
-      while((build->at(i).getTop() != (yourMove.value - 1)) || (build->at(i).getTop() != 0)) {
-	i++;
-      }
-      //Moves the card to the correct build pile
-      stock.move(build->at(i));
-    }
+      stock.move(build->at(yourMove.destIndex));}
     //destination of card is discard
     else if (yourMove.dest == 'd') {
       //Moves the card to the discard pile provided by user 
@@ -35,24 +28,15 @@ bool Player::move(Move yourMove) {
 
   //source card is discard
   else if (yourMove.source == 'd') {
-    //Destination must be a build pile
-    int i = 0;
-    while((build->at(i).getTop() != (yourMove.value - 1)) || (build->at(i).getTop() != 0)) {
-      i++;
-    }
     //Moves from the discard pile provided by user to the correct build pile
-    discard.at(yourMove.sourceIndex).move(build->at(i));
+    discard.at(yourMove.sourceIndex).move(build->at(yourMove.destIndex));
   }
 
   //source card is hand 
   else {
     if (yourMove.dest == 'b') {
-      int i = 0;
-      while((build->at(i).getTop() != (yourMove.value - 1)) || (build->at(i).getTop() != 0)) {
-	i++;
-      }
       //Moves from hand card provided by user to the correct build pile  
-      hand.move(build->at(i), yourMove.sourceIndex);
+      hand.move(build->at(yourMove.destIndex), yourMove.sourceIndex);
     }
     else if (yourMove.dest == 'd') {
       //Moves from the hand card to the discard pile whose index is provided by the user

@@ -224,8 +224,9 @@ void Game::process(string input){
   }
 
 
-  if (input.at(0) != ' ') throw std::invalid_argument("source and destination must be separated by a single whitespace");
+  if (input.at(0) != ' ' || input.at(1) == ' ') throw std::invalid_argument("Source and destination must be separated by a single whitespace\n");
   
+  if (input.size() < 3) throw std::invalid_argument("Invalid input length\n");
 
   char dest  = input.at(1);
   int destIndex = 0;
@@ -234,24 +235,16 @@ void Game::process(string input){
     m.dest = dest;
     destIndex = (input.at(2) - '0')-1;
 
-    if (destIndex > 3){
-      cout << "Invalid index " << endl;
-      return;
-    }
+    if (destIndex > 3 || destIndex < 0) throw std::invalid_argument("Invalid index for destination\n");
 
     m.destIndex = destIndex;
   }
-  else{
-    cout << "Invalid destination" << endl;
-    return;
-  }
+  else throw std::invalid_argument("Unknown card destination\nNote: possible destinations are (d = discard, b = build pile)");
   
   if (dest == 'b' && m.value != 0){
-    if (build.at(destIndex).getTop()%12 != m.value - 1){
-      cout << "Invalid move" << endl;
-    }
+    if (build.at(destIndex).getSize()%12 != m.value - 1) throw std::invalid_argument("Source and destination do not match");
   }
-
+ 
   this->play(m);
   return;
 }
@@ -269,18 +262,38 @@ Player* Game::getPlayer() const{
   return players.at((turn-1)%players.size());
 }
 
-bool Game::canMove() const{
-	vector<int> validNums;
-	for (int i = 0; i < 4; ++i) {
-	  validNums.push_back(build[i].getSize()%12 + 1);
-	}
-	
-	for (int i = 0; i < getPlayer()->getHand().getSize(); ++i) {
-	  if (contains(validNums, getPlayer()->getHand().at(i))) {
-	    return true;
-	  }
-	}
-	return false;
+vector<Move*> Game::canMove() const{
+  vector<Move*> validMoves;
+  int p = (turn-1)%players.size();
+  
+  //checks all possible cards in hand
+  for (int i = 0; i < getPlayer()->getHand().getSize(); i++){
+    for (int j = 0; j < 4; j++){
+      //check all build piles if card in hand can be placed there
+      if (!getPlayer()->getHand().at(i) || getPlayer()->getHand().at(i) == build.at(j).getSize()%12+1){
+	validMoves.push_back(new Move(p, getPlayer()->getHand().at(i), 'h', 'b', i, j));   
+      }     
+    }
+  }
+  
+  //check all 4 discard piles
+  for (int i = 0; i < 4; i++){
+    //check if can be placed in any build pile
+    for (int j = 0; j < 4; j++){
+      if (!getPlayer()->getDiscard().at(i).getTop() || getPlayer()->getDiscard().at(i).getTop() == build.at(j).getSize()%12+1){
+	validMoves.push_back(new Move(p, getPlayer()->getDiscard().at(i).getTop(), 'd', 'b', i, j));
+      }
+    }
+  }
+  
+  //checks if stock can be placed in build pile
+  for (int i = 0; i < 4; i++){
+    if (!getPlayer()->getStock().getTop() || getPlayer()->getStock().getTop()== build.at(i).getSize()%12+1){
+      validMoves.push_back(new Move(p, getPlayer()->getStock().getTop(), 's', 'b', 0, i));
+    }
+  }
+  
+  return validMoves;
 }
 
 bool Game::contains(vector<int> vec, int num) const{

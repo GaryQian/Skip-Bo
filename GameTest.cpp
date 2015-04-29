@@ -88,8 +88,38 @@ public:
     //turn is 0
     assert(!g->turn);
     
+    //when number of players becomes 5
     names.push_back("Adam");
-    g1 = new Game(names);
+    g1 = new Game(names, arrange);
+
+    assert(g1->players.size() == 5);
+    assert(g1->players.at(0)->getName() == "Matthew");
+    assert(g1->players.at(1)->getName() == "AI Gary");
+    assert(g1->players.at(2)->getName() == "Sarah");
+    assert(g1->players.at(3)->getName() == "Kathleen");
+    assert(g1->players.at(4)->getName() == "Adam");
+
+    //checking that last player is not AI
+    assert(!g1->players.at(4)->isAI());
+
+    //making sure each player has 20 cards in stock
+    assert(g1->players.at(0)->getStock().getSize() == 20);
+    assert(g1->players.at(1)->getStock().getSize() == 20);
+    assert(g1->players.at(2)->getStock().getSize() == 20);
+    assert(g1->players.at(3)->getStock().getSize() == 20);
+
+    //since cards are shuffled backwards, they are arranged in the order
+    //1 2 3 4 5 6 7 8 9 10 11 12 1 2 3 4 5 6 7 8
+    //9 10 11 12 1 2 3 4 5 6 7 8 9 10 11 12 1 2 3 4 
+    //...12 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+    //but each player takes 20 at a time
+    assert(g1->players.at(0)->getStock().getTop() == 8);
+    assert(g1->players.at(1)->getStock().getTop() == 4);
+    assert(g1->players.at(2)->getStock().getTop() == 12);
+    assert(g1->players.at(3)->getStock().getTop() == 8);
+    assert(g1->players.at(4)->getStock().getTop() == 4);
+    assert(g1->draw.getSize() == 62);
+    assert(g1->draw.getTop() == 5);
 
     //empty constructor for game
     Game* g2 = new Game();
@@ -135,7 +165,37 @@ public:
     
     try {g->process("h b1");}
     catch (invalid_argument &e) {assert(string(e.what()) == "Invalid hand index\n");}
+    
+    try {g->process("h1b1");}
+    catch (invalid_argument &e) {assert(string(e.what()) == "Source and destination must be separated by a single whitespace\n");}
 
+    try {g->process("h1    b1");}
+    catch (invalid_argument &e) {assert(string(e.what()) == "Source and destination must be separated by a single whitespace\n");}
+
+    try {g->process("h1 b");}
+    catch (invalid_argument &e) {assert(string(e.what()) == "Invalid input length\n");}
+
+    try {g->process("h1 b5");}
+    catch (invalid_argument &e) {assert(string(e.what()) == "Invalid index for destination\n");}
+
+    try {g->process("h1 db");}
+    catch (invalid_argument &e) {assert(string(e.what()) == "Invalid index for destination\n");}
+
+    try {g->process("h2 ff");}
+    catch (invalid_argument &e) {assert(string(e.what()) == "Unknown card destination\nNote: possible destinations are (d = discard, b = build pile)");}
+
+    try {g->process("h4 b1");}
+    catch (invalid_argument &e) {assert(string(e.what()) == "Source and destination do not match");}
+
+    g->process("h1 b1");
+    
+    assert(g->getPlayer()->getHand().getSize() == 4);
+    assert(g->getPlayer()->getHand().toString() == "2 3 4 5 ");
+    assert(g->build.at(0).toString() == "1 ");
+  }
+
+  void MoveTest(){
+    
   }
   
 };
@@ -148,5 +208,8 @@ int main(){
   cout << "Running process method tests" << endl;
   gt.ProcessTest();
   cout << "Passed process method tests" << endl;
+  cout << "Running move method tests" << endl;
+  gt.MoveTest();
+  cout << "Passed move method tests" << endl;
   return 0;
 }

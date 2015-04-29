@@ -48,7 +48,7 @@ class Game {
   Player* getPlayer() const;
 
   //Checks hand and stock of current player and the build pile to see if there are valid moves remaining 
-  bool canMove() const;
+  std::vector<Move*> canMove() const;
 
   //checks if num is found within the vector of ints
   bool contains(vector<int> vec, int num) const;
