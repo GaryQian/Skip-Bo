@@ -32,22 +32,22 @@ void Display::display(Player* player, vector<Build> build, int num) {
 	
 	////////////////////////////////////
 	temp = new string("│ ");
-	*temp += convert(build[0].getTop());
+	*temp += convert(build[0].getTop(), build.at(0));
 	if (build[0].getTop() >= 10) {
 		*temp += "│ │ ";
 	}
 	else *temp += " │ │ ";
-	*temp += convert(build[1].getTop());
+	*temp += convert(build[1].getTop(), build.at(0));
 	if (build[1].getTop() >= 10) {
 		*temp += "│ │ ";
 	}
 	else *temp += " │ │ ";
-	*temp += convert(build[2].getTop());
+	*temp += convert(build[2].getTop(), build.at(0));
 	if (build[2].getTop() >= 10) {
 		*temp += "│ │ ";
 	}
 	else *temp += " │ │ ";
-	*temp += convert(build[3].getTop());
+	*temp += convert(build[3].getTop(), build.at(0));
 	if (build[3].getTop() >= 10) {
 		*temp += "│";
 	}
@@ -107,19 +107,19 @@ void Display::display(Player* player, vector<Build> build, int num) {
 	else temp = new string(" ");
 	
 	for (int i = 0; i < player->getHand().getSize(); ++i) {
-	  *temp += convert(player->getHand().at(i));
-	  if (i == player->getHand().getSize() - 1) {
-	    if (player->getHand().at(i) >= 10) {
-	      *temp += "│";
-	    }
-	    else *temp += " │";
-	  }
-	  else {
-	    if (player->getHand().at(i) >= 10) {
-	      *temp += "│ │ ";
-	    }
-	    else *temp += " │ │ ";
-	  }
+		*temp += convert(player->getHand().at(i));
+		if (i == player->getHand().getSize() - 1) {
+			if (player->getHand().at(i) >= 10) {
+				*temp += "│";
+			}
+			else *temp += " │";
+		}
+		else {
+			if (player->getHand().at(i) >= 10) {
+				*temp += "│ │ ";
+			}
+			else *temp += " │ │ ";
+		}
 	}
 	out.push_back(*temp);
 	
@@ -204,27 +204,41 @@ void Display::display(Player* player, vector<Build> build, int num) {
 	
 	
 	for (unsigned long i = 0; i < out.size(); ++i) {
-	  if (i == out.size()) {
-	    cout << out.at(i);
-	  }
-	  else {
-	    cout << out.at(i) << endl;
-	  }
+		if (i == out.size()) {
+			cout << out.at(i);
+		}
+		else {
+			cout << out.at(i) << endl;
+		}
 	}
 }
 
 void Display::display(AI player, vector<Build> build, int num) {
-  display(player, build, num);
+	display(player, build, num);
 }
 
 string Display::convert(int num) {
-  if (num < 0) {
-    return " ";
-  }
-  if (num == 0) {
-    return "S";
-  }
-  ostringstream temp;
-  temp << num;
-  return temp.str();
+	if (num < 0) {
+		return " ";
+	}
+	if (num == 0) {
+		
+		return "S";
+	}
+	ostringstream temp;
+	temp << num;
+	return temp.str();
+}
+
+string Display::convert(int num, Build build) {
+	if (num < 0) {
+		return " ";
+	}
+	if (num == 0) {
+		
+		return convert(build.getSize());
+	}
+	ostringstream temp;
+	temp << num;
+	return temp.str();
 }

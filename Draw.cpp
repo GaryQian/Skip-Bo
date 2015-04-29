@@ -36,7 +36,7 @@ void Draw::move(Hand& hand, int num) throw(std::invalid_argument){
   hand += toMove;
   }
   catch(std::invalid_argument & e){
-    *this += to Move;
+    *this += toMove;
   }
   
 }
