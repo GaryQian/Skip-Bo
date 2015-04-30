@@ -8,22 +8,15 @@ using std::vector;
 Player::~Player(){}
 
 void Player::drawCards(){
-  while(hand.getSize() < 5){
-    draw->move(hand, 5 - hand.getSize());
-  }
+  draw->move(hand, 5 - hand.getSize());
+  
 }
 
-bool Player::move(Move yourMove) throw (int) {
+void Player::move(Move yourMove) throw (int) {
   //source card is stockpile
-  if (yourMove.source == 's') {  
-    //destination of card is build 
-    if (yourMove.dest == 'b') {
-      stock.move(build->at(yourMove.destIndex));}
-    //destination of card is discard
-    else if (yourMove.dest == 'd') {
-      //Moves the card to the discard pile provided by user 
-     stock.move(discard.at(yourMove.destIndex)); 
-    }
+  if (yourMove.source == 's') {
+    //the only destination is build
+    stock.move(build->at(yourMove.destIndex));
   }
 
   //source card is discard
@@ -45,9 +38,6 @@ bool Player::move(Move yourMove) throw (int) {
   }
 
   if (yourMove.dest == 'd') throw 1;
-
-  //all exceptions should have been handled if this method is called, so there is no need to return false
-  return true;
 }
 
 //Returns if the player has won

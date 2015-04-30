@@ -57,7 +57,23 @@ Game::Game(vector<string> names, vector<int> arrangement){
 
 void Game::nextTurn(){
   turn++;
+  if (getPlayer()->getHand().getSize() > draw.getSize()){
+      vector<int> left;
+      left.resize(draw.getSize());
+      
+      for(int i = draw.getSize()-1; i >= 0 ; i--){
+	left[i] = draw.takeCard();
+      }
+      
+      for (int i = 0; i < 4; i++){
+	build[i].move(draw);
+      }
+      
+      draw+=left;
+  } 
+  getPlayer()->drawCards();
 }
+
 
 void Game::refill(){
   if (getPlayer()->getHand().getSize() == 0){
@@ -253,7 +269,8 @@ void Game::process(string input){
   if (dest == 'b' && m.value != 0){
     if (build.at(destIndex).getSize()%12 != m.value - 1) throw std::invalid_argument("Source and destination do not match");
   }
- 
+  
+  if (dest == 'd' && source == 's') throw std::invalid_argument("Stock card cannot be moved to discard pile\n");
   this->play(m);
   return;
 }
