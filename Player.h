@@ -72,6 +72,7 @@ class AI: public Player {
   string getMove();
   bool contains(vector<int> vec, int num);
   int find(vector<int> vec, int num);
+  string convert(int num);
   //HumanPlayer operator HumanPlayer();
 };
 
