@@ -17,7 +17,13 @@ public:
     delete g;
     delete g1;
   }
-
+  
+  void clear(vector<Move*> vec){
+    for(unsigned long i = 0; i < vec.size(); i++){
+      delete vec[i];
+    }
+  }
+  
   void constructorTest(){
     vector<int> arrange;
 
@@ -138,9 +144,10 @@ public:
 
   void ProcessTest(){
     g->nextTurn();
+    
+    //player one starts
     assert(g->turn == 1);
     assert(g->getPlayer()->getName() == "Matthew");
-    g->refill();
     assert(g->getPlayer()->getHand().getSize() == 5);
     assert(g->getPlayer()->getHand().toString() == "1 2 3 4 5 ");
     assert(g->draw.getSize() == 37);
@@ -206,6 +213,8 @@ public:
     assert(g->getPlayer()->getHand().toString() == "3 4 5 ");
     assert(g->build.at(0).toString() == "1 2 ");
     
+    clear(choices);
+
     choices = g->canMove();
     assert(choices.size() == 1);
     assert(choices.at(0)->toString() == "0 3 h b 0 0 ");
@@ -216,6 +225,8 @@ public:
     assert(g->getPlayer()->getHand().toString() == "4 5 ");
     assert(g->build.at(0).toString() == "1 2 3 ");
     
+    clear(choices);
+
     choices = g->canMove();
     assert(choices.size() == 1);
     assert(choices.at(0)->toString() == "0 4 h b 0 0 ");
@@ -226,6 +237,8 @@ public:
     assert(g->getPlayer()->getHand().toString() == "5 ");
     assert(g->build.at(0).toString() == "1 2 3 4 ");
     
+    clear(choices);
+
     choices = g->canMove();
     assert(choices.size() == 1);
     assert(choices.at(0)->toString() == "0 5 h b 0 0 ");
@@ -236,6 +249,8 @@ public:
     g->refill();
     assert(g->getPlayer()->getHand().toString() == "6 7 8 9 10 ");
     assert(g->build.at(0).toString() == "1 2 3 4 5 ");
+    
+    clear(choices);
     
     choices = g->canMove();
     assert(choices.size() == 2);
@@ -255,10 +270,15 @@ public:
     assert(g->build.at(0).toString() == "1 2 3 4 5 6 7 8 9 10 ");
     assert(g->getPlayer()->getHand().toString() == "6 ");
 
+    //end of player 1's turn
+    //build pile: 10 0 0 0
+    //p1 discard 0 0 0 0
+    //p1 hand 6 0 0 0 
+    //p1 stock 5
+   
     g->nextTurn();
-    
+    //player 2 start
     assert(g->turn == 2);
-    g->refill();
     assert(g->getPlayer()->getHand().getSize() == 5);
     assert(g->draw.getSize() == 27);
     assert(g->draw.getTop() == 4);
@@ -272,29 +292,54 @@ public:
     try {g->process("h1 d1");}
     catch (int a) {assert(a == 1);}
 
+    assert(g->getPlayer()->getDiscard().at(0).getTop() == 3);
     assert(g->getPlayer()->getHand().toString() == "");
     assert(g->getPlayer()->getStock().getTop() == 12);
 
-    choices = g->canMove();
-    cout << choices.at(0)->toString() << endl;
-    
-    try {g->process("h1 d1");}
-    catch (int a) {assert(a == 1);}
-    
-    assert(g->getPlayer()->getHand().getSize() == 0);
-    assert(g->getPlayer()->getDiscard().at(0).toString() == "6 ");
-    
+    //end of player 2's turn
+    //build 2 0 0 0
+    //p2 discard 3 0 0 0
+    //p2 hand 
+    //p2 stock 12
+
+    //player 3 starts    
     g->nextTurn();
 
     assert(g->turn == 3);
     assert(g->getPlayer()->getHand().getSize() == 5);
-    assert(g->draw.getSize() == 27);
-    assert(g->draw.getTop() == 4);
+    assert(g->draw.getSize() == 22);
+    assert(g->getPlayer()->getHand().toString() == "4 5 6 7 8 ");
+    assert(g->getPlayer()->getStock().getTop() == 6);
 
-    assert(g->getPlayer()->getHand().toString() == "11 12 1 2 3 ");
-
-    choices = g->canMove();
+    clear(choices);
     
+    choices = g->canMove();
+    assert(choices.size() == 0);
+    
+    try {g->process("h2 d2");}
+    catch (int a) { assert(a == 1);}
+  
+    assert(g->getPlayer()->getHand().toString() == "4 6 7 8 ");
+    assert(g->getPlayer()->getDiscard().at(1).getTop() == 5);
+    //end of player 3's turn
+    //build 2 0 0 0
+    //p3 discard 0 5 0 0
+    //p3 hand 4 6 7 8
+    //p3 stock 6
+   
+    //start of player 4's turn
+    g->nextTurn();
+
+    assert(g->turn == 4);
+    assert(g->getPlayer()->getHand().getSize() == 5);
+    assert(g->draw.getSize() == 17);
+    assert(g->getPlayer()->getHand().toString() == "9 10 11 12 0 ");
+    assert(g->getPlayer()->getStock().getTop() == 12);
+    
+    clear(choices);
+    
+    choices = g->canMove();
+    assert(choices.size() == 4);
   }
   
 };

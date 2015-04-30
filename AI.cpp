@@ -20,8 +20,7 @@ AI::AI(string name, Draw* draw, vector<Build>* build, Stock stock) {
 	this->name = name;
 	this->build = build;
 	this->stock = stock;
-  
-
+	discard.resize(4);
 	seed = time(NULL);
 	isAnAI = true;
 }
@@ -129,5 +128,5 @@ int AI::find(vector<int> vec, int num) {
 }
 
 AI::~AI() {
-
+  
 }

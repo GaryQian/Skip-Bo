@@ -52,8 +52,7 @@ int main(){
 
 	while (!game->hasEnded()) {
 		game->nextTurn();
-		game->refill();
-		try{
+     		try{
 			d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber());
 			while (game->canMove().size()) {
 				try{  
