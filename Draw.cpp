@@ -1,8 +1,10 @@
 #include "Deck.h"
 #include <math.h>
 #include <stdio.h>
+#include <algorithm>
 
 using std::vector;
+using std::reverse;
 
 Draw::Draw(){
   
@@ -18,23 +20,26 @@ Draw::Draw(){
   }
 }
 
-void Draw::move(Hand& hand, int num) throw(std::invalid_argument){
+void Draw::move(Deck& deck, int num) throw(std::invalid_argument){
   if(getSize() < num) 
     throw std::invalid_argument("Draw pile doesn't have enough cards.\n");
 
-  if(hand.getSize() == 5 || hand.getSize() + num > 5)
-    throw std::invalid_argument("Shouldn't draw more than five cards!\n");
-
   vector<int> toMove;
   //if we have enough cards in the draw pile, take whatever is needed
-  
   for(int i = 0; i < num; i++){
     toMove.push_back(takeCard());
   }
 
-  hand += toMove;  
+  try {
+    deck += toMove;  
+  }
+  catch(std::invalid_argument & e){
+    reverse(toMove.begin(), toMove.end());
+    *this += toMove;
+    throw e;
+  }
 }
-
+/*
 void Draw::move(Stock& stock, int num) throw(std::invalid_argument){
   if(getSize() < num) 
     throw std::logic_error("Draw pile doesn't have enough cards.\n");
@@ -50,7 +55,7 @@ void Draw::move(Stock& stock, int num) throw(std::invalid_argument){
   }
   stock += toMove;
 }
-
+*/
 void Draw::shuffle(vector<int> arr){
   vector<int> shuffled;
   int last = getSize() - 1;
