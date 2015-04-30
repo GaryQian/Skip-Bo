@@ -14,15 +14,25 @@ using std::endl;
 using std::ostringstream;
 using std::iterator;
 
-class PlayerTest {
+//These tests will be performed on HumanPlayers and AI's, as player is an ABSTRACT CLASS
+class HumanPlayerTest {
 public:
   static void constructorTest() {
+    Draw draw;
+    vector<int> arrange;
+    for(int i = 161; i >= 0; i--) {
+      arrange.push_back(i);
+    }
+    draw.shuffle(arrange);
 
-  }  
-  static void moveTest() {
+    HumanPlayer* h1 = new HumanPlayer("Gary", &draw, &build, s);
+    
+  }
+
+  static void getMoveTest() {
 
   }
-  
+
   static void hasWonTest() {
     
   }
@@ -32,23 +42,14 @@ public:
   }
 };
 
-class HumanPlayerTest {
-public:
-  static void constructorTest() {
-
-  }
-
-  static void getMoveTest() {
-
-  }
-};
-
 int main(void) {
   cout << "Running Player tests..." << endl;
-  PlayerTest::constructorTest();
-  PlayerTest::moveTest();
-  PlayerTest::hasWonTest();
-  PlayerTest::accessorTest();
+  cout << "Running HumanPlayer tests..." << endl;
+  HumanPlayerTest::constructorTest();
+  HumanPlayerTest::getMoveTest();
+  HumanPlayerTest::hasWonTest();
+  HumanPlayerTest::accessorTest();
+  cout << "Passed HumanPlayer tests." << endl;
   cout << "Passed Player tests." << endl;
   return 0;
 }
