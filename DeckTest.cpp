@@ -477,6 +477,20 @@ public:
       oss << "Failure while trying to take " << size << " cards!";
     }
     assert(oss.str() == "Failure while trying to take 5 cards!");    
+    oss.str("");
+    oss.clear();
+  
+    Build build = Build();
+    stock += 3;
+    try {
+      stock.move(build);
+      assert(false);
+    }
+    catch(std::exception & e){
+      oss << e.what();
+    }
+    assert(oss.str() == "Can't add card - not in sequence!\n");
+    
   }
 };
 
@@ -547,8 +561,11 @@ public:
     vector<int> list(4,1);
     ostringstream oss;
 
+    //add list to discard pile
     discard += list;
     
+    //try adding duplicate-valued cards to the same
+    //build pile, should catch exception
     try {
       discard.move(bPile[0]);
       discard.move(bPile[0]);
@@ -557,13 +574,42 @@ public:
       oss << e.what();
     }
 
-    /*
-      for(int i = 0; i < 4; i++){
-	discard.move(bPile[i]);
-      }
+    //assert discard pile is decreased by 1
+    //and the first build pile now has a card
+    assert(discard.getSize() == 3);
+    assert(bPile[0].getSize() == 1);
+
+    //assert the right exception is caught and clear buffer
+    assert(oss.str() == "Can't add card - not in sequence!\n");
+    oss.str("");
+    oss.clear();
+
+    //now add the remaining cards in discard pile to each of the other
+    //build piles
+    for(int i = 1; i < 4; i++){
       discard.move(bPile[i]);
-    */
+    }
     
+    //assert discard pile is now empty
+    assert(discard.isEmpty());
+
+    //assert all build piles now have size 1
+    for(int i = 0; i < 4; i++){
+      assert(bPile[i].getSize() == 1);
+    }
+
+    //try moving again from an empty Discard pile, should throw
+    //exception before assert(false)
+    try {
+      discard.move(bPile[0]);
+      assert(false);
+    }
+    catch(std::logic_error & e){
+      oss << e.what();
+    }
+
+    //assert the right exception is caught
+    assert(oss.str() == "Deck is empty.\n");
   }
 };
 
@@ -591,12 +637,14 @@ int main(void){
   cout << "Running Stock tests..." << endl;
   StockTest::constructorTest();
   StockTest::opsTest();
+  StockTest::moveTest();
   cout << "Passed Stock tests." << endl;
 
   cout << "Running Discard tests..." << endl;
   DiscardTest::constructorTest();
   DiscardTest::opsTest();
   DiscardTest::takeCardTest();
+  DiscardTest::moveTest();
   cout << "Passed Discard tests." << endl;
 
 }

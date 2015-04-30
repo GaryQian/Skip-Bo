@@ -49,13 +49,13 @@ class Deck {
    * of a Deck instance. Throws an exception if we try to add an
    * invalid card number
    */
-  void operator +=(int value) throw (std::invalid_argument);	
+  virtual void operator +=(int value) throw (std::invalid_argument);	
 
   /*
    * Overloaded operater that pushes a vector of integers to the
    * existing integer vector of a Deck instance
    */
-  void operator +=(std::vector<int> list) throw (std::invalid_argument);
+  virtual void operator +=(std::vector<int> list) throw (std::invalid_argument);
 
   /*
    * Returns a string that shows the values in a Deck instance's
@@ -94,6 +94,7 @@ class Hand: public Deck {
 class Stock: public Deck {
  public:
   Stock();
+  void move(Deck& deck);
   void operator += (int value) throw (std::invalid_argument);
   void operator += (std::vector<int> list) throw (std::invalid_argument);
 };
