@@ -288,20 +288,12 @@ public:
     for(int i = 0; i < 144; i++){
       assert(d.takeCard() == 12 - i % 12);
     }
-  
-    //try moving from Build to Draw - should fail because there is only
-    //one card left in Build now
-    //try {
+
+    //now try moving from Build to Draw, shouldn't be able to do so
+    //and build and draw will be unchanged
     b.move(d,1);
     assert(b.getSize() == 1);
     assert(d.getSize() == 144);
-      //}
-      //catch(std::logic_error & e){
-      //oss << e.what();
-      //}
-
-    //assert exception is caught
-    //assert(oss.str() == "Build pile doesn't have a completed set yet.\n");
   }
 };
 

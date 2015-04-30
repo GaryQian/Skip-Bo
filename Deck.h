@@ -113,9 +113,9 @@ class Draw: public Deck {
    * Moves num of cards from Draw pile to Hand. Throws logic error if
    * Draw pile is empty
    */
-  void move(Hand& hand, int num) throw (std::invalid_argument);
+  void move(Deck& deck, int num) throw (std::invalid_argument);
 
-  void move(Stock& stock, int num) throw (std::invalid_argument);
+  //  void move(Stock& stock, int num) throw (std::invalid_argument);
 
   /*
    * Shuffles the Draw pile based on the arrangement vector that is
