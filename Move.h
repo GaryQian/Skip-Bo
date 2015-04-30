@@ -2,8 +2,8 @@
 #define MOVE_H
 #include <string>
 
-typedef struct Move {
-
+class Move {
+ public:
   int player;    
   int value;
   char source;
@@ -12,7 +12,8 @@ typedef struct Move {
   int destIndex;
   Move(int p, int v, char s, char d, int sI, int dI);
   Move();
+  ~Move();
   std::string toString();
-} Move;
+};
 
 #endif

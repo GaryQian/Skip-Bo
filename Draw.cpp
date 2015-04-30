@@ -91,3 +91,7 @@ void Draw::swap(int& a, int& b){
   b = a; 
   a = temp;
 }
+
+void Draw::clear(){
+  cards.clear();
+}

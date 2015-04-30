@@ -128,6 +128,11 @@ class Draw: public Deck {
    * Swaps two elements in a vector of integers
    */
   void swap(int& a, int& b);
+
+  /*
+   * Clears contents of draw pile
+   */
+  void clear();
 };
 
 class Build: public Deck {

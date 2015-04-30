@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <cassert>
+#include <stdexcept>
 
 using std::cout;
 using std::endl;
@@ -10,6 +11,7 @@ using std::string;
 using std::getline;
 
 Game::Game() {
+  draw = new Draw();
   turn = 0;
 }
 
@@ -26,8 +28,9 @@ Game::Game(vector<string> names, vector<int> arrangement){
   int stockSize = 0;
   string name;
   turn = 0;
+  draw = new Draw();
 
-  draw.shuffle(arrangement);
+  draw->shuffle(arrangement);
 
   if (names.size() < 5){
     stockSize = 30;
@@ -40,13 +43,13 @@ Game::Game(vector<string> names, vector<int> arrangement){
     name = names[i];
     
     Stock s;
-    draw.move(s, stockSize);
+    draw->move(s, stockSize);
 
     if(name.substr(0,2) == "AI"){
-      players.push_back(new AI(name, &draw, &build, s));
+      players.push_back(new AI(name, draw, &build, s));
     }
     else{
-      players.push_back(new HumanPlayer(name, &draw, &build, s));
+      players.push_back(new HumanPlayer(name, draw, &build, s));
     }
   }
 
@@ -57,19 +60,19 @@ Game::Game(vector<string> names, vector<int> arrangement){
 
 void Game::nextTurn(){
   turn++;
-  if (getPlayer()->getHand().getSize() > draw.getSize()){
+  if (getPlayer()->getHand().getSize() > draw->getSize()){
       vector<int> left;
-      left.resize(draw.getSize());
+      left.resize(draw->getSize());
       
-      for(int i = draw.getSize()-1; i >= 0 ; i--){
-	left[i] = draw.takeCard();
+      for(int i = draw->getSize()-1; i >= 0 ; i--){
+	left[i] = draw->takeCard();
       }
       
       for (int i = 0; i < 4; i++){
-	build[i]->move(draw);
+	build[i]->move(*draw);
       }
       
-      draw+=left;
+      *(draw)+=left;
   } 
   getPlayer()->drawCards();
 }
@@ -77,19 +80,19 @@ void Game::nextTurn(){
 
 void Game::refill(){
   if (getPlayer()->getHand().getSize() == 0){
-    if (5 > draw.getSize()){
+    if (5 > draw->getSize()){
       vector<int> left;
-      left.resize(draw.getSize());
+      left.resize(draw->getSize());
       
-      for(int i = draw.getSize()-1; i >= 0 ; i--){
-	left[i] = draw.takeCard();
+      for(int i = draw->getSize()-1; i >= 0 ; i--){
+	left[i] = draw->takeCard();
       }
       
       for (int i = 0; i < 4; i++){
-	build[i]->move(draw);
+	build[i]->move(*draw);
       }
       
-      draw+=left;
+      *(draw)+=left;
     } 
     getPlayer()->drawCards();
   }
@@ -105,7 +108,7 @@ void Game::save_game(string filename) const{
 
   outFile << numP << endl;
   
-  outFile << draw.toString() << " " << -1 << endl;
+  outFile << draw->toString() << " " << -1 << endl;
 
   for(int i = 0; i < 4; i++){
     outFile << build[i]->toString() << -1 << " ";
@@ -134,22 +137,22 @@ void Game::save_game(string filename) const{
 }
 
 void Game::load_game(string filename){
-
   std::ifstream inFile(filename);
   int num;
   int numPlayers;
   int numMoves;
   string name;
   vector<int> set;
-  
+
   inFile >> numPlayers;
   inFile >> num;
 
+  draw->clear();
   while(num != -1){
-    draw+=num;
+    *(draw)+=num;
     inFile >> num;
   }
- 
+  
   for(int i = 0; i < 4; i++){
     Build* b = new Build();
     inFile >> num;
@@ -159,7 +162,7 @@ void Game::load_game(string filename){
     }
     build.push_back(b);
   }
-  
+
   for(int i = 0; i < numPlayers; i++){
     Stock* s = new Stock();
     Hand* h = new Hand();
@@ -169,6 +172,7 @@ void Game::load_game(string filename){
     }
     std::getline(inFile, name);
     std::getline(inFile, name);
+  
     inFile >> num;
     while(num != -1){
       *h+=num;
@@ -179,24 +183,23 @@ void Game::load_game(string filename){
       inFile >> num;
       while(num != -1){
         *(discard.at(i))+=num;
+	inFile >> num;
       }
     }
-
+    
+    
     inFile >> num;
     while(num != -1){
       *s += num;
       inFile >> num;
     }
 
-    assert(1 == 0);
-
     if (name.substr(0,3) == "AI "){
-      players.push_back(new AI(name, &draw, &build, *s, *h, discard));
+      players.push_back(new AI(name, draw, &build, *s, *h, discard));
     }
     else {
-      players.push_back(new HumanPlayer(name, &draw, &build, *s, *h, discard));
+      players.push_back(new HumanPlayer(name, draw, &build, *s, *h, discard));
     }
-    
   }
 
   inFile >> numMoves;
@@ -271,6 +274,7 @@ void Game::process(string input){
   
   if (dest == 'd' && source == 's') throw std::invalid_argument("Stock card cannot be moved to discard pile\n");
   
+  m->player = (turn-1)%players.size();
   move.push_back(m);
   this->play(*m);
   return;

@@ -3,6 +3,8 @@
 
 Move::Move(){}
 
+Move::~Move(){}
+
 Move::Move(int p, int v, char s, char d, int sI, int dI): player(p), value(v), source(s), dest(d), sourceIndex(sI), destIndex(dI){}
 
 std::string Move::toString(){
