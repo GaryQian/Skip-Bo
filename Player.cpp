@@ -13,7 +13,7 @@ void Player::drawCards(){
   }
 }
 
-bool Player::move(Move yourMove) {
+bool Player::move(Move yourMove) throw (int) {
   //source card is stockpile
   if (yourMove.source == 's') {  
     //destination of card is build 
@@ -22,7 +22,7 @@ bool Player::move(Move yourMove) {
     //destination of card is discard
     else if (yourMove.dest == 'd') {
       //Moves the card to the discard pile provided by user 
-     stock.move(discard.at(yourMove.destIndex));
+     stock.move(discard.at(yourMove.destIndex)); 
     }
   }
 
@@ -43,6 +43,8 @@ bool Player::move(Move yourMove) {
       hand.move(discard.at(yourMove.destIndex), yourMove.sourceIndex);
     }
   }
+
+  if (yourMove.dest == 'd') throw 1;
 
   //all exceptions should have been handled if this method is called, so there is no need to return false
   return true;

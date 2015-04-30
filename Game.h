@@ -23,8 +23,11 @@ class Game {
   //constructor that sets every variable to 0 or NULL
   Game();
   
-  //This method increments turn and allows next player to draw cards until size of hand is 5. Also refills the draw pile if insufficient cards to refill hand
+  //This method increments turn 
   void nextTurn();
+
+  //refills current players hand if hand is empty. Also refills deck if less than 5 cards remain
+  void refill();
 
   //checks if stock of player whose turn just ended is 0
   bool hasEnded() const;
