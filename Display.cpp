@@ -32,23 +32,23 @@ void Display::display(Player* player, vector<Build*> build, int num) {
 	
 	////////////////////////////////////
 	temp = new string("│ ");
-	*temp += convert(build[0]->getTop(), *build.at(0));
-	if (build[0]->getTop() >= 10) {
+	*temp += convert(build.at(0)->getTop(), *build.at(0));
+	if (build.at(0)->getSize() % 12 >= 10) {
 		*temp += "│ │ ";
 	}
 	else *temp += " │ │ ";
-	*temp += convert(build[1]->getTop(), *build.at(0));
-	if (build[1]->getTop() >= 10) {
+	*temp += convert(build.at(1)->getTop(), *build.at(1));
+	if (build.at(1)->getSize() % 12 >= 10) {
 		*temp += "│ │ ";
 	}
 	else *temp += " │ │ ";
-	*temp += convert(build[2]->getTop(), *build.at(0));
-	if (build[2]->getTop() >= 10) {
+	*temp += convert(build.at(2)->getTop(), *build.at(2));
+	if (build.at(2)->getSize() % 12 >= 10) {
 		*temp += "│ │ ";
 	}
 	else *temp += " │ │ ";
-	*temp += convert(build[3]->getTop(), *build.at(0));
-	if (build[3]->getTop() >= 10) {
+	*temp += convert(build.at(3)->getTop(), *build.at(3));
+	if (build.at(3)->getSize() % 12 >= 10) {
 		*temp += "│";
 	}
 	else *temp += " │";

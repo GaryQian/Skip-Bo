@@ -41,15 +41,15 @@ AI::AI(string name, Draw* draw, vector<Build*>* build, Stock stock, Hand hand, v
 }
 
 string AI::getMove() {
-	Display d;
+	//Display d;
 	vector<int> validNums;
 	for (int i = 0; i < 4; ++i) {
-		if (build->at(i)->getTop() != -1) {
-		  validNums.push_back(build->at(i)->getTop() + 1);
-		}
-		else {
-			validNums.push_back(1);
-		}
+		//if (build->at(i)->getTop() != -1) {
+		  //validNums.push_back(build->at(i)->getTop() + 1);
+		//}
+		//else {
+			validNums.push_back(build->at(i)->getSize()%12 + 1);
+		//}
 	}
 	//for (int i = 0; i < (int) validNums.size(); ++i) {
 		//cout << validNums.at(i) << endl;
@@ -91,14 +91,13 @@ string AI::getMove() {
 			temp = new string("d");
 			*temp += convert(i + 1);
 			*temp += " b";
-			*temp += convert(find(validNums, discard[i]->getTop()));
+			*temp += convert(find(validNums, discard[i]->getTop()) + 1);
 			moves.push_back(*temp);
 		}
 	}
 	
 	if (contains(validNums, stock.getTop())) {
-		temp = new string("s");
-		*temp += " b";
+		temp = new string("s b");
 		for (int i = 0; i < 5; i++) {
 			//check for skipbo
 			if (stock.getTop() == 0) {
@@ -109,8 +108,8 @@ string AI::getMove() {
 					moves.push_back(*temp);
 				}
 			}
-			else if (hand.at(i) == stock.getTop())
-				*temp += convert(find(validNums, hand.at(i)));
+			else if (contains(validNums, stock.getTop()))
+				*temp += convert(find(validNums, stock.getTop()) + 1);
 			break;
 		}
 		moves.push_back(*temp);
