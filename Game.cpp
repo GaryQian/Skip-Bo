@@ -271,6 +271,7 @@ void Game::process(string input){
   }
   
   if (dest == 'd' && source == 's') throw std::invalid_argument("Stock card cannot be moved to discard pile\n");
+  
   this->play(m);
   return;
 }
