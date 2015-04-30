@@ -34,6 +34,34 @@ public:
       assert(*it == 0);
     }
   }
+  
+  static void opsTest() {
+    Draw d = Draw();
+    vector<int> list;
+
+    for(int i = 0; i < 12; i++){
+      list.push_back(i);
+    }
+
+    d += list;
+
+    //assert that the topmost cards are now elements of list
+    //last element of list should be the topmost card
+    for(int i = 0; i < 12; i++){
+      assert(d.takeCard() == 12 - i - 1);
+    }
+
+    ostringstream oss;
+    try {
+      d += 13;
+    }
+    catch (std::invalid_argument & e) {
+      oss << e.what(); 
+    }
+
+    assert(oss.str() == "Invalid card value.\n");
+    
+  }
 
   static void takeCardTest(){
     ostringstream oss;
@@ -67,7 +95,6 @@ public:
       oss << e.what();
     }
 
-    cout << oss.str();
     assert(oss.str() == "Deck is empty.\n");
   }
 
@@ -132,7 +159,6 @@ public:
       assert(*it == 0);
     }
 
-    cout << d.getSize();
     //assert that the size of the Draw pile is decreased by 5
     assert(d.getSize() == 162 - 5);
 
@@ -459,6 +485,7 @@ public:
 int main(void){
   cout << "Running Draw tests..." << endl;
   DrawTest::constructorTest();
+  DrawTest::opsTest();
   DrawTest::takeCardTest();
   DrawTest::shuffleTest();
   DrawTest::moveTest();

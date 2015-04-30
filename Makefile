@@ -3,8 +3,12 @@ CXXFLAGS = -std=c++11 -pedantic -Wall -Wextra -O -g
 
 bin: skipbo
 
-test: DeckTest
+test: DeckTest 
+	@echo "----------------------"
+	@echo "DECK TESTS..."
 	@./DeckTest
+	@echo "ALL PASSED!"
+	@echo "----------------------"
 
 DeckTest: DeckTest.o Deck.o
 	$(CC) $(CXXFLAGS) -o DeckTest DeckTest.o Deck.o Build.o Hand.o Draw.o Discard.o Stock.o
