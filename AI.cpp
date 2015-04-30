@@ -8,12 +8,14 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
+#include <sstream>
 
 
 using std::string;
 using std::vector;
 using std::cout;
 using std::endl;
+using std::ostringstream;
 
 AI::AI(string name, Draw* draw, vector<Build*>* build, Stock stock) {
 	this->draw = draw;
@@ -45,25 +47,51 @@ string AI::getMove() {
 		if (build->at(i)->getTop() != -1) {
 		  validNums.push_back(build->at(i)->getTop() + 1);
 		}
+		else {
+			validNums.push_back(1);
+		}
 	}
+	//for (int i = 0; i < (int) validNums.size(); ++i) {
+		//cout << validNums.at(i) << endl;
+	//}
 	vector<string> moves;
 	string* temp;
 	for (int i = 0; i < hand.getSize(); ++i) {
-		if (contains(validNums, hand.at(i))) {
+		//check for skipbo
+		if (hand.at(i) == 0) {
+			for (int j = 1; j < 5; j++) {
+				temp = new string("h");
+				*temp += convert(i + 1);
+				*temp += " b";
+				*temp += convert(j);
+				moves.push_back(*temp);
+			}
+		}
+		else if (contains(validNums, hand.at(i))) {
 			temp = new string("h");
-			*temp += d.convert(i + 1);
+			*temp += convert(i + 1);
 			*temp += " b";
-			*temp += d.convert(find(validNums, hand.at(i)));
+			*temp += convert(find(validNums, hand.at(i)) + 1);
 			moves.push_back(*temp);
 		}
 	}
 	
 	for (int i = 0; i < 4; ++i) {
-		if (contains(validNums, discard[i]->getTop())) {
+		//check for skipbo
+		if (discard[i]->getTop() == 0) {
+			for (int j = 1; j < 5; j++) {
+				temp = new string("h");
+				*temp += convert(i + 1);
+				*temp += " b";
+				*temp += convert(j);
+				moves.push_back(*temp);
+			}
+		}
+		else if (contains(validNums, discard[i]->getTop())) {
 			temp = new string("d");
-			*temp += d.convert(i + 1);
+			*temp += convert(i + 1);
 			*temp += " b";
-			*temp += d.convert(find(validNums, hand.at(i)));
+			*temp += convert(find(validNums, discard[i]->getTop()));
 			moves.push_back(*temp);
 		}
 	}
@@ -72,8 +100,17 @@ string AI::getMove() {
 		temp = new string("s");
 		*temp += " b";
 		for (int i = 0; i < 5; i++) {
-			if (hand.at(i) == stock.getTop())
-				*temp += d.convert(find(validNums, hand.at(i)));
+			//check for skipbo
+			if (stock.getTop() == 0) {
+				for (int j = 1; j < 5; j++) {
+					temp = new string("s");
+					*temp += " b";
+					*temp += convert(j);
+					moves.push_back(*temp);
+				}
+			}
+			else if (hand.at(i) == stock.getTop())
+				*temp += convert(find(validNums, hand.at(i)));
 			break;
 		}
 		moves.push_back(*temp);
@@ -86,18 +123,19 @@ string AI::getMove() {
 	if (moves.empty()) {
 		ran = rand() % hand.getSize() + 1;
 		temp = new string("h");
-		*temp += d.convert(ran);
-		*temp += " b";
+		*temp += convert(ran);
+		*temp += " d";
 		ran = rand() % 4 + 1;
-		*temp += d.convert(ran);
+		*temp += convert(ran);
 		cout << *temp;
+		std::this_thread::sleep_for(std::chrono::milliseconds(300));	
 		return *temp;
 	}
 	
 	ran = rand() % moves.size();
 	string keep = string(moves.at(ran));
 	for (int i = 0; i < (int) moves.size(); ++i) {
-		delete &moves.at(i);
+		//delete &moves.at(i);
 	}
 	//wait so that AI does not move instantaneously
 	cout << keep << endl;
@@ -132,4 +170,13 @@ int AI::find(vector<int> vec, int num) {
 
 AI::~AI() {
   
+}
+
+string AI::convert(int num) {
+	if (num < 0) {
+		return " ";
+	}
+	ostringstream temp;
+	temp << num;
+	return temp.str();
 }
