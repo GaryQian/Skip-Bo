@@ -236,7 +236,7 @@ string Display::convert(int num, Build build) {
 	}
 	if (num == 0) {
 		
-		return convert(build.getSize());
+		return convert(build.getSize()%12);
 	}
 	ostringstream temp;
 	temp << num;
