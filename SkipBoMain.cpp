@@ -51,18 +51,37 @@ int main(){
 
 
 	while (!game->hasEnded()) {
-		game->nextTurn();
-		while (game->canMove().size()) {
-			try{  
-				d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber());
-				input = game->getPlayer()->getMove();
-				cout << "Your input is " << input << endl;
-				game->process(input);
-			}
-			catch(exception& e){
-				cout << e.what() << endl;
-			}
-		} 
+	  game->nextTurn();
+	  game->refill();
+	  try{
+	    d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber());
+	    while (game->canMove().size()) {
+	      try{  
+	
+		input = game->getPlayer()->getMove();
+		game->process(input);
+		game->refill();
+		d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber());
+	      }
+	      catch(exception& e){
+		cout << e.what() << endl;
+	      }
+	    }
+	    d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber());   
+	    while(true){
+	      cout << "No moves left.\nPlease move card to discard pile to end turn\n";	
+	      input= game->getPlayer()->getMove();
+	      try{
+		game->process(input);
+	      }
+	      catch (exception& e){
+		cout << e.what() << endl;
+	      }
+	    }
+	  }
+	  catch (int a){
+	    cout << "Turn end\n" << endl;
+	  } 
 	}
-
+	
 }

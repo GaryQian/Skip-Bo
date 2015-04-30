@@ -57,24 +57,29 @@ Game::Game(vector<string> names, vector<int> arrangement){
 
 void Game::nextTurn(){
   turn++;
-  if (5 - getPlayer()->getHand().getSize() > draw.getSize()){
-    vector<int> left;
-    left.resize(draw.getSize());
-    
-    for(int i = draw.getSize()-1; i >= 0 ; i--){
-      left[i] = draw.takeCard();
-    }
-
-    for (int i = 0; i < 4; i++){
-      build[i].move(draw);
-    }
-
-    draw+=left;
-  } 
-  getPlayer()->drawCards();
 }
 
-bool Game::hasEnded() const{
+void Game::refill(){
+  if (getPlayer()->getHand().getSize() == 0){
+    if (5 > draw.getSize()){
+      vector<int> left;
+      left.resize(draw.getSize());
+      
+      for(int i = draw.getSize()-1; i >= 0 ; i--){
+	left[i] = draw.takeCard();
+      }
+      
+      for (int i = 0; i < 4; i++){
+	build[i].move(draw);
+      }
+      
+      draw+=left;
+    } 
+    getPlayer()->drawCards();
+  }
+}
+
+  bool Game::hasEnded() const{
   return getPlayer()->hasWon();
 }
 
