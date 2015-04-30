@@ -265,7 +265,7 @@ public:
     assert(b.getSize() == 145);
 
     //move Build cards to Draw
-    b.move(d);
+    b.move(d,d.getSize());
 
     //assert that only 12k cards are taken, so 1 card is left in Build
     assert(b.getSize() == 1);
@@ -291,15 +291,17 @@ public:
   
     //try moving from Build to Draw - should fail because there is only
     //one card left in Build now
-    try {
-      b.move(d);
-    }
-    catch(std::logic_error & e){
-      oss << e.what();
-    }
+    //try {
+    b.move(d,1);
+    assert(b.getSize() == 1);
+    assert(d.getSize() == 144);
+      //}
+      //catch(std::logic_error & e){
+      //oss << e.what();
+      //}
 
     //assert exception is caught
-    assert(oss.str() == "Build pile doesn't have a completed set yet.\n");
+    //assert(oss.str() == "Build pile doesn't have a completed set yet.\n");
   }
 };
 

@@ -145,7 +145,7 @@ class Build: public Deck {
    * pile is empty and the Build pile has a number of completed 1-12
    * sets.
    */
-  void move(Draw& draw) throw (std::logic_error);
+  void move(Draw& draw, int num) throw (std::logic_error);
 
   /*
    * Overloaded operator that adds cards to the Build pile. Throws an
