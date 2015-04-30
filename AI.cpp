@@ -8,7 +8,7 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
-
+#include <sstream>
 
 using std::string;
 using std::vector;
@@ -39,85 +39,56 @@ AI::AI(string name, Draw* draw, vector<Build*>* build, Stock stock, Hand hand, v
 }
 
 string AI::getMove() {
-	Display d;
-	vector<int> validNums;
-	for (int i = 0; i < 4; ++i) {
-		if (build->at(i)->getTop() != -1) {
-		  validNums.push_back(build->at(i)->getTop() + 1);
-		}
-	}
-	vector<string> moves;
-	string* temp;
-	for (int i = 0; i < hand.getSize(); ++i) {
-		if (contains(validNums, hand.at(i))) {
-			temp = new string("h");
-			*temp += d.convert(i + 1);
-			*temp += " b";
-			*temp += d.convert(find(validNums, hand.at(i)));
-			moves.push_back(*temp);
-		}
-	}
-	
-	for (int i = 0; i < 4; ++i) {
-		if (contains(validNums, discard[i]->getTop())) {
-			temp = new string("d");
-			*temp += d.convert(i + 1);
-			*temp += " b";
-			*temp += d.convert(find(validNums, hand.at(i)));
-			moves.push_back(*temp);
-		}
-	}
-	
-	if (contains(validNums, stock.getTop())) {
-		temp = new string("s");
-		*temp += " b";
-		for (int i = 0; i < 5; i++) {
-			if (hand.at(i) == stock.getTop())
-				*temp += d.convert(find(validNums, hand.at(i)));
-			break;
-		}
-		moves.push_back(*temp);
-	}
-	
-	//PICK RANDOM MOVE/BEST MOVE HERE
-	srand(seed);
-	seed++;
-	int ran;
-	if (moves.empty()) {
-		ran = rand() % hand.getSize() + 1;
-		temp = new string("h");
-		*temp += d.convert(ran);
-		*temp += " b";
-		ran = rand() % 4 + 1;
-		*temp += d.convert(ran);
-		cout << *temp;
-		return *temp;
-	}
-	
-	ran = rand() % moves.size();
-	string keep = string(moves.at(ran));
-	for (int i = 0; i < (int) moves.size(); ++i) {
-		delete &moves.at(i);
-	}
-	//wait so that AI does not move instantaneously
-	cout << keep << endl;
-	
-	std::this_thread::sleep_for(std::chrono::milliseconds(300));	
-	
-	return keep;
-	
-	
-	///////////////
-}
-
-bool AI::contains(vector<int> vec, int num) {
-	if (num == 0) return true;
-	for (int j = 0; j < (int) vec.size(); ++j) {
-		if (num == vec.at(j)) {
-			return true;
-		}
-	}
-	return false;
+        
+  vector<string> validMoves;
+  std::ostringstream oss;
+  for (int i = 0; i < hand.getSize(); ++i) {
+    for (int j = 0; j < 4; ++j){
+      if (!hand.at(i) || hand.at(i) == build->at(j)->getSize()%12 + 1){
+	oss << 'h' << i + 1 << " b" << j+1 << endl;
+	validMoves.push_back(oss.str());
+	oss.clear();
+      } 
+      oss << 'h' << i + 1 << " d" << j+1 << endl;
+      validMoves.push_back(oss.str());
+      oss.clear();
+    }
+  }
+  
+  for (int i = 0; i < 4; ++i) {
+    for (int j = 0; j < 4; ++j){
+      if (!discard.at(i)->getTop() || discard.at(i)->getTop() == build->at(j)->getSize()%12 + 1){
+	oss << 'd' << i + 1 << " " << 'b' << j+1 << endl;
+	validMoves.push_back(oss.str());
+	oss.clear();
+      }
+    }
+  }
+  
+  for (int i = 0; i < 4; ++i){
+    if (!stock.getTop() || stock.getTop() == build->at(i)->getSize()%12 + 1){
+      oss << "s b" << i+1 << endl;
+      validMoves.push_back(oss.str());
+      oss.clear();
+    }
+  }
+  
+  //PICK RANDOM MOVE/BEST MOVE HERE
+  srand(seed);
+  seed++;
+  int ran;
+  
+  ran = rand() % validMoves.size();
+  string keep = string(validMoves.at(ran));
+  //wait so that AI does not move instantaneously
+  cout << keep << endl;
+  
+  std::this_thread::sleep_for(std::chrono::milliseconds(300));	
+  
+  return keep;
+  
+  
+  ///////////////
 }
 
 int AI::find(vector<int> vec, int num) {

@@ -16,7 +16,6 @@ Game::Game() {
 }
 
 Game::~Game() {
-  assert(1 == 0);
   for (unsigned long i = 0; i < players.size(); i++){
     delete players[i];
   } 
@@ -62,18 +61,11 @@ Game::Game(vector<string> names, vector<int> arrangement){
 void Game::nextTurn(){
   turn++;
   if (getPlayer()->getHand().getSize() > draw->getSize()){
-      vector<int> left;
-      left.resize(draw->getSize());
-      
-      for(int i = draw->getSize()-1; i >= 0 ; i--){
-	left[i] = draw->takeCard();
-      }
-      
-      for (int i = 0; i < 4; i++){
-	build[i]->move(*draw);
-      }
-      
-      *(draw)+=left;
+    int left = draw->getSize();
+    
+    for (int i = 0; i < 4; i++){
+      build[i]->move(*draw, left);
+    }
   } 
   getPlayer()->drawCards();
 }
@@ -82,18 +74,11 @@ void Game::nextTurn(){
 void Game::refill(){
   if (getPlayer()->getHand().getSize() == 0){
     if (5 > draw->getSize()){
-      vector<int> left;
-      left.resize(draw->getSize());
-      
-      for(int i = draw->getSize()-1; i >= 0 ; i--){
-	left[i] = draw->takeCard();
-      }
-      
+      int left = draw->getSize();
+   
       for (int i = 0; i < 4; i++){
-	build[i]->move(*draw);
+	build[i]->move(*draw, left);
       }
-      
-      *(draw)+=left;
     } 
     getPlayer()->drawCards();
   }
