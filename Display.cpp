@@ -5,6 +5,8 @@
 #include <vector>
 #include <sstream>
 #include <iostream>
+#include <chrono>
+#include <thread>
 
 using std::string;
 using std::vector;
@@ -18,7 +20,7 @@ void Display::display(Player* player, vector<Build*> build, int num) {
 	
 	string* temp;
 	
-	for (int i = 0; i < 10; ++i) {
+	for (int i = 0; i < 60; ++i) {
 		temp = new string(" ");
 		out.push_back(*temp);
 	}
@@ -241,4 +243,208 @@ string Display::convert(int num, Build build) {
 	ostringstream temp;
 	temp << num;
 	return temp.str();
+}
+
+void Display::change(Player* player, int num) {
+	vector<string> out;
+	string* temp;
+	
+	for (int i = 0; i < 60; ++i) {
+		temp = new string(" ");
+		out.push_back(*temp);
+	}
+	temp = new string("=====================================================");
+	out.push_back(*temp);
+	temp = new string("=                  Switching Players!               =");
+	out.push_back(*temp);
+	temp = new string("=====================================================");
+	out.push_back(*temp);
+	temp = new string("");
+	out.push_back(*temp);
+	
+	temp = new string("Player ");
+	*temp += convert(num + 1);
+	*temp += ": ";
+	*temp += player->getName();
+	*temp += "'s Turn";
+	out.push_back(*temp);
+	
+	temp = new string("");
+	out.push_back(*temp);
+	temp = new string("=====================================================");
+	out.push_back(*temp);
+	temp = new string("=                                                   =");
+	out.push_back(*temp);
+	temp = new string("=====================================================");
+	out.push_back(*temp);
+	
+	for (unsigned long i = 0; i < out.size(); ++i) {
+		if (i == out.size()) {
+			cout << out.at(i);
+		}
+		else {
+			cout << out.at(i) << endl;
+		}
+	}
+	std::this_thread::sleep_for(std::chrono::milliseconds(300));	
+	///////////////////////////////////////////////////////
+	out.clear();
+	for (int i = 0; i < 60; ++i) {
+		temp = new string(" ");
+		out.push_back(*temp);
+	}
+	temp = new string("=====================================================");
+	out.push_back(*temp);
+	temp = new string("=                                                   =");
+	out.push_back(*temp);
+	temp = new string("=====================================================");
+	out.push_back(*temp);
+	temp = new string("");
+	out.push_back(*temp);
+	
+	temp = new string("Player ");
+	*temp += convert(num + 1);
+	*temp += ": ";
+	*temp += player->getName();
+	*temp += "'s Turn";
+	out.push_back(*temp);
+	
+	temp = new string("");
+	out.push_back(*temp);
+	temp = new string("=====================================================");
+	out.push_back(*temp);
+	temp = new string("=                  Switching Players!               =");
+	out.push_back(*temp);
+	temp = new string("=====================================================");
+	out.push_back(*temp);
+	
+	for (unsigned long i = 0; i < out.size(); ++i) {
+		if (i == out.size()) {
+			cout << out.at(i);
+		}
+		else {
+			cout << out.at(i) << endl;
+		}
+	}
+	std::this_thread::sleep_for(std::chrono::milliseconds(300));	
+	///////////////////////////////////////////////////////
+	out.clear();
+	for (int i = 0; i < 60; ++i) {
+		temp = new string(" ");
+		out.push_back(*temp);
+	}
+	temp = new string("=====================================================");
+	out.push_back(*temp);
+	temp = new string("=                  Switching Players!               =");
+	out.push_back(*temp);
+	temp = new string("=====================================================");
+	out.push_back(*temp);
+	temp = new string("");
+	out.push_back(*temp);
+	
+	temp = new string("Player ");
+	*temp += convert(num + 1);
+	*temp += ": ";
+	*temp += player->getName();
+	*temp += "'s Turn";
+	out.push_back(*temp);
+	
+	temp = new string("");
+	out.push_back(*temp);
+	temp = new string("=====================================================");
+	out.push_back(*temp);
+	temp = new string("=                                                   =");
+	out.push_back(*temp);
+	temp = new string("=====================================================");
+	out.push_back(*temp);
+	
+	for (unsigned long i = 0; i < out.size(); ++i) {
+		if (i == out.size()) {
+			cout << out.at(i);
+		}
+		else {
+			cout << out.at(i) << endl;
+		}
+	}
+	std::this_thread::sleep_for(std::chrono::milliseconds(300));
+	///////////////////////////////////////////////////////
+	out.clear();
+	for (int i = 0; i < 60; ++i) {
+		temp = new string(" ");
+		out.push_back(*temp);
+	}
+	temp = new string("=====================================================");
+	out.push_back(*temp);
+	temp = new string("=                                                   =");
+	out.push_back(*temp);
+	temp = new string("=====================================================");
+	out.push_back(*temp);
+	temp = new string("");
+	out.push_back(*temp);
+	
+	temp = new string("Player ");
+	*temp += convert(num + 1);
+	*temp += ": ";
+	*temp += player->getName();
+	*temp += "'s Turn";
+	out.push_back(*temp);
+	
+	temp = new string("");
+	out.push_back(*temp);
+	temp = new string("=====================================================");
+	out.push_back(*temp);
+	temp = new string("=                  Switching Players!               =");
+	out.push_back(*temp);
+	temp = new string("=====================================================");
+	out.push_back(*temp);
+	
+	for (unsigned long i = 0; i < out.size(); ++i) {
+		if (i == out.size()) {
+			cout << out.at(i);
+		}
+		else {
+			cout << out.at(i) << endl;
+		}
+	}
+	std::this_thread::sleep_for(std::chrono::milliseconds(300));
+	out.clear();
+	for (int i = 0; i < 60; ++i) {
+		temp = new string(" ");
+		out.push_back(*temp);
+	}
+	temp = new string("=====================================================");
+	out.push_back(*temp);
+	temp = new string("=                  Switching Players!               =");
+	out.push_back(*temp);
+	temp = new string("=====================================================");
+	out.push_back(*temp);
+	temp = new string("");
+	out.push_back(*temp);
+	
+	temp = new string("Player ");
+	*temp += convert(num + 1);
+	*temp += ": ";
+	*temp += player->getName();
+	*temp += "'s Turn";
+	out.push_back(*temp);
+	
+	temp = new string("");
+	out.push_back(*temp);
+	temp = new string("=====================================================");
+	out.push_back(*temp);
+	temp = new string("=                                                   =");
+	out.push_back(*temp);
+	temp = new string("=====================================================");
+	out.push_back(*temp);
+	
+	for (unsigned long i = 0; i < out.size(); ++i) {
+		if (i == out.size()) {
+			cout << out.at(i);
+		}
+		else {
+			cout << out.at(i) << endl;
+		}
+	}
+	std::this_thread::sleep_for(std::chrono::milliseconds(300));
+	
 }

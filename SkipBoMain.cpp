@@ -80,6 +80,7 @@ int main(){
     }
     catch (int a){
       d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber());
+	  d.change(game->getNextPlayer(), game->getNextPlayerNumber());
       cout << "Turn end\n" << endl;
     }
     catch (char c){

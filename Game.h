@@ -50,8 +50,14 @@ class Game {
   //Returns a pointer to the current player
   Player* getPlayer() const;
   
+  //Returns a pointer to the next player
+  Player* getNextPlayer() const;
+  
   //returns the index of the current player
   int getPlayerNumber();
+  
+  //returns the index of the next player
+  int getNextPlayerNumber();
   
   //return the build vector
   vector<Build*> getBuild();
