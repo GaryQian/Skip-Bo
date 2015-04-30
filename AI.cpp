@@ -89,6 +89,7 @@ string AI::getMove() {
 		*temp += " b";
 		ran = rand() % 4 + 1;
 		*temp += d.convert(ran);
+		cout << *temp;
 		return *temp;
 	}
 	
@@ -98,11 +99,11 @@ string AI::getMove() {
 		delete &moves.at(i);
 	}
 	//wait so that AI does not move instantaneously
-	cout << moves.at(ran) << endl;
+	cout << keep << endl;
 	
 	std::this_thread::sleep_for(std::chrono::milliseconds(300));	
 	
-	return moves.at(ran);
+	return keep;
 	
 	
 	///////////////
