@@ -9,9 +9,8 @@ Build::Build(){
   cards = vector<int>();
 }
 
-void Build::move(Draw& draw) throw(std::logic_error){
-  if(getSize() < 12) 
-    throw std::logic_error("Build pile doesn't have a completed set yet.\n");
+void Build::move(Draw& draw, int num) throw(std::logic_error){
+  if(getSize() < 12) return;
 
   //reverse the order of the cards, so the bottom cards are now the
   //last elements in the vector
@@ -27,9 +26,9 @@ void Build::move(Draw& draw) throw(std::logic_error){
   //reverse the vector again, so they are now in the original order
   reverse(cards.begin(), cards.end());
 
-  //take all the leftover cards in the Draw pile
+  //take the leftover cards in the Draw pile
   vector<int> leftover;  
-  while(!(draw.isEmpty())){
+  for(int i = 0; i < num; i++){
     leftover.push_back(draw.takeCard());
   }
   reverse(leftover.begin(), leftover.end());
