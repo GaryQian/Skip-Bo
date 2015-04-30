@@ -7,11 +7,17 @@ Discard::Discard(){
   cards = vector<int>();
 }
 
-/*
-bool Discard::move(Build& build){
-  if(getSize()){
-    build += takeCard();
-    return true;
+
+void Discard::move(Build& build){
+  if(isEmpty()) throw std::logic_error("Deck is empty.\n");
+  
+  int card = takeCard();
+  try {
+    build += card;
+  } 
+  //if not valid, return the card to discard pile
+  catch(std::invalid_argument & e){
+    *this += card;
+    throw e;
   }
-  return false;
-  }*/
+}

@@ -152,6 +152,7 @@ class Build: public Deck {
 class Discard: public Deck { 
 public:
   Discard();
+  void move(Build& build);
 }; 
 
 /*

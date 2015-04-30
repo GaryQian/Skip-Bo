@@ -476,8 +476,93 @@ public:
     } catch(std::logic_error & e){
       oss << "Failure while trying to take " << size << " cards!";
     }
-    assert(oss.str() == "Failure while trying to take 5 cards!");
+    assert(oss.str() == "Failure while trying to take 5 cards!");    
+  }
+};
 
+class DiscardTest {
+public:
+  static void constructorTest() {
+    ostringstream oss;
+    Discard discard = Discard();
+    assert(discard.isEmpty());
+    assert(!discard.getSize());
+
+    try {
+      discard.takeCard();
+    }
+    catch(std::logic_error & e){
+      oss << e.what();
+    }
+    assert(oss.str() == "Deck is empty.\n");
+  }
+
+  static void opsTest() {
+    Discard discard = Discard();
+    vector<int> list(5,2);
+    ostringstream oss;
+
+    try {
+      discard += 3;
+      discard += 5;
+      discard += list;
+      discard += 13;
+      assert(false);
+    }
+    catch(std::invalid_argument & e){
+      oss << e.what();
+    }
+    assert(oss.str() == "Invalid card value.\n");
+    assert(discard.getSize() == 7);
+  }
+
+  static void takeCardTest(){
+    Discard discard = Discard();
+    vector<int> list(5,2);
+    ostringstream oss;
+
+    discard += 3;
+    discard += 5;
+    discard += list;
+
+    for(int i = 0; i < 5; i++){
+      assert(discard.takeCard() == 2);
+    }
+
+    assert(discard.takeCard() == 5);
+    assert(discard.takeCard() == 3);
+    assert(discard.isEmpty());
+    try {
+      discard.takeCard();
+    }
+    catch(std::logic_error & e){
+      oss << e.what();
+    }
+    assert(oss.str() == "Deck is empty.\n");
+  }  
+
+  static void moveTest() {
+    Discard discard = Discard();
+    Build* bPile = new Build[4];
+    vector<int> list(4,1);
+    ostringstream oss;
+
+    discard += list;
+    
+    try {
+      discard.move(bPile[0]);
+      discard.move(bPile[0]);
+    }
+    catch(std::logic_error & e){
+      oss << e.what();
+    }
+
+    /*
+      for(int i = 0; i < 4; i++){
+	discard.move(bPile[i]);
+      }
+      discard.move(bPile[i]);
+    */
     
   }
 };
@@ -507,4 +592,12 @@ int main(void){
   StockTest::constructorTest();
   StockTest::opsTest();
   cout << "Passed Stock tests." << endl;
+
+  cout << "Running Discard tests..." << endl;
+  DiscardTest::constructorTest();
+  DiscardTest::opsTest();
+  DiscardTest::takeCardTest();
+  cout << "Passed Discard tests." << endl;
+
 }
+
