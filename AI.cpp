@@ -20,12 +20,14 @@ AI::AI(string name, Draw* draw, vector<Build*>* build, Stock stock) {
 	this->name = name;
 	this->build = build;
 	this->stock = stock;
-	discard.resize(4);
+	for(int i = 0; i < 4; i++){
+	  discard.push_back(new Discard());
+	}
 	seed = time(NULL);
 	isAnAI = true;
 }
 
-AI::AI(string name, Draw* draw, vector<Build*>* build, Stock stock, Hand hand, vector<Discard> discard){
+AI::AI(string name, Draw* draw, vector<Build*>* build, Stock stock, Hand hand, vector<Discard*> discard){
   this->draw = draw;
   this->name = name;
   this->build = build;
@@ -57,7 +59,7 @@ string AI::getMove() {
 	}
 	
 	for (int i = 0; i < 4; ++i) {
-		if (contains(validNums, discard[i].getTop())) {
+		if (contains(validNums, discard[i]->getTop())) {
 			temp = new string("d");
 			*temp += d.convert(i + 1);
 			*temp += " b";

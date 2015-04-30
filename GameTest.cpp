@@ -297,7 +297,7 @@ public:
     try {g->process("h1 d1");}
     catch (int a) {assert(a == 1);}
 
-    assert(g->getPlayer()->getDiscard().at(0).getTop() == 3);
+    assert(g->getPlayer()->getDiscard().at(0)->getTop() == 3);
     assert(g->getPlayer()->getHand().toString() == "");
     assert(g->getPlayer()->getStock().getTop() == 12);
     assert(g->move.size() == 15);
@@ -326,7 +326,7 @@ public:
     catch (int a) { assert(a == 1);}
   
     assert(g->getPlayer()->getHand().toString() == "4 6 7 8 ");
-    assert(g->getPlayer()->getDiscard().at(1).getTop() == 5);
+    assert(g->getPlayer()->getDiscard().at(1)->getTop() == 5);
     assert(g->move.size() == 16);
 
     //end of player 3's turn
