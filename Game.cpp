@@ -16,6 +16,7 @@ Game::Game() {
 }
 
 Game::~Game() {
+  assert(1 == 0);
   for (unsigned long i = 0; i < players.size(); i++){
     delete players[i];
   } 
@@ -220,6 +221,13 @@ void Game::load_game(string filename){
 }
 
 void Game::process(string input){
+  if (input.substr(0,4) == "save" || input.substr(0,4) == "Save"){
+    string filename;
+    cout << "Save as: " << endl;
+    getline(std::cin, filename);
+    save_game(filename);
+    throw 's';
+  }
   if (input.length() < 4) throw std::invalid_argument("Invalid input length\n");
 
   char source = input.at(0);

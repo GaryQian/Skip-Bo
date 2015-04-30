@@ -13,7 +13,7 @@ using std::cout;
 using std::endl;
 
 //Displays game onto the screen
-void Display::display(Player* player, vector<Build> build, int num) {
+void Display::display(Player* player, vector<Build*> build, int num) {
 	vector<string> out;
 	
 	string* temp;
@@ -32,23 +32,23 @@ void Display::display(Player* player, vector<Build> build, int num) {
 	
 	////////////////////////////////////
 	temp = new string("│ ");
-	*temp += convert(build[0].getTop(), build.at(0));
-	if (build[0].getTop() >= 10) {
+	*temp += convert(build[0]->getTop(), *build.at(0));
+	if (build[0]->getTop() >= 10) {
 		*temp += "│ │ ";
 	}
 	else *temp += " │ │ ";
-	*temp += convert(build[1].getTop(), build.at(0));
-	if (build[1].getTop() >= 10) {
+	*temp += convert(build[1]->getTop(), *build.at(0));
+	if (build[1]->getTop() >= 10) {
 		*temp += "│ │ ";
 	}
 	else *temp += " │ │ ";
-	*temp += convert(build[2].getTop(), build.at(0));
-	if (build[2].getTop() >= 10) {
+	*temp += convert(build[2]->getTop(), *build.at(0));
+	if (build[2]->getTop() >= 10) {
 		*temp += "│ │ ";
 	}
 	else *temp += " │ │ ";
-	*temp += convert(build[3].getTop(), build.at(0));
-	if (build[3].getTop() >= 10) {
+	*temp += convert(build[3]->getTop(), *build.at(0));
+	if (build[3]->getTop() >= 10) {
 		*temp += "│";
 	}
 	else *temp += " │";
@@ -213,7 +213,7 @@ void Display::display(Player* player, vector<Build> build, int num) {
 	}
 }
 
-void Display::display(AI player, vector<Build> build, int num) {
+void Display::display(AI player, vector<Build*> build, int num) {
 	display(player, build, num);
 }
 

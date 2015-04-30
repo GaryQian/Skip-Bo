@@ -10,9 +10,9 @@ class Display {
   vector<int> buildTop;
   
  public:
-  void display(Player* player, vector<Build> build, int num);
+  void display(Player* player, vector<Build*> build, int num);
   
-  void display(AI player, vector<Build> build, int num); 
+  void display(AI player, vector<Build*> build, int num); 
   
  private:
   string convert(int num);
