@@ -17,7 +17,7 @@ class Player {
   bool isAnAI;
 
   //reference to higher level data
-  vector<Build>* build;
+  vector<Build*>* build;
 	
   Draw* draw;  
   friend class HumanPlayer;
@@ -47,8 +47,8 @@ class HumanPlayer: public Player {
  public:
 
   //constructors
-  HumanPlayer(string name, Draw* draw, vector<Build>* build, Stock stock);
-  HumanPlayer(string name, Draw* draw, vector<Build>* build, Stock stock, Hand hand, vector<Discard> discard);
+  HumanPlayer(string name, Draw* draw, vector<Build*>* build, Stock stock);
+  HumanPlayer(string name, Draw* draw, vector<Build*>* build, Stock stock, Hand hand, vector<Discard> discard);
 
   //destructor
   ~HumanPlayer();
@@ -63,8 +63,8 @@ class AI: public Player {
 
  public:
   //constructor
-  AI(string name, Draw* draw, vector<Build>* build, Stock stock);
-  AI(string name, Draw* draw, vector<Build>* build, Stock stock, Hand hand, vector<Discard> discard);
+  AI(string name, Draw* draw, vector<Build*>* build, Stock stock);
+  AI(string name, Draw* draw, vector<Build*>* build, Stock stock, Hand hand, vector<Discard> discard);
 
   //destructor
   ~AI();

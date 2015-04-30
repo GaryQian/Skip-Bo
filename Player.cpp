@@ -16,20 +16,20 @@ void Player::move(Move yourMove) throw (int) {
   //source card is stockpile
   if (yourMove.source == 's') {
     //the only destination is build
-    stock.move(build->at(yourMove.destIndex));
+    stock.move(*(build->at(yourMove.destIndex)));
   }
 
   //source card is discard
   else if (yourMove.source == 'd') {
     //Moves from the discard pile provided by user to the correct build pile
-    discard.at(yourMove.sourceIndex).move(build->at(yourMove.destIndex));
+    discard.at(yourMove.sourceIndex).move(*(build->at(yourMove.destIndex)));
   }
 
   //source card is hand 
   else {
     if (yourMove.dest == 'b') {
       //Moves from hand card provided by user to the correct build pile  
-      hand.move(build->at(yourMove.destIndex), yourMove.sourceIndex);
+      hand.move(*(build->at(yourMove.destIndex)), yourMove.sourceIndex);
     }
     else if (yourMove.dest == 'd') {
       //Moves from the hand card to the discard pile whose index is provided by the user

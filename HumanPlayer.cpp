@@ -5,7 +5,7 @@
 using std::string;
 using std::cin;
 
-HumanPlayer::HumanPlayer(string name, Draw* draw, vector<Build>* build, Stock stock) {
+HumanPlayer::HumanPlayer(string name, Draw* draw, vector<Build*>* build, Stock stock) {
   this->draw = draw;
   this->name = name;
   this->build = build;
@@ -15,7 +15,7 @@ HumanPlayer::HumanPlayer(string name, Draw* draw, vector<Build>* build, Stock st
 
 }
 
-HumanPlayer::HumanPlayer(string name, Draw* draw, vector<Build>* build, Stock stock, Hand hand, vector<Discard> discard){
+HumanPlayer::HumanPlayer(string name, Draw* draw, vector<Build*>* build, Stock stock, Hand hand, vector<Discard> discard){
   this->draw = draw;
   this->name = name;
   this->build = build;

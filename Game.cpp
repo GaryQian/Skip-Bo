@@ -51,7 +51,7 @@ Game::Game(vector<string> names, vector<int> arrangement){
   }
 
   for(int i = 0; i < 4; i++){
-    build.push_back(Build());
+    build.push_back(new Build());
   }
 }
 
@@ -66,7 +66,7 @@ void Game::nextTurn(){
       }
       
       for (int i = 0; i < 4; i++){
-	build[i].move(draw);
+	build[i]->move(draw);
       }
       
       draw+=left;
@@ -86,7 +86,7 @@ void Game::refill(){
       }
       
       for (int i = 0; i < 4; i++){
-	build[i].move(draw);
+	build[i]->move(draw);
       }
       
       draw+=left;
@@ -105,19 +105,16 @@ void Game::save_game(string filename) const{
 
   outFile << numP << endl;
   
-  for(int i = 0; i < numP; i++){
-    outFile << players[i]->getName() << endl;
-  }
-  
   outFile << draw.toString() << endl;
 
   for(int i = 0; i < 4; i++){
-    outFile << build[i] << -1 << " ";
+    outFile << build[i]->toString() << -1 << " ";
   }
   outFile << endl;
 
   for(int i = 0; i < numP; i++){
-    outFile << players[i]->getHand() << endl;
+    outFile << players[i]->getName() << endl;
+    outFile << players[i]->getHand() << " " << -1 <<endl;
     
     for(int j = 0; j < 4; j++){
       outFile << (players[i]->getDiscard())[j] << -1 << " ";
@@ -133,6 +130,7 @@ void Game::save_game(string filename) const{
     outFile << move[i]->toString();
   }
   outFile << endl << turn << endl;
+  outFile.close();
 }
 
 void Game::load_game(string filename){
@@ -151,16 +149,17 @@ void Game::load_game(string filename){
     draw+=num;
     inFile >> num;
   }
-
-  build.resize(4);
+  
+  build.resize(4, new Build());
 
   for(int i = 0; i < 4; i++){
     inFile >> num;
     while(num != -1){
-      build[i] += num;
+      *(build[i]) += num;
       inFile >> num;
     }
   }
+  
 
   for(int i = 0; i < numPlayers; i++){
     Stock* s = new Stock();
@@ -168,7 +167,7 @@ void Game::load_game(string filename){
     vector<Discard> discard;
     discard.resize(4);
     
-    inFile >> name;
+    std::getline(inFile, name);
     inFile >> num;
     while(num != -1){
       *h+=num;
@@ -221,28 +220,28 @@ void Game::process(string input){
   if (input.length() < 4) throw std::invalid_argument("Invalid input length\n");
 
   char source = input.at(0);
-  Move m;
+  Move* m = new Move();
 
   if (source == 's'){
     input = input.substr(1);
-    m.source = source;
-    m.sourceIndex = 0;
-    m.value = getPlayer()->getStock().getTop();
+    m->source = source;
+    m->sourceIndex = 0;
+    m->value = getPlayer()->getStock().getTop();
     if (input.at(0) != ' ') throw std::invalid_argument("Stock does not take an index\n");
   }
   else if (source == 'd'){
-    m.source = source;
-    m.sourceIndex = (input.at(1) - '0')-1;
-    if (m.sourceIndex > 3 || m.sourceIndex < 0) throw std::invalid_argument("Invalid discard pile index\n");
+    m->source = source;
+    m->sourceIndex = (input.at(1) - '0')-1;
+    if (m->sourceIndex > 3 || m->sourceIndex < 0) throw std::invalid_argument("Invalid discard pile index\n");
     input = input.substr(2);
-    m.value = getPlayer()->getDiscard()[m.sourceIndex].getTop();
+    m->value = getPlayer()->getDiscard()[m->sourceIndex].getTop();
   }
   else if (source == 'h'){
-    m.source = source;
-    m.sourceIndex = (input.at(1) - '0')-1;
-    if (m.sourceIndex < 0 || m.sourceIndex > getPlayer()->getHand().getSize() - 1) throw std::invalid_argument("Invalid hand index\n");
+    m->source = source;
+    m->sourceIndex = (input.at(1) - '0')-1;
+    if (m->sourceIndex < 0 || m->sourceIndex > getPlayer()->getHand().getSize() - 1) throw std::invalid_argument("Invalid hand index\n");
     input = input.substr(2);
-    m.value = getPlayer()->getHand().at(m.sourceIndex);
+    m->value = getPlayer()->getHand().at(m->sourceIndex);
   }
   else {
   throw std::invalid_argument("Unknown card source\nNote: possible sources are (h = hand, s = stock, d = deck)\n");
@@ -257,22 +256,23 @@ void Game::process(string input){
   int destIndex = 0;
 
   if (dest == 'b' || dest == 'd'){
-    m.dest = dest;
+    m->dest = dest;
     destIndex = (input.at(2) - '0')-1;
 
     if (destIndex > 3 || destIndex < 0) throw std::invalid_argument("Invalid index for destination\n");
 
-    m.destIndex = destIndex;
+    m->destIndex = destIndex;
   }
   else throw std::invalid_argument("Unknown card destination\nNote: possible destinations are (d = discard, b = build pile)");
   
-  if (dest == 'b' && m.value != 0){
-    if (build.at(destIndex).getSize()%12 != m.value - 1) throw std::invalid_argument("Source and destination do not match");
+  if (dest == 'b' && m->value != 0){
+    if (build.at(destIndex)->getSize()%12 != m->value - 1) throw std::invalid_argument("Source and destination do not match");
   }
   
   if (dest == 'd' && source == 's') throw std::invalid_argument("Stock card cannot be moved to discard pile\n");
   
-  this->play(m);
+  move.push_back(m);
+  this->play(*m);
   return;
 }
 
@@ -297,7 +297,7 @@ vector<Move*> Game::canMove() const{
   for (int i = 0; i < getPlayer()->getHand().getSize(); i++){
     for (int j = 0; j < 4; j++){
       //check all build piles if card in hand can be placed there
-      if (!getPlayer()->getHand().at(i) || getPlayer()->getHand().at(i) == build.at(j).getSize()%12+1){
+      if (!getPlayer()->getHand().at(i) || getPlayer()->getHand().at(i) == build.at(j)->getSize()%12+1){
 	validMoves.push_back(new Move(p, getPlayer()->getHand().at(i), 'h', 'b', i, j));   
       }     
     }
@@ -307,7 +307,7 @@ vector<Move*> Game::canMove() const{
   for (int i = 0; i < 4; i++){
     //check if can be placed in any build pile
     for (int j = 0; j < 4; j++){
-      if (!getPlayer()->getDiscard().at(i).getTop() || getPlayer()->getDiscard().at(i).getTop() == build.at(j).getSize()%12+1){
+      if (!getPlayer()->getDiscard().at(i).getTop() || getPlayer()->getDiscard().at(i).getTop() == build.at(j)->getSize()%12+1){
 	validMoves.push_back(new Move(p, getPlayer()->getDiscard().at(i).getTop(), 'd', 'b', i, j));
       }
     }
@@ -315,7 +315,7 @@ vector<Move*> Game::canMove() const{
   
   //checks if stock can be placed in build pile
   for (int i = 0; i < 4; i++){
-    if (!getPlayer()->getStock().getTop() || getPlayer()->getStock().getTop()== build.at(i).getSize()%12+1){
+    if (!getPlayer()->getStock().getTop() || getPlayer()->getStock().getTop()== build.at(i)->getSize()%12+1){
       validMoves.push_back(new Move(p, getPlayer()->getStock().getTop(), 's', 'b', 0, i));
     }
   }
@@ -327,7 +327,7 @@ int Game::getPlayerNumber() {
 	return (turn-1)%players.size();
 }
 
-vector<Build> Game::getBuild() {
+vector<Build*> Game::getBuild() {
 	return build;
 }
 

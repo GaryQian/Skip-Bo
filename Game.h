@@ -9,7 +9,7 @@ class Game {
  private:
   std::vector<Player*> players;//stores vector of HumanPlayers and AI
   std::vector<Move*> move;//stores move structs
-  std::vector<Build> build;//contains 4 instances of Build class
+  std::vector<Build*> build;//contains 4 instances of Build class
   Draw draw;//an instance of the Draw class
   int turn;//represents the turn number
   
@@ -54,7 +54,7 @@ class Game {
   int getPlayerNumber();
   
   //return the build vector
-  vector<Build> getBuild();
+  vector<Build*> getBuild();
 
   //Checks hand and stock of current player and the build pile to see if there are valid moves remaining 
   std::vector<Move*> canMove() const;

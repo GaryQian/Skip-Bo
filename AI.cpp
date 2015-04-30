@@ -15,7 +15,7 @@ using std::vector;
 using std::cout;
 using std::endl;
 
-AI::AI(string name, Draw* draw, vector<Build>* build, Stock stock) {
+AI::AI(string name, Draw* draw, vector<Build*>* build, Stock stock) {
 	this->draw = draw;
 	this->name = name;
 	this->build = build;
@@ -25,7 +25,7 @@ AI::AI(string name, Draw* draw, vector<Build>* build, Stock stock) {
 	isAnAI = true;
 }
 
-AI::AI(string name, Draw* draw, vector<Build>* build, Stock stock, Hand hand, vector<Discard> discard){
+AI::AI(string name, Draw* draw, vector<Build*>* build, Stock stock, Hand hand, vector<Discard> discard){
   this->draw = draw;
   this->name = name;
   this->build = build;
@@ -40,8 +40,8 @@ string AI::getMove() {
 	Display d;
 	vector<int> validNums;
 	for (int i = 0; i < 4; ++i) {
-		if (build->at(i).getTop() != -1) {
-			validNums.push_back(build->at(i).getTop() + 1);
+		if (build->at(i)->getTop() != -1) {
+		  validNums.push_back(build->at(i)->getTop() + 1);
 		}
 	}
 	vector<string> moves;

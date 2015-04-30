@@ -11,11 +11,13 @@ class GameTest{
 
   Game* g;
   Game* g1;
+  Game* g3;
 
 public:
   ~GameTest(){
     delete g;
     delete g1;
+    delete g3;
   }
   
   void clear(vector<Move*> vec){
@@ -53,10 +55,10 @@ public:
 
     //checking build piles were constructed correctly
     assert(g->build.size() == 4);
-    assert(!g->build.at(0).getSize());
-    assert(!g->build.at(1).getSize());
-    assert(!g->build.at(2).getSize());
-    assert(!g->build.at(3).getSize());
+    assert(!g->build.at(0)->getSize());
+    assert(!g->build.at(1)->getSize());
+    assert(!g->build.at(2)->getSize());
+    assert(!g->build.at(3)->getSize());
 
     //checking move vector is still empty
     assert(!g->move.size());
@@ -199,7 +201,8 @@ public:
     
     assert(g->getPlayer()->getHand().getSize() == 4);
     assert(g->getPlayer()->getHand().toString() == "2 3 4 5 ");
-    assert(g->build.at(0).toString() == "1 ");
+    assert(g->build.at(0)->toString() == "1 ");
+    assert(g->move.size() == 1);
   }
 
   void MoveTest(){
@@ -211,7 +214,7 @@ public:
     
     assert(g->getPlayer()->getHand().getSize() == 3);
     assert(g->getPlayer()->getHand().toString() == "3 4 5 ");
-    assert(g->build.at(0).toString() == "1 2 ");
+    assert(g->build.at(0)->toString() == "1 2 ");
     
     clear(choices);
 
@@ -223,7 +226,7 @@ public:
 
     assert(g->getPlayer()->getHand().getSize() == 2);
     assert(g->getPlayer()->getHand().toString() == "4 5 ");
-    assert(g->build.at(0).toString() == "1 2 3 ");
+    assert(g->build.at(0)->toString() == "1 2 3 ");
     
     clear(choices);
 
@@ -235,7 +238,7 @@ public:
 
     assert(g->getPlayer()->getHand().getSize() == 1);
     assert(g->getPlayer()->getHand().toString() == "5 ");
-    assert(g->build.at(0).toString() == "1 2 3 4 ");
+    assert(g->build.at(0)->toString() == "1 2 3 4 ");
     
     clear(choices);
 
@@ -248,7 +251,7 @@ public:
     assert(g->getPlayer()->getHand().getSize() == 0);
     g->refill();
     assert(g->getPlayer()->getHand().toString() == "6 7 8 9 10 ");
-    assert(g->build.at(0).toString() == "1 2 3 4 5 ");
+    assert(g->build.at(0)->toString() == "1 2 3 4 5 ");
     
     clear(choices);
     
@@ -259,16 +262,18 @@ public:
     
     g->process("s b1");
 
-    assert(g->build.at(0).toString() == "1 2 3 4 5 6 ");
+    assert(g->build.at(0)->toString() == "1 2 3 4 5 6 ");
     assert(g->getPlayer()->getStock().getTop() == 5);
+    assert(g->move.size() == 6);
 
     g->process("h2 b1");
     g->process("h2 b1");
     g->process("h2 b1");
     g->process("h2 b1");
 
-    assert(g->build.at(0).toString() == "1 2 3 4 5 6 7 8 9 10 ");
+    assert(g->build.at(0)->toString() == "1 2 3 4 5 6 7 8 9 10 ");
     assert(g->getPlayer()->getHand().toString() == "6 ");
+    assert(g->move.size() == 10);
 
     //end of player 1's turn
     //build pile: 10 0 0 0
@@ -295,6 +300,7 @@ public:
     assert(g->getPlayer()->getDiscard().at(0).getTop() == 3);
     assert(g->getPlayer()->getHand().toString() == "");
     assert(g->getPlayer()->getStock().getTop() == 12);
+    assert(g->move.size() == 15);
 
     //end of player 2's turn
     //build 2 0 0 0
@@ -321,6 +327,8 @@ public:
   
     assert(g->getPlayer()->getHand().toString() == "4 6 7 8 ");
     assert(g->getPlayer()->getDiscard().at(1).getTop() == 5);
+    assert(g->move.size() == 16);
+
     //end of player 3's turn
     //build 2 0 0 0
     //p3 discard 0 5 0 0
@@ -340,6 +348,18 @@ public:
     
     choices = g->canMove();
     assert(choices.size() == 4);
+    
+    g->process("h5 b1");
+    assert(g->build.at(0)->getSize()%12 == 3);
+    assert(g->getPlayer()->getHand().toString() == "9 10 11 12 ");
+    assert(g->move.size() == 17);
+  }
+  
+  void saveLoadTest(){
+    g->save_game("test_save_0");
+    g3->load_game("test_save_0");
+
+    
   }
   
 };
@@ -355,5 +375,9 @@ int main(){
   cout << "Running move method tests" << endl;
   gt.MoveTest();
   cout << "Passed move method tests" << endl;
+  cout << "Running save/load method tests" << endl;
+  gt.saveLoadTest();
+  cout << "Passed save/load method tests" << endl;
+
   return 0;
 }
