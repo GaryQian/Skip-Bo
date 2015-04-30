@@ -105,7 +105,7 @@ void Game::save_game(string filename) const{
 
   outFile << numP << endl;
   
-  outFile << draw.toString() << endl;
+  outFile << draw.toString() << " " << -1 << endl;
 
   for(int i = 0; i < 4; i++){
     outFile << build[i]->toString() << -1 << " ";
@@ -117,11 +117,11 @@ void Game::save_game(string filename) const{
     outFile << players[i]->getHand() << " " << -1 <<endl;
     
     for(int j = 0; j < 4; j++){
-      outFile << (players[i]->getDiscard())[j] << -1 << " ";
+      outFile << (players[i]->getDiscard()).at(j)->toString() << -1 << " ";
     }
     outFile << endl;
 
-    outFile << players[i]->getStock() << endl;
+    outFile << players[i]->getStock() << " " << -1 << endl;
   }
 
   outFile << move.size() << endl;
@@ -149,24 +149,25 @@ void Game::load_game(string filename){
     draw+=num;
     inFile >> num;
   }
-  
-  build.resize(4, new Build());
-
+ 
   for(int i = 0; i < 4; i++){
+    Build* b = new Build();
     inFile >> num;
     while(num != -1){
-      *(build[i]) += num;
+      *b += num;
       inFile >> num;
     }
+    build.push_back(b);
   }
   
-
   for(int i = 0; i < numPlayers; i++){
     Stock* s = new Stock();
     Hand* h = new Hand();
-    vector<Discard> discard;
-    discard.resize(4);
-    
+    vector<Discard*> discard;
+    for(int i = 0; i < 4; i++){
+      discard.push_back(new Discard());
+    }
+    std::getline(inFile, name);
     std::getline(inFile, name);
     inFile >> num;
     while(num != -1){
@@ -174,21 +175,20 @@ void Game::load_game(string filename){
       inFile >> num;
     }
 
-    for(int i = 0; i < 4;){
+    for(int i = 0; i < 4; i++){
       inFile >> num;
-      if(num != -1){
-        discard[i]+=num;
-      }
-      else{
-        ++i;
+      while(num != -1){
+        *(discard.at(i))+=num;
       }
     }
-    
+
     inFile >> num;
     while(num != -1){
       *s += num;
       inFile >> num;
     }
+
+    assert(1 == 0);
 
     if (name.substr(0,3) == "AI "){
       players.push_back(new AI(name, &draw, &build, *s, *h, discard));
@@ -234,7 +234,7 @@ void Game::process(string input){
     m->sourceIndex = (input.at(1) - '0')-1;
     if (m->sourceIndex > 3 || m->sourceIndex < 0) throw std::invalid_argument("Invalid discard pile index\n");
     input = input.substr(2);
-    m->value = getPlayer()->getDiscard()[m->sourceIndex].getTop();
+    m->value = getPlayer()->getDiscard()[m->sourceIndex]->getTop();
   }
   else if (source == 'h'){
     m->source = source;
@@ -307,8 +307,8 @@ vector<Move*> Game::canMove() const{
   for (int i = 0; i < 4; i++){
     //check if can be placed in any build pile
     for (int j = 0; j < 4; j++){
-      if (!getPlayer()->getDiscard().at(i).getTop() || getPlayer()->getDiscard().at(i).getTop() == build.at(j)->getSize()%12+1){
-	validMoves.push_back(new Move(p, getPlayer()->getDiscard().at(i).getTop(), 'd', 'b', i, j));
+      if (!getPlayer()->getDiscard().at(i)->getTop() || getPlayer()->getDiscard().at(i)->getTop() == build.at(j)->getSize()%12+1){
+	validMoves.push_back(new Move(p, getPlayer()->getDiscard().at(i)->getTop(), 'd', 'b', i, j));
       }
     }
   }

@@ -13,7 +13,7 @@ class Player {
   string name;	
   Hand hand;       
   Stock stock;	
-  vector<Discard> discard;
+  vector<Discard*> discard;
   bool isAnAI;
 
   //reference to higher level data
@@ -35,7 +35,7 @@ class Player {
   //  bool playCard(Deck b, int num);
   string getName();
   Hand getHand();
-  vector<Discard> getDiscard();
+  vector<Discard*> getDiscard();
   Stock getStock();
   bool isAI();
   
@@ -48,7 +48,7 @@ class HumanPlayer: public Player {
 
   //constructors
   HumanPlayer(string name, Draw* draw, vector<Build*>* build, Stock stock);
-  HumanPlayer(string name, Draw* draw, vector<Build*>* build, Stock stock, Hand hand, vector<Discard> discard);
+  HumanPlayer(string name, Draw* draw, vector<Build*>* build, Stock stock, Hand hand, vector<Discard*> discard);
 
   //destructor
   ~HumanPlayer();
@@ -64,7 +64,7 @@ class AI: public Player {
  public:
   //constructor
   AI(string name, Draw* draw, vector<Build*>* build, Stock stock);
-  AI(string name, Draw* draw, vector<Build*>* build, Stock stock, Hand hand, vector<Discard> discard);
+  AI(string name, Draw* draw, vector<Build*>* build, Stock stock, Hand hand, vector<Discard*> discard);
 
   //destructor
   ~AI();

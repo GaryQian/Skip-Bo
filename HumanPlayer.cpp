@@ -10,12 +10,14 @@ HumanPlayer::HumanPlayer(string name, Draw* draw, vector<Build*>* build, Stock s
   this->name = name;
   this->build = build;
   this->stock = stock;
-  discard.resize(4);
+  for(int i = 0; i < 4; i++){
+    discard.push_back(new Discard());
+  }
   isAnAI = false;
 
 }
 
-HumanPlayer::HumanPlayer(string name, Draw* draw, vector<Build*>* build, Stock stock, Hand hand, vector<Discard> discard){
+HumanPlayer::HumanPlayer(string name, Draw* draw, vector<Build*>* build, Stock stock, Hand hand, vector<Discard*> discard){
   this->draw = draw;
   this->name = name;
   this->build = build;

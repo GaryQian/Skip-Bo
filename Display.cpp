@@ -149,23 +149,23 @@ void Display::display(Player* player, vector<Build> build, int num) {
 	
 	////////////////////////////////////
 	temp = new string("│ ");
-	*temp += convert(player->getDiscard().at(0).getTop());
-	if (player->getDiscard().at(0).getTop() >= 10) {
+	*temp += convert(player->getDiscard().at(0)->getTop());
+	if (player->getDiscard().at(0)->getTop() >= 10) {
 		*temp += "│ │ ";
 	}
 	else *temp += " │ │ ";
-	*temp += convert(player->getDiscard().at(1).getTop());
-	if (player->getDiscard().at(1).getTop() >= 10) {
+	*temp += convert(player->getDiscard().at(1)->getTop());
+	if (player->getDiscard().at(1)->getTop() >= 10) {
 		*temp += "│ │ ";
 	}
 	else *temp += " │ │ ";
-	*temp += convert(player->getDiscard().at(2).getTop());
-	if (player->getDiscard().at(2).getTop() >= 10) {
+	*temp += convert(player->getDiscard().at(2)->getTop());
+	if (player->getDiscard().at(2)->getTop() >= 10) {
 		*temp += "│ │ ";
 	}
 	else *temp += " │ │ ";
-	*temp += convert(player->getDiscard().at(3).getTop());
-	if (player->getDiscard().at(3).getTop() >= 10) {
+	*temp += convert(player->getDiscard().at(3)->getTop());
+	if (player->getDiscard().at(3)->getTop() >= 10) {
 		*temp += "│";
 	}
 	else *temp += " │";
