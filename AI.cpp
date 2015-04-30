@@ -20,7 +20,7 @@ AI::AI(string name, Draw* draw, vector<Build>* build, Stock stock) {
 	this->name = name;
 	this->build = build;
 	this->stock = stock;
-	discard.resize(4);
+  
 
 	seed = time(NULL);
 	isAnAI = true;
@@ -36,8 +36,6 @@ AI::AI(string name, Draw* draw, vector<Build>* build, Stock stock, Hand hand, ve
   seed = time(NULL);
   isAnAI = true;
 }
-
-AI::~AI(){}
 
 string AI::getMove() {
 	Display d;
@@ -83,7 +81,18 @@ string AI::getMove() {
 	//PICK RANDOM MOVE/BEST MOVE HERE
 	srand(seed);
 	seed++;
-	int ran = rand() % moves.size();
+	int ran;
+	if (moves.empty()) {
+		ran = rand() % hand.getSize() + 1;
+		temp = new string("h");
+		*temp += d.convert(ran);
+		*temp += " b";
+		ran = rand() % 4 + 1;
+		*temp += d.convert(ran);
+		return *temp;
+	}
+	
+	ran = rand() % moves.size();
 	string keep = string(moves.at(ran));
 	for (int i = 0; i < (int) moves.size(); ++i) {
 		delete &moves.at(i);
@@ -117,4 +126,8 @@ int AI::find(vector<int> vec, int num) {
 		}
 	}
 	return -1;
+}
+
+AI::~AI() {
+
 }

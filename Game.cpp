@@ -42,7 +42,7 @@ Game::Game(vector<string> names, vector<int> arrangement){
     Stock s;
     draw.move(s, stockSize);
 
-    if(name.substr(0,3) == "AI "){
+    if(name.substr(0,2) == "AI"){
       players.push_back(new AI(name, &draw, &build, s));
     }
     else{

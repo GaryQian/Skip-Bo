@@ -40,7 +40,7 @@ int main(){
 		names.resize(players);
 		
 		for(int i = 0; i < players; i++){
-			cout << "Enter name of player " << i+1 << ". If player is an AI, prefix with \"AI \"." << endl;
+			cout << "Enter name of player " << i+1 << ". If player is an AI, prefix with \"AI\"." << endl;
 			cin >> names[ i ];
 		}
 		
@@ -51,37 +51,37 @@ int main(){
 
 
 	while (!game->hasEnded()) {
-	  game->nextTurn();
-	  game->refill();
-	  try{
-	    d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber());
-	    while (game->canMove().size()) {
-	      try{  
-	
-		input = game->getPlayer()->getMove();
-		game->process(input);
+		game->nextTurn();
 		game->refill();
-		d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber());
-	      }
-	      catch(exception& e){
-		cout << e.what() << endl;
-	      }
-	    }
-	    d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber());   
-	    while(true){
-	      cout << "No moves left.\nPlease move card to discard pile to end turn\n";	
-	      input= game->getPlayer()->getMove();
-	      try{
-		game->process(input);
-	      }
-	      catch (exception& e){
-		cout << e.what() << endl;
-	      }
-	    }
-	  }
-	  catch (int a){
-	    cout << "Turn end\n" << endl;
-	  } 
+		try{
+			d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber());
+			while (game->canMove().size()) {
+				try{  
+					
+					input = game->getPlayer()->getMove();
+					game->process(input);
+					game->refill();
+					d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber());
+				}
+				catch(exception& e){
+					cout << e.what() << endl;
+				}
+			}
+			d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber());   
+			while(true){
+				cout << "No moves left.\nPlease move card to discard pile to end turn\n";	
+				input= game->getPlayer()->getMove();
+				try{
+					game->process(input);
+				}
+				catch (exception& e){
+					cout << e.what() << endl;
+				}
+			}
+		}
+		catch (int a){
+			cout << "Turn end\n" << endl;
+		} 
 	}
 	
 }
