@@ -29,7 +29,7 @@ class Player {
 	
   //Methods
   void drawCards();
-  bool move(Move yourMove) throw (int);
+  void move(Move yourMove) throw (int);
   bool hasWon();
   //  bool playCard(Deck a, Deck b);
   //  bool playCard(Deck b, int num);

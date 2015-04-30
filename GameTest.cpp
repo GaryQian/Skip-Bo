@@ -140,6 +140,7 @@ public:
     g->nextTurn();
     assert(g->turn == 1);
     assert(g->getPlayer()->getName() == "Matthew");
+    g->refill();
     assert(g->getPlayer()->getHand().getSize() == 5);
     assert(g->getPlayer()->getHand().toString() == "1 2 3 4 5 ");
     assert(g->draw.getSize() == 37);
@@ -232,39 +233,54 @@ public:
     g->process("h1 b1");
 
     assert(g->getPlayer()->getHand().getSize() == 0);
-    assert(g->getPlayer()->getHand().toString() == "");
+    g->refill();
+    assert(g->getPlayer()->getHand().toString() == "6 7 8 9 10 ");
     assert(g->build.at(0).toString() == "1 2 3 4 5 ");
     
     choices = g->canMove();
-    assert(choices.size() == 1);
-    assert(choices.at(0)->toString() == "0 6 s b 0 0 ");
+    assert(choices.size() == 2);
+    assert(choices.at(0)->toString() == "0 6 h b 0 0 ");
+    assert(choices.at(1)->toString() == "0 6 s b 0 0 ");
     
     g->process("s b1");
 
     assert(g->build.at(0).toString() == "1 2 3 4 5 6 ");
     assert(g->getPlayer()->getStock().getTop() == 5);
 
-    try {g->process("h1 b1");}
-    catch (invalid_argument &e) {assert(string(e.what()) == "Invalid hand index\n");}
+    g->process("h2 b1");
+    g->process("h2 b1");
+    g->process("h2 b1");
+    g->process("h2 b1");
+
+    assert(g->build.at(0).toString() == "1 2 3 4 5 6 7 8 9 10 ");
+    assert(g->getPlayer()->getHand().toString() == "6 ");
 
     g->nextTurn();
     
     assert(g->turn == 2);
+    g->refill();
     assert(g->getPlayer()->getHand().getSize() == 5);
-    assert(g->draw.getSize() == 32);
-    assert(g->draw.getTop() == 11);
+    assert(g->draw.getSize() == 27);
+    assert(g->draw.getTop() == 4);
 
-    assert(g->getPlayer()->getHand().toString() == "6 7 8 9 10 ");
+    assert(g->getPlayer()->getHand().toString() == "11 12 1 2 3 ");
     
-    g->process("h2 b1");
-    g->process("h2 b1");
-    g->process("h2 b1");
-    g->process("h2 b1");
+    g->process("h1 b1");
+    g->process("h1 b1");
+    g->process("h1 b1");
+    g->process("h1 b1");
+    try {g->process("h1 d1");}
+    catch (int a) {assert(a == 1);}
+
+    assert(g->getPlayer()->getHand().toString() == "");
+    assert(g->getPlayer()->getStock().getTop() == 12);
 
     choices = g->canMove();
-    assert(choices.size() == 0);
-
-    g->process("h1 d1");
+    cout << choices.at(0)->toString() << endl;
+    
+    try {g->process("h1 d1");}
+    catch (int a) {assert(a == 1);}
+    
     assert(g->getPlayer()->getHand().getSize() == 0);
     assert(g->getPlayer()->getDiscard().at(0).toString() == "6 ");
     
@@ -277,7 +293,7 @@ public:
 
     assert(g->getPlayer()->getHand().toString() == "11 12 1 2 3 ");
 
-    choices = g->hasMove();
+    choices = g->canMove();
     
   }
   
