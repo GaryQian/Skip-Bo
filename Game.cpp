@@ -187,7 +187,7 @@ void Game::load_game(string filename){
       inFile >> num;
     }
 
-    if (name.substr(0,3) == "AI "){
+    if (name.substr(0,2) == "AI"){
       players.push_back(new AI(name, draw, &build, *s, *h, discard));
     }
     else {

@@ -104,10 +104,10 @@ string AI::getMove() {
 			break;
 		}
 		for (int i = 0; i < (int) moves.size(); ++i) {
-			delete moves.at(i);
+			//delete moves.at(i);
 		}
 		string temp2(*temp);
-		delete temp;
+		//delete temp;
 		return temp2;
 	}
 	
@@ -125,14 +125,17 @@ string AI::getMove() {
 		cout << *temp;
 		std::this_thread::sleep_for(std::chrono::milliseconds(300));	
 		string temp2(*temp);
-		delete temp;
+		//delete temp;
+		for (int i = 0; i < (int) moves.size(); ++i) {
+			//delete moves.at(i);
+		}
 		return temp2;
 	}
 	
 	ran = rand() % moves.size();
 	string keep(*(moves.at(ran)));
 	for (int i = 0; i < (int) moves.size(); ++i) {
-		delete moves.at(i);
+		//delete moves.at(i);
 	}
 	//wait so that AI does not move instantaneously
 	cout << keep << endl;
@@ -167,7 +170,7 @@ int AI::find(vector<int> vec, int num) {
 
 AI::~AI() {
   for(int i = 0; i < 4; i++){
-    delete discard.at(i);
+    //delete discard.at(i);
   }
 }
 
