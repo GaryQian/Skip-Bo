@@ -304,6 +304,24 @@ public:
     assert(h.getSize() == 0);
   }
 
+  static void opsTest(){
+    Hand h = Hand();
+    
+    int num;
+    try {
+      h += (num = 3);
+      h += (num = 4);
+      h += (num = 5);
+      h += (num = 6);
+      h += (num = 7);
+      h += (num = 1);
+    }catch(std::logic_error & e){
+      cout << e.what();
+    }
+
+    
+  }
+
   static void takeCardTest(){
     ostringstream oss;
     
@@ -455,6 +473,32 @@ public:
 
     assert(oss.str() == "Can't have more than 30 cards in Stock pile!\n");
   }
+  
+  static void takeCardTest(){
+    ostringstream oss;
+    Stock stock = Stock();
+    vector<int> list(30,5);
+
+    stock += list;
+    int size = stock.getSize();
+    
+    for(int i = 0; i < 30; i++){
+      assert(stock.takeCard() == 5);
+      assert(stock.getSize() == --size);
+    }
+
+    assert(stock.isEmpty());
+    
+    try {
+      stock.takeCard();
+    }
+    catch(std::logic_error & e){
+      oss << e.what();
+    }
+
+    cout << oss.str();
+    
+  }
 
   static void moveTest(){
     ostringstream oss;
@@ -483,9 +527,8 @@ public:
     catch(std::exception & e){
       oss << e.what();
     }
-    assert(oss.str() == "Can't add card - not in sequence!\n");
-    
-  }
+    assert(oss.str() == "Can't add card - not in sequence!\n");    
+  }  
 };
 
 class DiscardTest {
@@ -624,6 +667,7 @@ int main(void){
 
   cout << "Running Hand tests..." << endl;
   HandTest::constructorTest();
+  HandTest::opsTest();
   HandTest::takeCardTest();
   HandTest::moveTest();
   cout << "Passed Hand tests." << endl;
@@ -631,6 +675,7 @@ int main(void){
   cout << "Running Stock tests..." << endl;
   StockTest::constructorTest();
   StockTest::opsTest();
+  StockTest::takeCardTest();
   StockTest::moveTest();
   cout << "Passed Stock tests." << endl;
 
