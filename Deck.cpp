@@ -7,6 +7,8 @@ using std::ostringstream;
 using std::ostream;
 using std::iterator;
 
+Deck::~Deck(){}
+
 int Deck::getSize() const {
   return cards.size();
 }

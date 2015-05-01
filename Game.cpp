@@ -17,10 +17,13 @@ Game::Game() {
 
 Game::~Game() {
   for (unsigned long i = 0; i < players.size(); i++){
-    delete players[i];
+    delete players.at(i);
   } 
   for (unsigned long i = 0; i < move.size(); i++){
-    delete move[i];
+    delete move.at(i);
+  }
+  for (unsigned long i = 0; i < build.size(); i++){
+    delete build.at(i);
   }
 }
 
@@ -189,6 +192,8 @@ void Game::load_game(string filename){
     else {
       players.push_back(new HumanPlayer(name, draw, &build, *s, *h, discard));
     }
+    delete s;
+    delete h;
   }
 
   inFile >> numMoves;
@@ -204,7 +209,7 @@ void Game::load_game(string filename){
 
     move.push_back(m);
   }
-
+ 
   inFile >> turn;
 }
 
@@ -226,30 +231,46 @@ void Game::process(string input){
     m->source = source;
     m->sourceIndex = 0;
     m->value = getPlayer()->getStock().getTop();
-    if (input.at(0) != ' ') throw std::invalid_argument("Stock does not take an index\n");
+    if (input.at(0) != ' ') {
+      delete m;
+      throw std::invalid_argument("Stock does not take an index\n");
+    }
   }
   else if (source == 'd'){
     m->source = source;
     m->sourceIndex = (input.at(1) - '0')-1;
-    if (m->sourceIndex > 3 || m->sourceIndex < 0) throw std::invalid_argument("Invalid discard pile index\n");
+    if (m->sourceIndex > 3 || m->sourceIndex < 0){
+      delete m;
+      throw std::invalid_argument("Invalid discard pile index\n");
+    }
     input = input.substr(2);
     m->value = getPlayer()->getDiscard()[m->sourceIndex]->getTop();
   }
   else if (source == 'h'){
     m->source = source;
     m->sourceIndex = (input.at(1) - '0')-1;
-    if (m->sourceIndex < 0 || m->sourceIndex > getPlayer()->getHand().getSize() - 1) throw std::invalid_argument("Invalid hand index\n");
+    if (m->sourceIndex < 0 || m->sourceIndex > getPlayer()->getHand().getSize() - 1){
+      delete m;
+      throw std::invalid_argument("Invalid hand index\n");
+    }
+
     input = input.substr(2);
     m->value = getPlayer()->getHand().at(m->sourceIndex);
   }
   else {
-  throw std::invalid_argument("Unknown card source\nNote: possible sources are (h = hand, s = stock, d = deck)\n");
+    delete m;
+    throw std::invalid_argument("Unknown card source\nNote: possible sources are (h = hand, s = stock, d = deck)\n");
   }
 
 
-  if (input.at(0) != ' ' || input.at(1) == ' ') throw std::invalid_argument("Source and destination must be separated by a single whitespace\n");
-  
-  if (input.size() < 3) throw std::invalid_argument("Invalid input length\n");
+  if (input.at(0) != ' ' || input.at(1) == ' '){ 
+    delete m;
+    throw std::invalid_argument("Source and destination must be separated by a single whitespace\n");
+  }
+  if (input.size() < 3){
+    delete m;
+    throw std::invalid_argument("Invalid input length\n");
+  }
 
   char dest  = input.at(1);
   int destIndex = 0;
@@ -258,17 +279,28 @@ void Game::process(string input){
     m->dest = dest;
     destIndex = (input.at(2) - '0')-1;
 
-    if (destIndex > 3 || destIndex < 0) throw std::invalid_argument("Invalid index for destination\n");
-
+    if (destIndex > 3 || destIndex < 0){
+      delete m;
+      throw std::invalid_argument("Invalid index for destination\n");
+    }
     m->destIndex = destIndex;
   }
-  else throw std::invalid_argument("Unknown card destination\nNote: possible destinations are (d = discard, b = build pile)");
-  
+  else {
+    delete m;
+    throw std::invalid_argument("Unknown card destination\nNote: possible destinations are (d = discard, b = build pile)");
+  }
+
   if (dest == 'b' && m->value != 0){
-    if (build.at(destIndex)->getSize()%12 != m->value - 1) throw std::invalid_argument("Source and destination do not match");
+    if (build.at(destIndex)->getSize()%12 != m->value - 1){
+      delete m;
+      throw std::invalid_argument("Source and destination do not match");
+    }
   }
   
-  if (dest == 'd' && source == 's') throw std::invalid_argument("Stock card cannot be moved to discard pile\n");
+  if (dest == 'd' && source == 's'){
+    delete m;
+    throw std::invalid_argument("Stock card cannot be moved to discard pile\n");
+  }
   
   m->player = (turn-1)%players.size();
   move.push_back(m);

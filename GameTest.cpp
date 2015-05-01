@@ -353,6 +353,8 @@ public:
     assert(g->build.at(0)->getSize()%12 == 3);
     assert(g->getPlayer()->getHand().toString() == "9 10 11 12 ");
     assert(g->move.size() == 17);
+    
+    clear(choices);
   }
   
   void saveLoadTest(){
