@@ -16,6 +16,8 @@ class Display {
   
   void change(Player* player, int num);
   
+  void intro();
+  
  private:
   string convert(int num);
   string convert(int num, Build build);
