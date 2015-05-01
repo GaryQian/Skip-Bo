@@ -95,6 +95,7 @@ class Hand: public Deck {
 
 
 class Stock: public Deck {
+	friend class DisplayTest;
  public:
   Stock();
   void move(Deck& deck);
@@ -141,6 +142,7 @@ class Draw: public Deck {
 
 class Build: public Deck {
   friend class BuildTest;
+  friend class DisplayTest;
  public:
   Build();
 

@@ -44,7 +44,7 @@ class Player {
 };
 
 class HumanPlayer: public Player {
-
+  friend class DisplayTest;
  public:
 
   //constructors
@@ -61,7 +61,7 @@ class HumanPlayer: public Player {
 
 class AI: public Player {
   int seed;
-
+  friend class DisplayTest;
  public:
   //constructor
   AI(string name, Draw* draw, vector<Build*>* build, Stock stock);
