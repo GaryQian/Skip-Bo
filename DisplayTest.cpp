@@ -18,13 +18,13 @@ class DisplayTest {
 	static bool fileeq(char lhsName[], char rhsName[]) {
 		FILE* lhs = fopen(lhsName, "r");
 		FILE* rhs = fopen(rhsName, "r");
-
 		// don't compare if we can't open the files
 		if (!lhs || !rhs) return false;
 
 		bool match = true;
 		// read until both of the files are done or there is a mismatch
 		while (!feof(lhs) || !feof(rhs)) {
+			
 			if (feof(lhs) ||                  // lhs done first
 				feof(rhs) ||                  // rhs done first
 				(fgetc(lhs) != fgetc(rhs))) { // chars don't match
@@ -41,7 +41,6 @@ class DisplayTest {
 
 	static void testDisplay() {
 		Display d;
-		
 		std::ofstream correct;
 		correct.open ("correct.txt");
 		
@@ -118,7 +117,7 @@ class DisplayTest {
 		out.push_back(*temp);
 		
 		////////////////////////////////////
-		temp = new string("│ 11│ │ 5│ │   │ │ 1 │");
+		temp = new string("│ 11│ │ 5 │ │   │ │ 1 │");
 		out.push_back(*temp);
 		
 		////////////////////////////////////
@@ -131,7 +130,7 @@ class DisplayTest {
 		
 		////////////////////////////////////
 		temp = new string("Player ");
-		*temp += d.convert(1);
+		*temp += d.convert(2);
 		*temp += ": ";
 		*temp += "test";
 		*temp += "'s Turn";
@@ -174,7 +173,7 @@ class DisplayTest {
 		out.push_back(*temp);
 		
 		////////////////////////////////////
-		temp = new string("│   │ │  │ │   │ │   │");
+		temp = new string("│   │ │   │ │   │ │   │");
 		out.push_back(*temp);
 		
 		////////////////////////////////////
@@ -191,7 +190,7 @@ class DisplayTest {
 		
 		////////////////////////////////////
 		temp = new string("│ 1 │");
-		*temp += "30 cards left";
+		*temp += " 1 cards left";
 		out.push_back(*temp);
 		
 		////////////////////////////////////
@@ -216,7 +215,7 @@ class DisplayTest {
 	  
 		std::ofstream output("test.txt");
 		std::streambuf *coutbuf = std::cout.rdbuf();
-		std::cout.rdbuf(output.rdbuf());
+		cout.rdbuf(output.rdbuf());
 		
 		vector<Build*> build;
 		Build* buildtemp = new Build();
@@ -229,31 +228,29 @@ class DisplayTest {
 		build.push_back(buildtemp);
 		buildtemp = new Build();
 		build.push_back(buildtemp);
-		
 		for (int i = 1; i < 12; ++i) *(build.at(0)) += i;
 		for (int i = 1; i < 6; ++i) *(build.at(1)) += i;
 		for (int i = 1; i < 2; ++i) *(build.at(3)) += i;
-		
 		Stock* stock = new Stock();
 		Draw* draw = new Draw();
 		Player* player = new HumanPlayer("test", draw, &build, *stock);
 		player->drawCards();
-		
 		player->hand.cards[0] = 1;
 		player->hand.cards[1] = 2;
 		player->hand.cards[2] = 3;
 		player->hand.cards[3] = 4;
 		player->hand.cards[4] = 10;
-		
-		player->stock.cards[player->stock.getSize() - 1] = 1;
+		player->stock.cards.push_back(1);
 		
 		d.display(player, build, 1);
 		
 		assert(fileeq("test.txt", "correct.txt"));
+		cout.rdbuf(coutbuf);
 	}
 };
 
 int main() {
 	DisplayTest test;
 	test.testDisplay();
+	return 0;
 }

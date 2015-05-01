@@ -16,7 +16,7 @@ using std::endl;
 
 //Displays game onto the screen
 void Display::display(Player* player, vector<Build*> build, int num) {
-	vector<string> out;
+	vector<string*> out;
 	
 	string* temp;
 	
@@ -28,11 +28,11 @@ void Display::display(Player* player, vector<Build*> build, int num) {
 	intro();
 	
 	temp = new string("=======Build Piles======");
-	out.push_back(*temp);
+	out.push_back(temp);
 	
 	////////////////////////////////////
 	temp = new string("┌───┐ ┌───┐ ┌───┐ ┌───┐");
-	out.push_back(*temp);
+	out.push_back(temp);
 	
 	////////////////////////////////////
 	temp = new string("│ ");
@@ -56,15 +56,15 @@ void Display::display(Player* player, vector<Build*> build, int num) {
 		*temp += "│";
 	}
 	else *temp += " │";
-	out.push_back(*temp);
+	out.push_back(temp);
 	
 	////////////////////////////////////
 	temp = new string("└───┘ └───┘ └───┘ └───┘");
-	out.push_back(*temp);
+	out.push_back(temp);
 	
 	////////////////////////////////////
 	temp = new string("=======================");
-	out.push_back(*temp);
+	out.push_back(temp);
 	
 	////////////////////////////////////
 	temp = new string("Player ");
@@ -72,15 +72,15 @@ void Display::display(Player* player, vector<Build*> build, int num) {
 	*temp += ": ";
 	*temp += player->getName();
 	*temp += "'s Turn";
-	out.push_back(*temp);
+	out.push_back(temp);
 	
 	////////////////////////////////////
 	temp = new string("=======================");
-	out.push_back(*temp);
+	out.push_back(temp);
 	
 	////////////////////////////////////
 	temp = new string("Hand:");
-	out.push_back(*temp);
+	out.push_back(temp);
 	
 	////////////////////////////////////
 	switch(player->getHand().getSize()) {
@@ -91,7 +91,7 @@ void Display::display(Player* player, vector<Build*> build, int num) {
 	case 4: temp = new string(" -1-   -2-   -3-   -4-"); break;
 	case 5: temp = new string(" -1-   -2-   -3-   -4-   -5-"); break;
 	}
-	out.push_back(*temp);
+	out.push_back(temp);
 	
 	////////////////////////////////////
 	switch(player->getHand().getSize()) {
@@ -102,7 +102,7 @@ void Display::display(Player* player, vector<Build*> build, int num) {
 	case 4: temp = new string("┌───┐ ┌───┐ ┌───┐ ┌───┐"); break;
 	case 5: temp = new string("┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐"); break;
 	}
-	out.push_back(*temp);
+	out.push_back(temp);
 	
 	////////////////////////////////////
 	if (player->getHand().getSize() > 0) {
@@ -125,7 +125,7 @@ void Display::display(Player* player, vector<Build*> build, int num) {
 			else *temp += " │ │ ";
 		}
 	}
-	out.push_back(*temp);
+	out.push_back(temp);
 	
 	////////////////////////////////////
 	//temp = new string("└───┘ └───┘ └───┘ └───┘ └───┘");
@@ -137,19 +137,19 @@ void Display::display(Player* player, vector<Build*> build, int num) {
 	case 4: temp = new string("└───┘ └───┘ └───┘ └───┘"); break;
 	case 5: temp = new string("└───┘ └───┘ └───┘ └───┘ └───┘"); break;
 	}
-	out.push_back(*temp);
+	out.push_back(temp);
 	
 	////////////////////////////////////
 	temp = new string("Discard:");
-	out.push_back(*temp);
+	out.push_back(temp);
 	
 	////////////////////////////////////
 	temp = new string(" -1-   -2-   -3-   -4-");
-	out.push_back(*temp);
+	out.push_back(temp);
 	
 	////////////////////////////////////
 	temp = new string("┌───┐ ┌───┐ ┌───┐ ┌───┐");
-	out.push_back(*temp);
+	out.push_back(temp);
 	
 	////////////////////////////////////
 	temp = new string("│ ");
@@ -173,19 +173,19 @@ void Display::display(Player* player, vector<Build*> build, int num) {
 		*temp += "│";
 	}
 	else *temp += " │";
-	out.push_back(*temp);
+	out.push_back(temp);
 	
 	////////////////////////////////////
 	temp = new string("└───┘ └───┘ └───┘ └───┘");
-	out.push_back(*temp);
+	out.push_back(temp);
 	
 	////////////////////////////////////
 	temp = new string("Stockpile:");
-	out.push_back(*temp);
+	out.push_back(temp);
 	
 	////////////////////////////////////
 	temp = new string("┌───┐");
-	out.push_back(*temp);
+	out.push_back(temp);
 	
 	////////////////////////////////////
 	temp = new string("│ ");
@@ -197,24 +197,28 @@ void Display::display(Player* player, vector<Build*> build, int num) {
 	else *temp += " │ ";
 	*temp += convert(player->getStock().getSize());
 	*temp += " cards left";
-	out.push_back(*temp);
+	out.push_back(temp);
 	
 	////////////////////////////////////
 	temp = new string("└───┘");
-	out.push_back(*temp);
+	out.push_back(temp);
 	
 	////////////////////////////////////
 	temp = new string("└Your Move: ");
-	out.push_back(*temp);
+	out.push_back(temp);
 	
 	
-	for (unsigned long i = 0; i < out.size(); ++i) {
-		if (i == out.size()) {
-			cout << out.at(i);
+	for (int i = 0; i < (int) out.size(); ++i) {
+		if (i == (int) out.size()) {
+			cout << *(out.at(i));
 		}
 		else {
-			cout << out.at(i) << endl;
+			cout << *(out.at(i)) << endl;
 		}
+	}
+	
+	for (int i = 0; i < (int) out.size(); ++i) {
+		delete out.at(i);
 	}
 }
 
@@ -249,78 +253,82 @@ string Display::convert(int num, Build build) {
 }
 
 void Display::intro() {
-	vector<string> out;
+	vector<string*> out;
 	string* temp;
 	
 	for (int i = 0; i < 60; ++i) {
 		temp = new string(" ");
-		out.push_back(*temp);
+		out.push_back(temp);
 	}
 	
 	temp = new string("                                      .++~");
-	out.push_back(*temp);
+	out.push_back(temp);
 	temp = new string("                                   MMMMMMMMM.");
-	out.push_back(*temp);
+	out.push_back(temp);
 	temp = new string("              8=          .  DMMM .MMMM DMMMM");
-	out.push_back(*temp);
+	out.push_back(temp);
 	temp = new string("            MMMM   DM    MMM  MMM  MMMM  MMM+");
-	out.push_back(*temp);
+	out.push_back(temp);
 	temp = new string("          MMMMMM  MMMD  MMMM. MMM8 MMMM  MMM.");
-	out.push_back(*temp);
+	out.push_back(temp);
 	temp = new string("         MMMM.    MMMM MMMM.  MMMM MMMMMMMM  MMMM ");
-	out.push_back(*temp);
+	out.push_back(temp);
 	temp = new string("        MMMMM$.   MMMM+MMM    MMMM  MMMMM.   MM+");
-	out.push_back(*temp);
+	out.push_back(temp);
 	temp = new string("        MMMMMMMMM.MMMMMMMM.   MMMM  MMM.");
-	out.push_back(*temp);
+	out.push_back(temp);
 	temp = new string("         MMMMMMMMMMMMM MMMMM  MMMM  MMMI");
-	out.push_back(*temp);
+	out.push_back(temp);
 	temp = new string("          ..MMMMMM,MMM. MMMMMM:MMM. MMM.");
-	out.push_back(*temp);
+	out.push_back(temp);
 	temp = new string("             MMMMM MMMO  MMMI .MM=");
-	out.push_back(*temp);
+	out.push_back(temp);
 	temp = new string("          ..MMMMM  MMMM    .");
-	out.push_back(*temp);
+	out.push_back(temp);
 	temp = new string("         .MMMMM    MM,.         :MMD.");
-	out.push_back(*temp);
+	out.push_back(temp);
 	temp = new string("          MMM.                MMMMMMMM         .");
-	out.push_back(*temp);
+	out.push_back(temp);
 	temp = new string("          ..  $MMMMMMMMMM    MMMMMMMMMM       .ZZZZZZZ");
-	out.push_back(*temp);
+	out.push_back(temp);
 	temp = new string("               MMMMNMMMMMM. MMMM8..MMMMM      ZZZZZZZ,");
-	out.push_back(*temp);
+	out.push_back(temp);
 	temp = new string("       ...     MMMM. .MMMM +MMM     MMMM      ZZZZZZZ I.");
-	out.push_back(*temp);
+	out.push_back(temp);
 	temp = new string("   ~MMMMMM     MMMM? MMMM. MMMM     7MMM      ZZZZZZ7IIII.");
-	out.push_back(*temp);
+	out.push_back(temp);
 	temp = new string("   MMMMMMM     MMMMMMMMMMM.DMMM     MMMM   MMMZZZZZIIIIIIII.");
-	out.push_back(*temp);
+	out.push_back(temp);
 	temp = new string("   MMMMMMM     MMMMMMMMMMMM:MMMM.  MMMM.   MMMZZZZIIIIIIIII");
-	out.push_back(*temp);
+	out.push_back(temp);
 	temp = new string("   ,MMMMMMM     MMMM.  MMMM$:MMMMMMMMM,    .MMZZZIIIIIIIII ");
-	out.push_back(*temp);
+	out.push_back(temp);
 	temp = new string("    MMMMMMM     MMMM.  MMMM.  MMMMMMM        MMMIIIIIIIII");
-	out.push_back(*temp);
+	out.push_back(temp);
 	temp = new string("    MMMMMMMM    MMMM$MMMMM      ..           .MMMIIIIII ");
-	out.push_back(*temp);
+	out.push_back(temp);
 	temp = new string("     MMMMMMM    MMMMMMMM                      =MMMMIII.");
-	out.push_back(*temp);
+	out.push_back(temp);
 	temp = new string("     ....       +MMM7.                         NMM. ..");
-	out.push_back(*temp);
+	out.push_back(temp);
 	
 	for (int i = 0; i < 2; ++i) {
 		temp = new string(" ");
-		out.push_back(*temp);
+		out.push_back(temp);
 	}
 	
 	
-	for (unsigned long i = 0; i < out.size(); ++i) {
-		if (i == out.size()) {
-			cout << out.at(i);
+	for (int i = 0; i < (int) out.size(); ++i) {
+		if (i == (int) out.size()) {
+			cout << *(out.at(i));
 		}
 		else {
-			cout << out.at(i) << endl;
+			cout << *(out.at(i)) << endl;
 		}
+	}
+	
+	for (int i = 0; i < (int) out.size(); ++i) {
+		delete out.at(i);
 	}
 	
 }

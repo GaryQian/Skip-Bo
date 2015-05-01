@@ -45,7 +45,7 @@ string AI::getMove() {
 	for (int i = 0; i < 4; ++i) {
 		validNums.push_back(build->at(i)->getSize()%12 + 1);
 	}
-	vector<string> moves;
+	vector<string*> moves;
 	string* temp;
 	for (int i = 0; i < hand.getSize(); ++i) {
 		//check for skipbo
@@ -55,7 +55,7 @@ string AI::getMove() {
 				*temp += convert(i + 1);
 				*temp += " b";
 				*temp += convert(j);
-				moves.push_back(*temp);
+				moves.push_back(temp);
 			}
 		}
 		else if (contains(validNums, hand.at(i))) {
@@ -63,7 +63,7 @@ string AI::getMove() {
 			*temp += convert(i + 1);
 			*temp += " b";
 			*temp += convert(find(validNums, hand.at(i)) + 1);
-			moves.push_back(*temp);
+			moves.push_back(temp);
 		}
 	}
 	
@@ -75,7 +75,7 @@ string AI::getMove() {
 				*temp += convert(i + 1);
 				*temp += " b";
 				*temp += convert(j);
-				moves.push_back(*temp);
+				moves.push_back(temp);
 			}
 		}
 		else if (contains(validNums, discard[i]->getTop())) {
@@ -83,7 +83,7 @@ string AI::getMove() {
 			*temp += convert(i + 1);
 			*temp += " b";
 			*temp += convert(find(validNums, discard[i]->getTop()) + 1);
-			moves.push_back(*temp);
+			moves.push_back(temp);
 		}
 	}
 	
@@ -96,15 +96,19 @@ string AI::getMove() {
 					temp = new string("s");
 					*temp += " b";
 					*temp += convert(j);
-					moves.push_back(*temp);
+					moves.push_back(temp);
 				}
 			}
 			else if (contains(validNums, stock.getTop()))
 				*temp += convert(find(validNums, stock.getTop()) + 1);
 			break;
 		}
-		return *temp;
-		moves.push_back(*temp);
+		for (int i = 0; i < (int) moves.size(); ++i) {
+			delete moves.at(i);
+		}
+		string temp2(*temp);
+		delete temp;
+		return temp2;
 	}
 	
 	//PICK RANDOM MOVE/BEST MOVE HERE
@@ -120,13 +124,15 @@ string AI::getMove() {
 		*temp += convert(ran);
 		cout << *temp;
 		std::this_thread::sleep_for(std::chrono::milliseconds(300));	
-		return *temp;
+		string temp2(*temp);
+		delete temp;
+		return temp2;
 	}
 	
 	ran = rand() % moves.size();
-	string keep = string(moves.at(ran));
+	string keep(*(moves.at(ran)));
 	for (int i = 0; i < (int) moves.size(); ++i) {
-		//delete &moves.at(i);
+		delete moves.at(i);
 	}
 	//wait so that AI does not move instantaneously
 	cout << keep << endl;

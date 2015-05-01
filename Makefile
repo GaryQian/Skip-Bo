@@ -7,7 +7,8 @@ test: DeckTest DisplayTest
 	@echo "----------------------"
 	@echo "DECK TESTS..."
 	@./DeckTest
-	./DisplayTest
+	@./DisplayTest
+	@echo Display Tests Passed
 	@echo "ALL PASSED!"
 	@echo "----------------------"
 
