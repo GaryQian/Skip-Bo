@@ -15,7 +15,7 @@ DeckTest: DeckTest.o Deck.o
 	$(CC) $(CXXFLAGS) -o DeckTest DeckTest.o Deck.o Build.o Hand.o Draw.o Discard.o Stock.o
 
 PlayerTest: PlayerTest.o Player.o
-	$(CC) $(CXXFLAGS) -o PlayerTest PlayerTest.o Player.o Deck.o Build.o Hand.o Draw.o Discard.o Stock.o
+	$(CC) $(CXXFLAGS) -o PlayerTest PlayerTest.o Player.o Deck.o Build.o Hand.o Draw.o Discard.o Stock.o AI.o HumanPlayer.o
 
 GameTest: GameTest.o Game.o
 	$(CC) $(CXXFLAGS) -o GameTest GameTest.o Move.o Game.o Player.o Display.o AI.o HumanPlayer.o Build.o Hand.o Draw.o Discard.o Stock.o Deck.o 
@@ -28,10 +28,10 @@ PlayerTest.o: PlayerTest.cpp Player.h
 
 GameTest.o: GameTest.cpp Game.h Display.o
 	$(CC) $(CXXFLAGS) -c GameTest.cpp
-	
+
 DisplayTest: DisplayTest.o Display.o Player.o Deck.o Display.h
 	$(CC) $(CXXFLAGS) DisplayTest.o Display.o Player.o Deck.o -o DisplayTest
-	
+
 DisplayTest.o: DisplayTest.cpp Display.o Player.o Deck.o Display.h
 	$(CC) $(CXXFLAGS) -c DisplayTest.cpp Display.o Player.o Deck.o
 

@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "Deck.h"
+#include "Move.h"
 #include <vector>
 #include <string>
 #include <iostream>
@@ -29,9 +30,10 @@ public:
     Stock stock;
     draw->move(stock, 30);
 
-    Build* build;
+    vector<Build*> build;
 
-    //    HumanPlayer* h1 = new HumanPlayer("Gary", draw, &build, stock);
+    vector<Player*> players;
+    players.push_back(new HumanPlayer("Gary", draw, &build, stock));
     
   }
 
