@@ -647,6 +647,8 @@ public:
 
     //assert the right exception is caught
     assert(oss.str() == "Deck is empty.\n");
+
+    delete [] bPile;
   }
 };
 
