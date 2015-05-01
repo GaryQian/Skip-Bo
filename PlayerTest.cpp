@@ -40,6 +40,24 @@ public:
     assert (p2->getName() == "Player_2");   
     assert (!p1->isAI());
     assert (!p2->isAI());
+  }
+
+  static void cardAccessorTests() {
+    Draw* draw = new Draw();
+    vector<int> arrange;
+    for(int i = 161; i >= 0; i--) {
+      arrange.push_back(i);
+    }
+    draw->shuffle(arrange);
+    
+    Stock stock;
+    draw->move(stock, 30);
+
+    vector<Build*> build;
+    //Constructs two HumanPlayers
+    HumanPlayer* p1 = new HumanPlayer("Player_1", draw, &build, stock);
+    HumanPlayer* p2 = new HumanPlayer("Player_2", draw, &build, stock);
+
     assert (p1->getStock().getSize() == 30);
     assert (p2->getStock().getSize() == 30);
     assert (!p1->getHand().getSize());
@@ -48,14 +66,29 @@ public:
     assert (p2->getDiscard().size() == 4);
     assert (p1->getStock().getTop() == 6);
     assert (p2->getStock().getTop() == 6);
+    assert (!p1->hasWon());
+    assert (!p2->hasWon());
   }
 
-  static void getMoveTest() {
-
-  }
-
-  static void hasWonTest() {
+  static void hasWonTest()
+  {
+    Draw* draw = new Draw();
+    vector<int> arrange;
+    for(int i = 161; i >= 0; i--) {
+      arrange.push_back(i);
+    }
+    draw->shuffle(arrange);
     
+    Stock stock;
+    draw->move(stock, 30);
+
+    vector<Build*> build;
+    //Constructs two HumanPlayers
+    HumanPlayer* p1 = new HumanPlayer("Player_1", draw, &build, stock);
+    HumanPlayer* p2 = new HumanPlayer("Player_2", draw, &build, stock);
+
+    assert (!p1->hasWon());
+    assert (!p2->hasWon());
   }
 };
 
@@ -82,7 +115,7 @@ int main(void) {
 
   cout << "Running HumanPlayer tests..." << endl;
   HumanPlayerTest::constructorTest();
-  HumanPlayerTest::getMoveTest();
+  HumanPlayerTest::cardAccessorTests();
   HumanPlayerTest::hasWonTest();
   cout << "Passed HumanPlayer tests." << endl;
 
