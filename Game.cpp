@@ -25,6 +25,7 @@ Game::~Game() {
   for (unsigned long i = 0; i < build.size(); i++){
     delete build.at(i);
   }
+  delete draw;
 }
 
 Game::Game(vector<string> names, vector<int> arrangement){ 
@@ -211,6 +212,8 @@ void Game::load_game(string filename){
   }
  
   inFile >> turn;
+
+  inFile.close();
 }
 
 void Game::process(string input){

@@ -42,7 +42,7 @@ int main(){
     
     for(int i = 0; i < players; i++){
       cout << "Enter name of player " << i+1 << ". If player is an AI, prefix with \"AI\"." << endl;
-      cin >> names[ i ];
+      std::getline(names[i], cin);
     }
     
     game = new Game(names);
@@ -55,9 +55,12 @@ int main(){
     game->nextTurn();
     try{
       d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber());
-      while (game->canMove().size()) {
+      vector<Move*> choices = game->canMove();
+      while (choices.size()) {
 	try{  
-	  
+	  for(unsigned long i = 0; i < choices.size(); i++){
+	    delete choices.at(i);
+	  }
 	  input = game->getPlayer()->getMove();
 	  game->process(input);
 	  game->refill();
@@ -86,8 +89,9 @@ int main(){
     }
     catch (char c){
       cout << "File successfully saved\n" << endl;
+      delete game;
       return 0;
     }
   }
-  
+  delete game;
 }
