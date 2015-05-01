@@ -3,10 +3,16 @@ CXXFLAGS = -std=c++11 -pedantic -Wall -Wextra -O -g
 
 bin: skipbo
 
-test: DeckTest 
+test: DeckTest GameTest PlayerTest
 	@echo "----------------------"
 	@echo "DECK TESTS..."
 	@./DeckTest
+	@echo "GAME TESTS..."
+	@./GameTest	
+#	@echo "DISPLAY TESTS..."	
+#	@./DisplayTest
+	@echo "PLAYER TESTS..."
+	@./PlayerTest
 	@echo "ALL PASSED!"
 	@echo "----------------------"
 
