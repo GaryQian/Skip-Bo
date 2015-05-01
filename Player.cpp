@@ -1,6 +1,9 @@
 #include "Player.h"
 #include <string>
 #include <vector>
+#include <stdexcept>
+#include <iostream>
+#include <cassert>
 
 using std::string;
 using std::vector;
@@ -8,8 +11,7 @@ using std::vector;
 Player::~Player(){}
 
 void Player::drawCards(){
-  draw->move(hand, 5 - hand.getSize());
-  
+  draw->move(hand, 5 - hand.getSize());  
 }
 
 void Player::move(Move yourMove) throw (int) {

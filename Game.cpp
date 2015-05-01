@@ -60,11 +60,13 @@ Game::Game(vector<string> names, vector<int> arrangement){
 
 void Game::nextTurn(){
   turn++;
-  if (getPlayer()->getHand().getSize() > draw->getSize()){
+  if (5-getPlayer()->getHand().getSize() > draw->getSize()){
     int left = draw->getSize();
-    
     for (int i = 0; i < 4; i++){
+      cout << build[i]->getSize() << endl;
+      cout << left << endl;
       build[i]->move(*draw, left);
+      cout << draw->getSize() << endl;
     }
   } 
   getPlayer()->drawCards();
