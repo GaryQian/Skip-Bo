@@ -3,10 +3,11 @@ CXXFLAGS = -std=c++11 -pedantic -Wall -Wextra -O -g
 
 bin: skipbo
 
-test: DeckTest 
+test: DeckTest DisplayTest
 	@echo "----------------------"
 	@echo "DECK TESTS..."
 	@./DeckTest
+	./DisplayTest
 	@echo "ALL PASSED!"
 	@echo "----------------------"
 
@@ -27,6 +28,12 @@ PlayerTest.o: PlayerTest.cpp Player.h
 
 GameTest.o: GameTest.cpp Game.h Display.o
 	$(CC) $(CXXFLAGS) -c GameTest.cpp
+	
+DisplayTest: DisplayTest.o Display.o Player.o Deck.o Display.h
+	$(CC) $(CXXFLAGS) DisplayTest.o Display.o Player.o Deck.o -o DisplayTest
+	
+DisplayTest.o: DisplayTest.cpp Display.o Player.o Deck.o Display.h
+	$(CC) $(CXXFLAGS) -c DisplayTest.cpp Display.o Player.o Deck.o
 
 Deck.o: Deck.h Deck.cpp Draw.cpp Build.cpp Hand.cpp Discard.cpp Stock.cpp
 	$(CC) $(CXXFLAGS) -c Deck.cpp Draw.cpp Build.cpp Hand.cpp Discard.cpp Stock.cpp
@@ -50,4 +57,4 @@ skipbo: Game.o Deck.o Display.o Game.o Player.o SkipBoMain.o
 	$(CC) $(CXXFLAGS) Game.o Deck.o Stock.o Hand.o Build.o Draw.o AI.o HumanPlayer.o Discard.o Move.o Display.o Player.o SkipBoMain.o -o skipbo
 
 clean: 
-	rm -f *~ *.o *# *.gcov *.gch a.out DeckTest PlayerTest GameTest skipbo
+	rm -f *~ *.o *# *.gcov *.gch a.out DeckTest PlayerTest GameTest skipbo DisplayTest

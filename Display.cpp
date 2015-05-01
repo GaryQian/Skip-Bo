@@ -189,7 +189,8 @@ void Display::display(Player* player, vector<Build*> build, int num) {
 	
 	////////////////////////////////////
 	temp = new string("│ ");
-	*temp += convert(player->getStock().getTop());
+	if (!(player->getStock().isEmpty())) *temp += convert(player->getStock().getTop());
+	else *temp += " ";
 	if (player->getStock().getTop() >= 10) {
 		*temp += "│ ";
 	}

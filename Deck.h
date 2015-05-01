@@ -7,6 +7,8 @@
 #define DECK_H
 
 class Deck {
+	friend class DisplayTest;
+	
  protected:  
   std::vector<int> cards; //the vector of integers that represent cards  
 

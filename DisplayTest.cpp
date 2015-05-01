@@ -14,7 +14,7 @@ using std::vector;
 using std::endl;
 
 class DisplayTest {
-
+  public:
 	static bool fileeq(char lhsName[], char rhsName[]) {
 		FILE* lhs = fopen(lhsName, "r");
 		FILE* rhs = fopen(rhsName, "r");
@@ -40,8 +40,9 @@ class DisplayTest {
 
 
 	static void testDisplay() {
+		Display d;
 		
-		ofstream file;
+		std::ofstream correct;
 		correct.open ("correct.txt");
 		
 		vector<string> out;
@@ -130,9 +131,9 @@ class DisplayTest {
 		
 		////////////////////////////////////
 		temp = new string("Player ");
-		*temp += convert(num + 1);
+		*temp += d.convert(1);
 		*temp += ": ";
-		*temp += player->getName();
+		*temp += "test";
 		*temp += "'s Turn";
 		out.push_back(*temp);
 		
@@ -145,11 +146,11 @@ class DisplayTest {
 		out.push_back(*temp);
 		
 		////////////////////////////////////
-		temp = new string(" -1-   -2-   -3-   -4-   -5-"); break;
+		temp = new string(" -1-   -2-   -3-   -4-   -5-");
 		out.push_back(*temp);
 		
 		////////////////////////////////////
-		temp = new string("┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐"); break;
+		temp = new string("┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐");
 		out.push_back(*temp);
 		
 		////////////////////////////////////
@@ -213,13 +214,9 @@ class DisplayTest {
 		
 		correct.close();
 	  
-		std::ofstream out("test.txt");
+		std::ofstream output("test.txt");
 		std::streambuf *coutbuf = std::cout.rdbuf();
-		std::cout.rdbuf(out.rdbuf());
-		
-		Display d;
-		
-		Draw draw();
+		std::cout.rdbuf(output.rdbuf());
 		
 		vector<Build*> build;
 		
@@ -235,7 +232,7 @@ class DisplayTest {
 		
 		Stock stock();
 		
-		Player* player = new HumanPlayer("test", &draw, &build, stock);
+		Player* player = new HumanPlayer("test", new Draw(), &build, Stock());
 		player->drawCards();
 		
 		player->hand.cards[0] = 1;
@@ -244,13 +241,13 @@ class DisplayTest {
 		player->hand.cards[3] = 4;
 		player->hand.cards[4] = 10;
 		
-		player->stock[player->stock.getSize() - 1] = 1;
+		player->stock.cards[player->stock.getSize() - 1] = 1;
 		
-		display(Player* player, vector<Build*> build, int num);
+		d.display(player, build, 1);
 		
 		assert(fileeq("test.txt", "correct.txt"));
 	}
-}
+};
 
 int main() {
 	DisplayTest test;

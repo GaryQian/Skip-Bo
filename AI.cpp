@@ -41,19 +41,10 @@ AI::AI(string name, Draw* draw, vector<Build*>* build, Stock stock, Hand hand, v
 }
 
 string AI::getMove() {
-	//Display d;
 	vector<int> validNums;
 	for (int i = 0; i < 4; ++i) {
-		//if (build->at(i)->getTop() != -1) {
-		  //validNums.push_back(build->at(i)->getTop() + 1);
-		//}
-		//else {
-			validNums.push_back(build->at(i)->getSize()%12 + 1);
-		//}
+		validNums.push_back(build->at(i)->getSize()%12 + 1);
 	}
-	//for (int i = 0; i < (int) validNums.size(); ++i) {
-		//cout << validNums.at(i) << endl;
-	//}
 	vector<string> moves;
 	string* temp;
 	for (int i = 0; i < hand.getSize(); ++i) {

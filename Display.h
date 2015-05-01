@@ -6,6 +6,7 @@ using std::vector;
 
 class Display {
   friend class AI;
+  friend class DisplayTest;
   
   vector<int> buildTop;
   
