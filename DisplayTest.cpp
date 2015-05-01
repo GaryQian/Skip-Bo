@@ -219,20 +219,24 @@ class DisplayTest {
 		std::cout.rdbuf(output.rdbuf());
 		
 		vector<Build*> build;
-		
-		build.push_back(new Build());
-		build.push_back(new Build());
-		build.push_back(new Build());
-		build.push_back(new Build());
-		build.push_back(new Build());
+		Build* buildtemp = new Build();
+		build.push_back(buildtemp);
+		buildtemp = new Build();
+		build.push_back(buildtemp);
+		buildtemp = new Build();
+		build.push_back(buildtemp);
+		buildtemp = new Build();
+		build.push_back(buildtemp);
+		buildtemp = new Build();
+		build.push_back(buildtemp);
 		
 		for (int i = 1; i < 12; ++i) *(build.at(0)) += i;
 		for (int i = 1; i < 6; ++i) *(build.at(1)) += i;
 		for (int i = 1; i < 2; ++i) *(build.at(3)) += i;
 		
-		Stock stock();
-		
-		Player* player = new HumanPlayer("test", new Draw(), &build, Stock());
+		Stock* stock = new Stock();
+		Draw* draw = new Draw();
+		Player* player = new HumanPlayer("test", draw, &build, *stock);
 		player->drawCards();
 		
 		player->hand.cards[0] = 1;

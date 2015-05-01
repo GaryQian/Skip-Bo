@@ -30,10 +30,10 @@ GameTest.o: GameTest.cpp Game.h Display.o
 	$(CC) $(CXXFLAGS) -c GameTest.cpp
 	
 DisplayTest: DisplayTest.o Display.o Player.o Deck.o
-	$(CC) $(CXXFLAGS) DisplayTest.o Deck.h Display.o Player.o Deck.o -o DisplayTest
+	$(CC) $(CXXFLAGS) DisplayTest.o Display.o Deck.o Build.o Hand.o Draw.o Discard.o Stock.o Player.o AI.o HumanPlayer.o -o DisplayTest
 	
-DisplayTest.o: DisplayTest.cpp Display.o Player.o Deck.o Display.h
-	$(CC) $(CXXFLAGS) -c DisplayTest.cpp Deck.h -o DisplayTest.o
+DisplayTest.o: DisplayTest.cpp Display.h Deck.h Player.h
+	$(CC) $(CXXFLAGS) -c DisplayTest.cpp
 
 Deck.o: Deck.h Deck.cpp Draw.cpp Build.cpp Hand.cpp Discard.cpp Stock.cpp
 	$(CC) $(CXXFLAGS) -c Deck.cpp Draw.cpp Build.cpp Hand.cpp Discard.cpp Stock.cpp
