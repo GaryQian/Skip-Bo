@@ -31,10 +31,23 @@ public:
     draw->move(stock, 30);
 
     vector<Build*> build;
+    //Constructs two HumanPlayers
+    HumanPlayer* p1 = new HumanPlayer("Player_1", draw, &build, stock);
+    HumanPlayer* p2 = new HumanPlayer("Player_2", draw, &build, stock);
 
-    vector<Player*> players;
-    players.push_back(new HumanPlayer("Gary", draw, &build, stock));
-    
+    //Tests constructor VIA accessor methods
+    assert (p1->getName() == "Player_1");
+    assert (p2->getName() == "Player_2");   
+    assert (!p1->isAI());
+    assert (!p2->isAI());
+    assert (p1->getStock().getSize() == 30);
+    assert (p2->getStock().getSize() == 30);
+    assert (!p1->getHand().getSize());
+    assert (!p2->getHand().getSize());
+    assert (p1->getDiscard().size() == 4);
+    assert (p2->getDiscard().size() == 4);
+    assert (p1->getStock().getTop() == 6);
+    assert (p2->getStock().getTop() == 6);
   }
 
   static void getMoveTest() {
@@ -42,10 +55,6 @@ public:
   }
 
   static void hasWonTest() {
-    
-  }
-  
-  static void accessorTest() {
     
   }
 };
@@ -75,7 +84,6 @@ int main(void) {
   HumanPlayerTest::constructorTest();
   HumanPlayerTest::getMoveTest();
   HumanPlayerTest::hasWonTest();
-  HumanPlayerTest::accessorTest();
   cout << "Passed HumanPlayer tests." << endl;
 
   cout << "Running AI tests..." << endl;
@@ -86,6 +94,6 @@ int main(void) {
   AITest::convertTest();
   cout << "Passed AI tests." << endl;
 
-  cout << "Passed Player tests." << endl;
+  cout << "Passed all Player tests." << endl;
   return 0;
 }
