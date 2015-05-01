@@ -145,60 +145,19 @@ class DisplayTest {
 		out.push_back(*temp);
 		
 		////////////////////////////////////
-		switch(player->getHand().getSize()) {
-		case 0: temp = new string("          No Cards"); break;
-		case 1: temp = new string(" -1-"); break;
-		case 2: temp = new string(" -1-   -2-"); break;
-		case 3: temp = new string(" -1-   -2-   -3-"); break;
-		case 4: temp = new string(" -1-   -2-   -3-   -4-"); break;
-		case 5: temp = new string(" -1-   -2-   -3-   -4-   -5-"); break;
-		}
+		temp = new string(" -1-   -2-   -3-   -4-   -5-"); break;
 		out.push_back(*temp);
 		
 		////////////////////////////////////
-		switch(player->getHand().getSize()) {
-		case 0: temp = new string(" "); break;
-		case 1: temp = new string("┌───┐"); break;
-		case 2: temp = new string("┌───┐ ┌───┐"); break;
-		case 3: temp = new string("┌───┐ ┌───┐ ┌───┐"); break;
-		case 4: temp = new string("┌───┐ ┌───┐ ┌───┐ ┌───┐"); break;
-		case 5: temp = new string("┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐"); break;
-		}
+		temp = new string("┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐"); break;
 		out.push_back(*temp);
 		
 		////////////////////////////////////
-		if (player->getHand().getSize() > 0) {
-			temp = new string("│ ");
-		}
-		else temp = new string(" ");
-		
-		for (int i = 0; i < player->getHand().getSize(); ++i) {
-			*temp += convert(player->getHand().at(i));
-			if (i == player->getHand().getSize() - 1) {
-				if (player->getHand().at(i) >= 10) {
-					*temp += "│";
-				}
-				else *temp += " │";
-			}
-			else {
-				if (player->getHand().at(i) >= 10) {
-					*temp += "│ │ ";
-				}
-				else *temp += " │ │ ";
-			}
-		}
+		temp = new string("│ 1 │ │ 2 │ │ 3 │ │ 4 │ │ 10│");
 		out.push_back(*temp);
 		
 		////////////////////////////////////
-		//temp = new string("└───┘ └───┘ └───┘ └───┘ └───┘");
-		switch(player->getHand().getSize()) {
-		case 0: temp = new string(" "); break;
-		case 1: temp = new string("└───┘"); break;
-		case 2: temp = new string("└───┘ └───┘"); break;
-		case 3: temp = new string("└───┘ └───┘ └───┘"); break;
-		case 4: temp = new string("└───┘ └───┘ └───┘ └───┘"); break;
-		case 5: temp = new string("└───┘ └───┘ └───┘ └───┘ └───┘"); break;
-		}
+		temp = new string("└───┘ └───┘ └───┘ └───┘ └───┘");
 		out.push_back(*temp);
 		
 		////////////////////////////////////
@@ -230,14 +189,8 @@ class DisplayTest {
 		out.push_back(*temp);
 		
 		////////////////////////////////////
-		temp = new string("│ ");
-		*temp += convert(player->getStock().getTop());
-		if (player->getStock().getTop() >= 10) {
-			*temp += "│ ";
-		}
-		else *temp += " │ ";
-		*temp += convert(player->getStock().getSize());
-		*temp += " cards left";
+		temp = new string("│ 1 │");
+		*temp += "30 cards left";
 		out.push_back(*temp);
 		
 		////////////////////////////////////
@@ -284,6 +237,14 @@ class DisplayTest {
 		
 		Player* player = new HumanPlayer("test", &draw, &build, stock);
 		player->drawCards();
+		
+		player->hand.cards[0] = 1;
+		player->hand.cards[1] = 2;
+		player->hand.cards[2] = 3;
+		player->hand.cards[3] = 4;
+		player->hand.cards[4] = 10;
+		
+		player->stock[player->stock.getSize() - 1] = 1;
 		
 		display(Player* player, vector<Build*> build, int num);
 		

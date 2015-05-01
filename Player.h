@@ -2,7 +2,6 @@
 #include <vector>
 #include "Move.h"
 #include "Deck.h"
-#include "DisplayTest.cpp"
 #ifndef PLAYER_H
 #define PLAYER_H
 
