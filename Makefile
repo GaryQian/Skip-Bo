@@ -8,16 +8,24 @@ test: DeckTest DisplayTest GameTest PlayerTest
 	@echo "DECK TESTS..."
 	@./DeckTest
 	@echo Deck Tests Passed
+	@echo " "
+
 	@echo "DISPLAY TESTS..."
 	@./DisplayTest
 	@echo Display Tests Passed
+	@echo " "
+
 	@echo "GAME TESTS..."
 	@./GameTest
 	@echo Game Tests Passed
+	@echo " "
+
 	@echo "PLAYER TESTS..."
 	@./PlayerTest
 	@echo Player Tests Passed
-	@echo "ALL PASSED!"
+	@echo " "
+
+	@echo "ALL TESTS PASSED!"
 	@echo "----------------------"
 
 DeckTest: DeckTest.o Deck.o
