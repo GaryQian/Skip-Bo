@@ -14,6 +14,10 @@ class Display {
   
   void display(AI player, vector<Build*> build, int num); 
   
+  void change(Player* player, int num);
+  
+  void intro();
+  
  private:
   string convert(int num);
   string convert(int num, Build build);

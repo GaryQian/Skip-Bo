@@ -286,6 +286,10 @@ Player* Game::getPlayer() const{
   return players.at((turn-1)%players.size());
 }
 
+Player* Game::getNextPlayer() const{
+  return players.at((turn)%players.size());
+}
+
 vector<Move*> Game::canMove() const{
   vector<Move*> validMoves;
   int p = (turn-1)%players.size();
@@ -322,6 +326,9 @@ vector<Move*> Game::canMove() const{
 
 int Game::getPlayerNumber() {
 	return (turn-1)%players.size();
+}
+int Game::getNextPlayerNumber() {
+	return (turn)%players.size();
 }
 
 vector<Build*> Game::getBuild() {

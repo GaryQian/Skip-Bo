@@ -20,6 +20,7 @@ int main(){
   Display d;
   //Prompts user to enter in a game
   cout << "Welcome to Skip-Bo!" << endl;
+  d.intro();
   cout << "Would you like to load a saved game?" << endl;
   
   //Loads the game	
@@ -80,6 +81,7 @@ int main(){
     }
     catch (int a){
       d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber());
+	  //d.change(game->getNextPlayer(), game->getNextPlayerNumber());
       cout << "Turn end\n" << endl;
     }
     catch (char c){

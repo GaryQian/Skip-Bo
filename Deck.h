@@ -67,6 +67,7 @@ class Deck {
 class Hand: public Deck {
   friend class DrawTest;
   friend class HandTest;
+  friend class DisplayTest;
  public:
   Hand();
   
@@ -101,6 +102,7 @@ class Stock: public Deck {
 
 class Draw: public Deck {
   friend class DrawTest;
+  friend class DisplayTest;
  public: 
 
   /*
@@ -156,6 +158,7 @@ class Build: public Deck {
 };
 
 class Discard: public Deck { 
+  friend class DisplayTest;
 public:
   Discard();
   void move(Build& build);

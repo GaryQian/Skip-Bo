@@ -22,6 +22,7 @@ class Player {
   Draw* draw;  
   friend class HumanPlayer;
   friend class AI;
+  friend class DisplayTest;
 
  public:
   //Destructor
