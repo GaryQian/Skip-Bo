@@ -70,8 +70,7 @@ public:
     assert (!p2->hasWon());
   }
 
-  static void hasWonTest()
-  {
+  static void hasWonTest() {
     Draw* draw = new Draw();
     vector<int> arrange;
     for(int i = 161; i >= 0; i--) {
@@ -90,17 +89,75 @@ public:
     assert (!p1->hasWon());
     assert (!p2->hasWon());
   }
+
+  static void moveTest() {
+
+  }
 };
 
 class AITest {
 public:
   static void constructorTest() {
-  }
+    Draw* draw = new Draw();
+    vector<int> arrange;
+    for(int i = 161; i >= 0; i--) {
+      arrange.push_back(i);
+    }
+    draw->shuffle(arrange);
+    
+    Stock stock;
+    draw->move(stock, 30);
 
-  static void getMoveTest() {
+    vector<Build*> build;
+    //Constructs two HumanPlayers
+    AI* p1 = new AI("AI", draw, &build, stock);
+    AI* p2 = new AI("AI", draw, &build, stock);
+
+    //Tests constructor VIA accessor methods
+    assert (p1->getName() == "AI");
+    assert (p2->getName() == "AI");   
+    assert (p1->isAI());
+    assert (p2->isAI());
+    assert (p1->getStock().getSize() == 30);
+    assert (p2->getStock().getSize() == 30);
+    assert (!p1->getHand().getSize());
+    assert (!p2->getHand().getSize());
+    assert (p1->getDiscard().size() == 4);
+    assert (p2->getDiscard().size() == 4);
+    assert (p1->getStock().getTop() == 6);
+    assert (p2->getStock().getTop() == 6);
   }
 
   static void containsTest() {
+    Draw* draw = new Draw();
+    vector<int> arrange;
+    for(int i = 161; i >= 0; i--) {
+      arrange.push_back(i);
+    }
+    draw->shuffle(arrange);
+    
+    Stock stock;
+    draw->move(stock, 30);
+
+    vector<Build*> build;
+    //Constructs two HumanPlayers
+    AI* p1 = new AI("AI", draw, &build, stock);
+    AI* p2 = new AI("AI", draw, &build, stock);
+
+    vector<int> nums;
+    for(int i = 0; i < 20; i++) {
+      nums.push_back(i);
+    }
+    assert(p1->contains(nums, 0));
+    assert(p2->contains(nums, 0));
+    assert(p1->contains(nums, 1));
+    assert(p2->contains(nums, 1));
+    assert(p1->contains(nums, 10));
+    assert(p2->contains(nums, 10));
+    assert(!p1->contains(nums, 20));
+    assert(!p2->contains(nums, 20));
+    assert(!p1->contains(nums, 100));
+    assert(!p2->contains(nums, 100));
   } 
 
   static void findTest() {
@@ -121,7 +178,6 @@ int main(void) {
 
   cout << "Running AI tests..." << endl;
   AITest::constructorTest();
-  AITest::getMoveTest();
   AITest::containsTest();
   AITest::findTest();
   AITest::convertTest();
