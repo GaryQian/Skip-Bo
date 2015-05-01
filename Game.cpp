@@ -220,7 +220,7 @@ void Game::load_game(string filename){
   }
  
   inFile >> turn;
-
+  turn--;
   inFile.close();
 }
 
