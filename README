@@ -9,56 +9,62 @@
 
 Names: Kathleen Kusworo, Gary Qian, Sarah Sukardi, Matthew Tan
 Course: Intermediate Programming (AS.600.120)
-Date: 5/08/2015
-Assignment: Final Project
-JHED: gqian1, kkuswor1, ssukard1, mtan13
+Date: 5/01/2015 (First Deadline), 5/08/2015 (Final Deadline)
+Assignment: Final Project-- Skip-Bo
+JHEDs: kkuswor1, gqian1, ssukard1, mtan13
 Email: (JHED)@jhu.edu
 
---------------------------RUNNING THE GAME-----------------------
-How to Run the Game:
-1. Type in "make" Run the executable file produced.
+-------------------------------RUNNING THE GAME----------------------------
+HOW TO RUN THE GAME:
+1. Type in "make". Run the executable file produced by typing
+   "./skipbo".
+2. Begin playing. See instructions below on how to play Skip-Bo.
 
-How to Test the Game:
-1. To test Game, type in "make game". 
-2. 
+HOW TO TEST THE GAME:
+1. To test Player, type in "make PlayerTest". 
+2. To test Deck, type in "make DeckTest".
+3. To test the Display, type in "make DisplayTest".
+4. To test the Game, type in "make GameTest".
 
---------------------------PLAYING THE GAME-----------------------
-1.
+HOW TO CLEAN ALL EXECUTABLES AND INTERMEDIARY FILES:
+1. Type in "make clean".
 
----------------------------FILES INCLUDED------------------------
+-------------------------------PLAYING THE GAME----------------------------
+HOW TO PLAY THE GAME:
 
-Card Maneuvering
-1. Deck.h
-2. Deck.cpp
-3. Build.cpp
-4. Hand.cpp
-5. Draw.cpp
-6. Discard.cpp
-7. Stock.cpp
 
-Player Options
-1. Player.h
-2. Player.cpp
-3. AI.cpp
-4. HumanPlayer.cpp
+--------------------------------FILES INCLUDED-----------------------------
+CARD MANEUVERING
+1. Deck.h          - Includes header files for Deck and its derivatives
+2. Deck.cpp	   - Deck superclass
+3. Build.cpp	   - Subclass of deck: build piles
+4. Hand.cpp	   - Subclass of deck: a player's hand 
+5. Draw.cpp	   - Subclass of deck: the communal draw pile
+6. Discard.cpp	   - Subclass of deck: the individual discard piles
+7. Stock.cpp	   - Subclass of deck: the stock which each player must deplete
 
-Game Operations
-1. Game.h
-2. Game.cpp
-3. Move.h
-4. Move.cpp
-5. Display.h
-6. Display.cpp
-7. SkipBoMain.cpp
+PLAYER CHARACTERISTICS
+1. Player.h	   - Includes header files for Player and its derivatives 
+2. Player.cpp	   - Player abstract class
+3. AI.cpp	   - Subclass of Player: AI 
+4. HumanPlayer.cpp - Subclass of Player: A human player
 
-Test Files
-1. AITest.cpp
-2. DeckTest.cpp
-3. DisplayTest.cpp
-4. GameTest.cpp
-5. PlayerTest.cpp
+GAME OPERATIONS
+1. Game.h	   - Includes header files for the Game
+2. Game.cpp	   - The game itself
+3. Move.h	   - Includes header files for Move
+4. Move.cpp	   - The move file itself (with associated methods)
+5. Display.h	   - Includes header files for Display
+6. Display.cpp	   - The display file itself (with associated methods)
+7. SkipBoMain.cpp  - The main method through which the game is run
 
-Misc.
-1. Makefile
-2. README
+TEST FILES
+1. PlayerTest.cpp  - Tests Player and derived classes
+2. DeckTest.cpp	   - Tests Deck and derived classes
+3. DisplayTest.cpp - Tests the Display
+4. GameTest.cpp	   - Tests the Game
+
+MISCELLANEOUS
+1. Makefile	   - Contains instructions for easy compiling
+2. README	   - This file (documentation)
 
