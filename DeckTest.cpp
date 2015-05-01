@@ -306,7 +306,8 @@ public:
 
   static void opsTest(){
     Hand h = Hand();
-    
+    ostringstream oss;
+
     int num;
     try {
       h += (num = 3);
@@ -316,10 +317,26 @@ public:
       h += (num = 7);
       h += (num = 1);
     }catch(std::logic_error & e){
-      cout << e.what();
+      oss << e.what();	
     }
-
+    assert(oss.str() == "Shouldn't draw more than five cards!\n");
+    oss.str("");
+    oss.clear();
     
+    assert(h.getSize() == 5);
+
+    Hand h2 = Hand();
+    h2 += 3;
+    h2 += 4;
+    vector<int> list = {1,2,3,4};
+
+    try {
+      h2 += list;
+    }
+    catch(std::logic_error & e){
+      oss << e.what();
+    }
+    assert(oss.str() == "Shouldn't draw more than five cards!\n");
   }
 
   static void takeCardTest(){
