@@ -67,7 +67,6 @@ class Deck {
    */
   std::string toString() const; 
   
-  virtual ~Deck();
 };
 
 class Hand: public Deck {
