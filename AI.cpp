@@ -166,7 +166,9 @@ int AI::find(vector<int> vec, int num) {
 }
 
 AI::~AI() {
-  
+  for(int i = 0; i < 4; i++){
+    delete discard.at(i);
+  }
 }
 
 string AI::convert(int num) {

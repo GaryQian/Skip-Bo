@@ -26,7 +26,11 @@ HumanPlayer::HumanPlayer(string name, Draw* draw, vector<Build*>* build, Stock s
   this->discard = discard;
 }
 
-HumanPlayer::~HumanPlayer(){}
+HumanPlayer::~HumanPlayer(){
+  for(int i = 0; i < 4; i++){
+    delete discard.at(i);
+  }
+}
 
 /*HumanPlayer::HumanPlayer(Player& player) {
   this->draw = draw;
