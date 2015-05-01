@@ -203,8 +203,14 @@ void Display::display(Player* player, vector<Build*> build, int num) {
 		*temp += "│ ";
 	}
 	else *temp += " │ ";
-	*temp += convert(player->getStock().getSize());
+	if (player->getStock().getSize() == 0) {
+		*temp += "0";
+	}
+	else *temp += convert(player->getStock().getSize());
 	*temp += " cards left";
+	if (player->getStock().getSize() == 0) {
+		*temp += ". You win!";
+	}
 	out.push_back(temp);
 	
 	////////////////////////////////////
