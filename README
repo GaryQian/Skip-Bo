@@ -1,10 +1,10 @@
- ____    __  __   ______   ____           ____     _____      
-/\  _ \ /\ \/\ \ /\__  _\ /\  _ \        /\  _ \  /\  __ \
-\ \ \ \_\ \ \/ / \/_/\ \/ \ \ \ \ \      \ \ \ \ \\ \ \/\ \   
- \/_\__ \\ \   <    \ \ \  \ \  __/_______\ \  _ < \ \ \ \ \  
-   /\ \ \ \ \ \\ \   \_\ \__\ \ \//\______\\ \ \ \ \\ \ \_\ \ 
-   \  \____\ \_\ \_\ /\_____\\ \_\\/______/ \ \____/ \ \_____\
-    \/_____/\/_/\/_/ \/_____/ \/_/           \/___/   \/_____/
+      ____    __  __   ______   ____           ____     _____      
+     /\  _ \ /\ \/\ \ /\__  _\ /\  _ \        /\  _ \  /\  __ \
+     \ \ \ \_\ \ \/ / \/_/\ \/ \ \ \ \ \      \ \ \ \ \\ \ \/\ \   
+      \/_\__ \\ \   <    \ \ \  \ \  __/_______\ \  _ < \ \ \ \ \  
+        /\ \ \ \ \ \\ \   \_\ \__\ \ \//\______\\ \ \ \ \\ \ \_\ \ 
+        \  \____\ \_\ \_\ /\_____\\ \_\\/______/ \ \____/ \ \_____\
+         \/_____/\/_/\/_/ \/_____/ \/_/           \/___/   \/_____/
 
 
 Names: Kathleen Kusworo, Gary Qian, Sarah Sukardi, Matthew Tan
@@ -29,8 +29,28 @@ HOW TO TEST THE GAME:
 HOW TO CLEAN ALL EXECUTABLES AND INTERMEDIARY FILES:
 1. Type in "make clean".
 
+
 -------------------------------PLAYING THE GAME----------------------------
-HOW TO PLAY THE GAME:
+HOW TO PLAY SKIP-BO:
+
+HOW TO PLAY THIS VERSION OF SKIP-BO:
+1. Run the executable file (as dictated above).
+2. Enter in names as advised.
+3. To make a move in Skip-Bo, you are moving cards from one pile to another.
+   Therefore, one moves a card from a certain pile to another by calling its
+   associated letter: 's' for stock, 'b' for build, 'h' for hand, and 'd' for 
+   discard. 
+4. A move consists of four characters: the first for the pile that is being
+   moved from, the second for the index of this particular pile, the third 
+   for the pile that is being moved to, and the fourth for the index of that
+   particular pile.
+5. In this version of skip-bo, cards are referred to by their indexes, not by
+   their values themselves. The index will be written right above the value 
+   of the card.
+6. Example: To move the third card in hand to the fifth discard pile, type 
+   h3 d5, or h3d5. The move will work with or without spaces.
+7. The game will automatically switch players once a turn is done.
+8. Keep playing until the game declares a winner!
 
 
 --------------------------------FILES INCLUDED-----------------------------
