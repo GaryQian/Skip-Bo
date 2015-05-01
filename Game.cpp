@@ -72,35 +72,27 @@ Game::Game(vector<string> names, vector<int> arrangement){
 
 void Game::nextTurn(){
   turn++;
-  if (5-getPlayer()->getHand().getSize() > draw->getSize()){
-    cout << getPlayer()->getHand().getSize() << endl;
-    cout << draw->getSize() << endl;
-    int left = draw->getSize();
-    for (int i = 0; i < 4; i++){
-      cout << build[i]->getSize() << endl;
-      build[i]->move(*draw, left);
-      cout << draw->getSize() << endl;
-    }
-  } 
-  getPlayer()->drawCards();
 }
 
 
 void Game::refill(){
-  if (getPlayer()->getHand().getSize() == 0){
-    if (5 > draw->getSize()){
-      int left = draw->getSize();
-   
-      for (int i = 0; i < 4; i++){
-	build[i]->move(*draw, left);
-      }
-    } 
-    getPlayer()->drawCards();
+  if (5 - getPlayer()->getHand().getSize() > draw->getSize()){
+    int left = draw->getSize();
+    
+    for (int i = 0; i < 4; i++){
+      build[i]->move(*draw, left);
+    }
   }
+  getPlayer()->drawCards();
 }
 
-  bool Game::hasEnded() const{
-  return getPlayer()->hasWon();
+bool Game::hasEnded() const{
+  if (turn == 1){
+    return false;
+  }
+  else{
+    return players.at((turn-2)%players.size())->hasWon();
+  }
 }
 
 void Game::save_game(string filename) const{
@@ -220,7 +212,6 @@ void Game::load_game(string filename){
   }
  
   inFile >> turn;
-  turn--;
   inFile.close();
 }
 
@@ -373,6 +364,7 @@ vector<Move*> Game::canMove() const{
 int Game::getPlayerNumber() {
 	return (turn-1)%players.size();
 }
+
 int Game::getNextPlayerNumber() {
 	return (turn)%players.size();
 }

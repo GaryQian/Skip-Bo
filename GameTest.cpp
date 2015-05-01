@@ -154,7 +154,7 @@ public:
 
   void ProcessTest(){
     g->nextTurn();
-    
+    g->refill();
     //player one starts
     assert(g->turn == 1);
     assert(g->getPlayer()->getName() == "Matthew");
@@ -290,6 +290,7 @@ public:
     //p1 stock 5
    
     g->nextTurn();
+    g->refill();
     //player 2 start
     assert(g->turn == 2);
     assert(g->getPlayer()->getHand().getSize() == 5);
@@ -318,6 +319,7 @@ public:
 
     //player 3 starts    
     g->nextTurn();
+    g->refill();
 
     assert(g->turn == 3);
     assert(g->getPlayer()->getHand().getSize() == 5);
@@ -345,6 +347,7 @@ public:
    
     //start of player 4's turn
     g->nextTurn();
+    g->refill();
 
     assert(g->turn == 4);
     assert(g->getPlayer()->getHand().getSize() == 5);

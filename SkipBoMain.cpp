@@ -54,13 +54,14 @@ int main(){
 		}
 		
 		game = new Game(names);
+		game->nextTurn();
+		game->refill();
 	}
 
 	cin.ignore();
 
 
 	while (!game->hasEnded()) {
-		game->nextTurn();
 		try{
 			d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber());
 			vector<Move*> choices = game->canMove();
@@ -71,11 +72,13 @@ int main(){
 					}
 					input = game->getPlayer()->getMove();
 					game->process(input);
-					game->refill();
 					d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber());
 				}
 				catch(exception& e){
 					cout << e.what() << endl;
+				}
+				if (game->getPlayer()->getHand().getSize()==0){
+				  game->refill();
 				}
 				choices = game->canMove();
 			}
@@ -95,6 +98,8 @@ int main(){
 			d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber());
 			//d.change(game->getNextPlayer(), game->getNextPlayerNumber());
 			cout << "Turn end\n" << endl;
+			game->nextTurn();
+			game->refill();
 		}
 		catch (char c){
 			cout << "File successfully saved\n" << endl;
