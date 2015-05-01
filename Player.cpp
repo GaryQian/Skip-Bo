@@ -1,6 +1,9 @@
 #include "Player.h"
 #include <string>
 #include <vector>
+#include <stdexcept>
+#include <iostream>
+#include <cassert>
 
 using std::string;
 using std::vector;
@@ -8,8 +11,7 @@ using std::vector;
 Player::~Player(){}
 
 void Player::drawCards(){
-  draw->move(hand, 5 - hand.getSize());
-  
+  draw->move(hand, 5 - hand.getSize());  
 }
 
 void Player::move(Move yourMove) throw (int) {
@@ -47,23 +49,6 @@ bool Player::hasWon() {
   }
   return false;
 }
-
-//These methods are not necessary anymore
-/*
-bool Player::playCard(Deck a, Deck b) {
-  if (a.move(b)) {
-    return true;
-  }
-  return false;
-}
-
-bool Player::playCard(Deck b, int num) {
-  if (hand.move(b, num)) {
-    return true;
-  }
-  return false;
-}
-*/
 
 //////////Accessor methods///////////
 

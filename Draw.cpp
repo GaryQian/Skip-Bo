@@ -21,9 +21,10 @@ Draw::Draw(){
 }
 
 void Draw::move(Deck& deck, int num) throw(std::invalid_argument){
-  if(getSize() < num) 
-    throw std::invalid_argument("Draw pile doesn't have enough cards.\n");
-
+  if(getSize() < num) {
+    Draw d2 = Draw();
+    d2.move(*this, 162);
+  }
   vector<int> toMove;
   //if we have enough cards in the draw pile, take whatever is needed
   for(int i = 0; i < num; i++){

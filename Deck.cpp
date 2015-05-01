@@ -16,7 +16,7 @@ int Deck::takeCard() throw (std::logic_error){
   int topCard = getTop();
   cards.pop_back();
   return topCard;
-  }
+}
 
 int Deck::getTop() const {
   if(getSize() == 0) return -1;
