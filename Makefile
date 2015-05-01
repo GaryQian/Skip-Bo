@@ -31,7 +31,7 @@ GameTest.o: GameTest.cpp Game.h Display.o
 	$(CC) $(CXXFLAGS) -c GameTest.cpp
 
 DisplayTest: DisplayTest.o Display.o Player.o Deck.o Display.h
-	$(CC) $(CXXFLAGS) DisplayTest.o Display.o Player.o Deck.o -o DisplayTest
+	$(CC) $(CXXFLAGS) DisplayTest.o Display.o Player.o Deck.o Build.o Hand.o Draw.o Discard.o Stock.o AI.o HumanPlayer.o -o DisplayTest
 
 DisplayTest.o: DisplayTest.cpp Display.o Player.o Deck.o Display.h
 	$(CC) $(CXXFLAGS) -c DisplayTest.cpp Display.o Player.o Deck.o

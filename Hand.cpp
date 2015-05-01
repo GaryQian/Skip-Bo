@@ -40,3 +40,7 @@ void Hand::operator += (vector<int> list) throw (std::invalid_argument) {
 
   Deck::operator += (list);
 }
+
+Hand::~Hand() {
+	
+}

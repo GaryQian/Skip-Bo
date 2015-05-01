@@ -51,3 +51,7 @@ void Build::operator +=(int value) throw (std::invalid_argument){
   }  
   else (Deck::operator +=(value));
 }
+
+Build::~Build() {
+	
+}

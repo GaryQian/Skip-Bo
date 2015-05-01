@@ -64,6 +64,8 @@ class Deck {
    * vector of integers
    */
   std::string toString() const; 
+  
+  virtual ~Deck();
 };
 
 class Hand: public Deck {
@@ -90,6 +92,8 @@ class Hand: public Deck {
   void operator += (int value)  throw (std::invalid_argument);
 
   void operator += (std::vector<int> list) throw (std::invalid_argument);
+  
+  ~Hand();
 
 };
 
@@ -101,6 +105,7 @@ class Stock: public Deck {
   void move(Deck& deck);
   void operator += (int value) throw (std::invalid_argument);
   void operator += (std::vector<int> list) throw (std::invalid_argument);
+  ~Stock();
 };
 
 class Draw: public Deck {
@@ -158,7 +163,9 @@ class Build: public Deck {
    * exception if the cards added are not in sequence, or are not
    * Skip-Bo wild cards.
    */
-  void operator +=(int value) throw (std::invalid_argument);	
+  void operator +=(int value) throw (std::invalid_argument);
+
+	~Build();
 };
 
 class Discard: public Deck { 

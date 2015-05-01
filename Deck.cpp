@@ -71,3 +71,7 @@ std::ostream& operator << (std::ostream& os, const Deck& d) {
   os << d.toString();
   return os;
 }
+
+Deck::~Deck() {
+	
+}
