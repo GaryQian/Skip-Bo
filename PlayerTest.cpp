@@ -1,3 +1,11 @@
+/*Names: Kathleen Kusworo, Gary Qian, Sarah Sukardi, Matthew Tan
+  Course: Intermediate Programming (AS.600.120)
+  Date: 5/01/2015 (First Deadline), 5/08/2015 (Final Deadline)
+  Assignment: Final Project-- Skip-Bo
+  JHEDs: kkuswor1, gqian1, ssukard1, mtan13
+  Email: (JHED)@jhu.edu
+*/
+
 #include "Player.h"
 #include "Deck.h"
 #include "Move.h"
@@ -90,9 +98,8 @@ public:
     assert (!p2->hasWon());
   }
 
-  static void moveTest() {
-
-  }
+  //to be implemented
+  static void moveTest() {  }
 };
 
 class AITest {
