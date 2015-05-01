@@ -25,6 +25,7 @@ HOW TO TEST THE GAME:
 2. To test Deck, type in "make DeckTest".
 3. To test the Display, type in "make DisplayTest".
 4. To test the Game, type in "make GameTest".
+5. To test all tests, type in "make test".
 
 HOW TO CLEAN ALL EXECUTABLES AND INTERMEDIARY FILES:
 1. Type in "make clean".
@@ -32,6 +33,24 @@ HOW TO CLEAN ALL EXECUTABLES AND INTERMEDIARY FILES:
 
 -------------------------------PLAYING THE GAME----------------------------
 HOW TO PLAY SKIP-BO:
+1. The objective of Skip-Bo is to be the first player to play all the cards
+   in your stock pile.
+2. To begin, the deck is shuffled. Then players are dealt stock cards-- if 
+   there are more than 4 players, each player is dealt 20 cards. Elsewise,
+   each player is dealt 30 cards.
+3. To set up, all cards left over after cards have been dealt are placed into
+   a "draw pile." There are also 4 "build piles" (with no cards in them yet)
+   shared between all the players. Each player has a stock pile (the 20 or 
+   30 cards dealt) and 4 discard piles (with no cards in them yet).
+4. A player can only see the card at the top of their "stock" pile. They will
+   draw a hand of 5 from the draw pile. They then have the option of moving
+   cards onto the build pile consecutively from 1 to 12. A skip-bo card counts
+   as a wild card.
+5. Once a player cannot put anymore cards into the build pile from the stock
+   pile or their hand, they must place a card into the discard pile. Their 
+   turn is then over.
+6. This is repeated, going in a circle, until one person's stock pile is 
+   completely depleted.
 
 HOW TO PLAY THIS VERSION OF SKIP-BO:
 1. Run the executable file (as dictated above).
@@ -48,7 +67,9 @@ HOW TO PLAY THIS VERSION OF SKIP-BO:
    their values themselves. The index will be written right above the value 
    of the card.
 6. Example: To move the third card in hand to the fifth discard pile, type 
-   h3 d5, or h3d5. The move will work with or without spaces.
+   h3 d5, or h3d5. The move will work with or without spaces. A note is that
+   to move from the stock pile, no index should be given, since only the
+   top card can be moved onto a build or discard pile.
 7. The game will automatically switch players once a turn is done.
 8. Keep playing until the game declares a winner!
 

@@ -90,9 +90,8 @@ public:
     assert (!p2->hasWon());
   }
 
-  static void moveTest() {
-
-  }
+  //to be implemented
+  static void moveTest() {  }
 };
 
 class AITest {
