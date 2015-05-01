@@ -25,7 +25,7 @@ public:
     }
     draw.shuffle(arrange);
 
-    HumanPlayer* h1 = new HumanPlayer("Gary", &draw, &build, s);
+    //    HumanPlayer* h1 = new HumanPlayer("Gary", &draw, &build, s);
     
   }
 

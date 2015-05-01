@@ -14,12 +14,51 @@ Assignment: Final Project
 JHED: gqian1, kkuswor1, ssukard1, mtan13
 Email: (JHED)@jhu.edu
 
-Files:
+--------------------------RUNNING THE GAME-----------------------
+How to Run the Game:
+1. Type in "make" Run the executable file produced.
 
-How to Run:
-1. Type in "make." Run the executable file produced.
+How to Test the Game:
+1. To test Game, type in "make game". 
+2. 
 
-How to Test:
+--------------------------PLAYING THE GAME-----------------------
+1.
 
+---------------------------FILES INCLUDED------------------------
 
+Card Maneuvering
+1. Deck.h
+2. Deck.cpp
+3. Build.cpp
+4. Hand.cpp
+5. Draw.cpp
+6. Discard.cpp
+7. Stock.cpp
+
+Player Options
+1. Player.h
+2. Player.cpp
+3. AI.cpp
+4. HumanPlayer.cpp
+
+Game Operations
+1. Game.h
+2. Game.cpp
+3. Move.h
+4. Move.cpp
+5. Display.h
+6. Display.cpp
+7. SkipBoMain.cpp
+
+Test Files
+1. AITest.cpp
+2. DeckTest.cpp
+3. DisplayTest.cpp
+4. GameTest.cpp
+5. PlayerTest.cpp
+
+Misc.
+1. Makefile
+2. README
 
