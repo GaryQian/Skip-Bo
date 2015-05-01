@@ -128,7 +128,7 @@ void Display::display(Player* player, vector<Build*> build, int num) {
 	out.push_back(*temp);
 	
 	////////////////////////////////////
-	temp = new string("└───┘ └───┘ └───┘ └───┘ └───┘");
+	//temp = new string("└───┘ └───┘ └───┘ └───┘ └───┘");
 	switch(player->getHand().getSize()) {
 	case 0: temp = new string(" "); break;
 	case 1: temp = new string("└───┘"); break;

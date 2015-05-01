@@ -2,6 +2,7 @@
 #include <vector>
 #include "Move.h"
 #include "Deck.h"
+#include "DisplayTest.cpp"
 #ifndef PLAYER_H
 #define PLAYER_H
 
@@ -22,6 +23,7 @@ class Player {
   Draw* draw;  
   friend class HumanPlayer;
   friend class AI;
+  friend class DisplayTest;
 
  public:
   //Destructor
