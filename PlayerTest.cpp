@@ -28,6 +28,7 @@ class HumanPlayerTest {
 public:
   static void constructorTest() {
 
+    //Creates all of the explicit parameters necessary to create a human player
     Draw* draw = new Draw();
     vector<int> arrange;
     for(int i = 161; i >= 0; i--) {
@@ -51,6 +52,7 @@ public:
   }
 
   static void cardAccessorTests() {
+    //Creates all of the explicit parameters necessary to create a human player
     Draw* draw = new Draw();
     vector<int> arrange;
     for(int i = 161; i >= 0; i--) {
@@ -66,6 +68,7 @@ public:
     HumanPlayer* p1 = new HumanPlayer("Player_1", draw, &build, stock);
     HumanPlayer* p2 = new HumanPlayer("Player_2", draw, &build, stock);
 
+    //Tests accessor methods
     assert (p1->getStock().getSize() == 30);
     assert (p2->getStock().getSize() == 30);
     assert (!p1->getHand().getSize());
@@ -79,6 +82,7 @@ public:
   }
 
   static void hasWonTest() {
+    //Creates all of the explicit parameters necessary to create a human player
     Draw* draw = new Draw();
     vector<int> arrange;
     for(int i = 161; i >= 0; i--) {
@@ -94,6 +98,7 @@ public:
     HumanPlayer* p1 = new HumanPlayer("Player_1", draw, &build, stock);
     HumanPlayer* p2 = new HumanPlayer("Player_2", draw, &build, stock);
 
+    //Asserts that a player has not won yet
     assert (!p1->hasWon());
     assert (!p2->hasWon());
   }
@@ -105,6 +110,7 @@ public:
 class AITest {
 public:
   static void constructorTest() {
+    //Creates all of the explicit parameters necessary to create an AI
     Draw* draw = new Draw();
     vector<int> arrange;
     for(int i = 161; i >= 0; i--) {

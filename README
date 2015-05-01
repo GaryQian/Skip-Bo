@@ -109,3 +109,7 @@ MISCELLANEOUS
 1. Makefile	   - Contains instructions for easy compiling
 2. README	   - This file (documentation)
 
+-------------------------ADDITIONAL NOTES-------------------------------
+1. Several ASCII extended characters are used. If run on a computer which
+   does not support ASCII-extended characters, weird artifacts might show 
+   up (Though the game itself will run without incident)
