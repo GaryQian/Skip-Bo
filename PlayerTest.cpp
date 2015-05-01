@@ -42,14 +42,42 @@ public:
   }
 };
 
+class AITest {
+public:
+  static void constructorTest() {
+  }
+
+  static void getMoveTest() {
+  }
+
+  static void containsTest() {
+  } 
+
+  static void findTest() {
+  }
+
+  static void convertTest() {
+  }
+};
+
 int main(void) {
   cout << "Running Player tests..." << endl;
+
   cout << "Running HumanPlayer tests..." << endl;
   HumanPlayerTest::constructorTest();
   HumanPlayerTest::getMoveTest();
   HumanPlayerTest::hasWonTest();
   HumanPlayerTest::accessorTest();
   cout << "Passed HumanPlayer tests." << endl;
+
+  cout << "Running AI tests..." << endl;
+  AITest::constructorTest();
+  AITest::getMoveTest();
+  AITest::containsTest();
+  AITest::findTest();
+  AITest::convertTest();
+  cout << "Passed AI tests." << endl;
+
   cout << "Passed Player tests." << endl;
   return 0;
 }
