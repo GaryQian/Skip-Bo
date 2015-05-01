@@ -1,0 +1,109 @@
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+                                      .++~
+                                   MMMMMMMMM.
+              8=          .  DMMM .MMMM DMMMM
+            MMMM   DM    MMM  MMM  MMMM  MMM+
+          MMMMMM  MMMD  MMMM. MMM8 MMMM  MMM.
+         MMMM.    MMMM MMMM.  MMMM MMMMMMMM  MMMM 
+        MMMMM$.   MMMM+MMM    MMMM  MMMMM.   MM+
+        MMMMMMMMM.MMMMMMMM.   MMMM  MMM.
+         MMMMMMMMMMMMM MMMMM  MMMM  MMMI
+          ..MMMMMM,MMM. MMMMMM:MMM. MMM.
+             MMMMM MMMO  MMMI .MM=
+          ..MMMMM  MMMM    .
+         .MMMMM    MM,.         :MMD.
+          MMM.                MMMMMMMM         .
+          ..  $MMMMMMMMMM    MMMMMMMMMM       .ZZZZZZZ
+               MMMMNMMMMMM. MMMM8..MMMMM      ZZZZZZZ,
+       ...     MMMM. .MMMM +MMM     MMMM      ZZZZZZZ I.
+   ~MMMMMM     MMMM? MMMM. MMMM     7MMM      ZZZZZZ7IIII.
+   MMMMMMM     MMMMMMMMMMM.DMMM     MMMM   MMMZZZZZIIIIIIII.
+   MMMMMMM     MMMMMMMMMMMM:MMMM.  MMMM.   MMMZZZZIIIIIIIII
+   ,MMMMMMM     MMMM.  MMMM$:MMMMMMMMM,    .MMZZZIIIIIIIII 
+    MMMMMMM     MMMM.  MMMM.  MMMMMMM        MMMIIIIIIIII
+    MMMMMMMM    MMMM$MMMMM      ..           .MMMIIIIII 
+     MMMMMMM    MMMMMMMM                      =MMMMIII.
+     ....       +MMM7.                         NMM. ..
+ 
+ 
+=======Build Piles======
+┌───┐ ┌───┐ ┌───┐ ┌───┐
+│ 11│ │ 5 │ │   │ │ 1 │
+└───┘ └───┘ └───┘ └───┘
+=======================
+Player 2: test's Turn
+=======================
+Hand:
+ -1-   -2-   -3-   -4-   -5-
+┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐
+│ 1 │ │ 2 │ │ 3 │ │ 4 │ │ 10│
+└───┘ └───┘ └───┘ └───┘ └───┘
+Discard:
+ -1-   -2-   -3-   -4-
+┌───┐ ┌───┐ ┌───┐ ┌───┐
+│   │ │   │ │   │ │   │
+└───┘ └───┘ └───┘ └───┘
+Stockpile:
+┌───┐
+│ 1 │ 1 cards left
+└───┘
+└Your Move: 
