@@ -96,7 +96,7 @@ string AI::getMove() {
 	}
 	
 	if (contains(validNums, stock.getTop())) {
-	  temp = new string("s b");
+		temp = new string("s b");
 		for (int i = 0; i < 5; i++) {
 			//check for skipbo
 			if (stock.getTop() == 0) {
@@ -104,7 +104,7 @@ string AI::getMove() {
 				  //temp = new string("s");
 				  //	*temp += " b";
 					*temp += convert(j);
-					moves.push_back(temp);
+					//moves.push_back(temp);
 				}
 			}
 			else if (contains(validNums, stock.getTop()))
