@@ -240,7 +240,7 @@ string Display::convert(int num, Build build) {
 		return " ";
 	}
 	if (num == 0) {
-		
+		if (build.getSize()%12 == 0) return "12";
 		return convert(build.getSize()%12);
 	}
 	ostringstream temp;

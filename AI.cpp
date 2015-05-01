@@ -103,6 +103,7 @@ string AI::getMove() {
 				*temp += convert(find(validNums, stock.getTop()) + 1);
 			break;
 		}
+		return *temp;
 		moves.push_back(*temp);
 	}
 	
