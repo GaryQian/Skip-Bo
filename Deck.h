@@ -18,6 +18,8 @@ class Deck {
    */
   int getSize() const;	
 
+  virtual ~Deck();
+
   /*
    * Returns the topmost card value without changing the deck
    */
