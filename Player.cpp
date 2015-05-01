@@ -50,23 +50,6 @@ bool Player::hasWon() {
   return false;
 }
 
-//These methods are not necessary anymore
-/*
-bool Player::playCard(Deck a, Deck b) {
-  if (a.move(b)) {
-    return true;
-  }
-  return false;
-}
-
-bool Player::playCard(Deck b, int num) {
-  if (hand.move(b, num)) {
-    return true;
-  }
-  return false;
-}
-*/
-
 //////////Accessor methods///////////
 
 string Player::getName() {

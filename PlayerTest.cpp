@@ -18,14 +18,20 @@ using std::iterator;
 class HumanPlayerTest {
 public:
   static void constructorTest() {
-    Draw draw;
+
+    Draw* draw = new Draw();
     vector<int> arrange;
     for(int i = 161; i >= 0; i--) {
       arrange.push_back(i);
     }
-    draw.shuffle(arrange);
+    draw->shuffle(arrange);
+    
+    Stock stock;
+    draw->move(stock, 30);
 
-    //    HumanPlayer* h1 = new HumanPlayer("Gary", &draw, &build, s);
+    Build* build;
+
+    //    HumanPlayer* h1 = new HumanPlayer("Gary", draw, &build, stock);
     
   }
 
