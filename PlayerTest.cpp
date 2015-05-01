@@ -109,7 +109,7 @@ public:
     draw->move(stock, 30);
 
     vector<Build*> build;
-    //Constructs two HumanPlayers
+    //Constructs two AI's
     AI* p1 = new AI("AI", draw, &build, stock);
     AI* p2 = new AI("AI", draw, &build, stock);
 
@@ -140,7 +140,7 @@ public:
     draw->move(stock, 30);
 
     vector<Build*> build;
-    //Constructs two HumanPlayers
+    //Constructs two AI's
     AI* p1 = new AI("AI", draw, &build, stock);
     AI* p2 = new AI("AI", draw, &build, stock);
 
@@ -161,9 +161,55 @@ public:
   } 
 
   static void findTest() {
+    Draw* draw = new Draw();
+    vector<int> arrange;
+    for(int i = 161; i >= 0; i--) {
+      arrange.push_back(i);
+    }
+    draw->shuffle(arrange);
+    
+    Stock stock;
+    draw->move(stock, 30);
+
+    vector<Build*> build;
+    //Constructs two AI's
+    AI* p1 = new AI("AI", draw, &build, stock);
+    AI* p2 = new AI("AI", draw, &build, stock);
+
+    vector<int> nums;
+    for(int i = 0; i < 20; i++) {
+      nums.push_back(i);
+    }
+    assert(p1->find(nums, 0) == -1);
+    assert(p2->find(nums, 0) == -1);
+    assert(p1->find(nums, 1) == 1);
+    assert(p2->find(nums, 1) == 1);
+    assert(p1->find(nums, 10) == 10);
+    assert(p2->find(nums, 10) == 10);
+    assert(p1->find(nums, 20) == -1);
+    assert(p2->find(nums, 20) == -1);
+    assert(p1->find(nums, 100) == -1);
+    assert(p2->find(nums, 100) == -1);
   }
 
   static void convertTest() {
+    Draw* draw = new Draw();
+    vector<int> arrange;
+    for(int i = 161; i >= 0; i--) {
+      arrange.push_back(i);
+    }
+    draw->shuffle(arrange);
+    
+    Stock stock;
+    draw->move(stock, 30);
+
+    vector<Build*> build;
+    //Constructs an AI
+    AI* p1 = new AI("AI", draw, &build, stock);
+
+    assert(p1->convert(3) == "3");
+    assert(p1->convert(10) == "10");
+    assert(p1->convert(-1) == " ");
   }
 };
 
