@@ -101,10 +101,10 @@ void Game::save_game(string filename) const{
 
   outFile << numP << endl;
   
-  outFile << draw->toString() << " " << -1 << endl;
+  outFile << *draw << " " << -1 << endl;
 
   for(int i = 0; i < 4; i++){
-    outFile << build[i]->toString() << -1 << " ";
+    outFile << *(build[i]) << -1 << " ";
   }
   outFile << endl;
 
@@ -113,7 +113,7 @@ void Game::save_game(string filename) const{
     outFile << players[i]->getHand() << " " << -1 <<endl;
     
     for(int j = 0; j < 4; j++){
-      outFile << (players[i]->getDiscard()).at(j)->toString() << -1 << " ";
+      outFile << *((players[i]->getDiscard()).at(j)) << -1 << " ";
     }
     outFile << endl;
 
