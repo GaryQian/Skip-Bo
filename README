@@ -21,11 +21,7 @@ HOW TO RUN THE GAME:
 2. Begin playing. See instructions below on how to play Skip-Bo.
 
 HOW TO TEST THE GAME:
-1. To test Player, type in "make PlayerTest". 
-2. To test Deck, type in "make DeckTest".
-3. To test the Display, type in "make DisplayTest".
-4. To test the Game, type in "make GameTest".
-5. To test all tests, type in "make test".
+1. To test all tests, type in "make test".
 
 HOW TO CLEAN ALL EXECUTABLES AND INTERMEDIARY FILES:
 1. Type in "make clean".

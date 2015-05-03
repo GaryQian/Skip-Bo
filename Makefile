@@ -16,6 +16,9 @@ SkipBoTest: SkipBoTest.o DisplayTest.o PlayerTest.o GameTest.o DeckTest.o Deck.o
 	
 SkipBoTest.o: SkipBo.cpp DisplayTest.cpp PlayerTest.cpp GameTest.cpp DeckTest.cpp
 	$(CC) $(CXXFLAGS) -c SkipBo.cpp -o SkipBoTest.o
+	
+DeckTest: DeckTest.o Deck.o
+	$(CC) $(CXXFLAGS) -o DeckTest DeckTest.o Deck.o Build.o Hand.o Draw.o Discard.o Stock.o
 
 PlayerTest: PlayerTest.o Player.o
 	$(CC) $(CXXFLAGS) -o PlayerTest PlayerTest.o Player.o Deck.o Build.o Hand.o Draw.o Discard.o Stock.o AI.o HumanPlayer.o
