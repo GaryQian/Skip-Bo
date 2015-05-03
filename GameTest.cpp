@@ -398,7 +398,7 @@ public:
   
 };
 
-int main(){
+/*int main(){
   GameTest gt;
   cout << "Running constructor tests" << endl;
   gt.constructorTest();
@@ -414,3 +414,4 @@ int main(){
   cout << "Passed save/load method tests" << endl;
   return 0;
 }
+*/

@@ -265,9 +265,9 @@ class DisplayTest {
 		delete player;
 	}
 };
-
+/*
 int main() {
 	DisplayTest test;
-	test.testDisplay();
+	DisplayTest::testDisplay();
 	return 0;
-}
+}*/
