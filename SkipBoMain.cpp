@@ -27,7 +27,6 @@ int main(){
   vector<string> names;
   int players;
   Display d;
-  int numMove = 1;
   ostringstream oss;
 
   //Prompts user to enter in a game
@@ -65,7 +64,7 @@ int main(){
   cin.ignore();
 
   //while game hasn't ended
-  while (!game->hasEnded()) {
+  while (!game->hasEnded()) {    
     try{
       //display the game
       d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber());
@@ -82,7 +81,7 @@ int main(){
 	  }
 
 	  //save game state
-	  oss << "move_" << numMove;
+	  oss << "move_" << game -> getCurMove();
 	  game -> save_game(oss.str());
 	  oss.str("");
 	  oss.clear();
@@ -94,18 +93,15 @@ int main(){
 	  //if not, then goes on to play the move
 	  game->process(input);
 
+	  cout << game -> build.at(0) -> toString();
+
 	  //display the game after change has been made
 	  d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber());
 	}
 	//catch any exception thrown by a user's invalid move
 	catch(exception& e){
 	  cout << e.what() << endl;
-
-	  //decrement numMove - since move is invalid, there is nothing to
-	  //undo and we can overwrite the previous game state
-	  //numMove--;
 	}
-
 	//if move is valid, then increment numMove
 	numMove++;
 
@@ -134,6 +130,11 @@ int main(){
 	catch (exception& e){
 	  cout << e.what() << endl;
 	}
+	/*
+	catch (double d){
+	  try { game -> undo(numMove); }
+	  catch (exception & e){ cout << e.what() << endl; }
+	  }*/
       }
     }
     //once integer is thrown, it meanst the player has ended their turn by putting
@@ -151,15 +152,18 @@ int main(){
     //catches the character thrown if the user types in "save"
     //will save game and end the game
     catch (char c){
-      if(c == 's') {
+      // if(c == 's') {
 	cout << "File successfully saved\n" << endl;
 	delete game;
 	return 0;
-      }
+	/*}
       else if(c == 'u'){
-	try {game -> undo(numMove);}
-	catch (exception & e){ cout << e.what() << endl;}
-      }
+	try { game -> undo(numMove);}
+	catch (exception & e){
+	  // d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber());
+	  cout << e.what() << endl;
+	  }*/
+    
     }
   }
   delete game;

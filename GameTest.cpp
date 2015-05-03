@@ -395,7 +395,31 @@ public:
       assert(g3->move.at(i)->toString() == g->move.at(i)->toString());
     }
   }
-  
+
+  void undoTest(){
+    //assume g is the first saved game state
+    g -> save_game("move_1");
+
+    g3 = new Game(); 
+    g3 -> load_game("move_1");
+
+    *(g3 -> build.at(0)) += 4;
+    *(g3 -> draw) += 4;
+
+    cout << *(g3 -> build.at(0)) << endl;
+    cout << *(g -> draw) << endl;
+
+    g3 -> undo(1);
+
+    for(int i = 0; i < 4; i++){ 
+      cout << i << endl;
+      cout << *(g3 -> build.at(i)) << endl;
+      cout << *(g -> build.at(i)) << endl;
+      assert(g3->build.at(i)->toString() == g->build.at(i)->toString());
+    }
+
+    assert(g3 -> draw -> toString() == g -> draw -> toString());
+  }
 };
 
 /*int main(){

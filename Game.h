@@ -14,12 +14,13 @@
 
 class Game {
   friend class GameTest;
- private:
+ public:
   std::vector<Player*> players;//stores vector of HumanPlayers and AI
   std::vector<Move*> move;//stores move structs
   std::vector<Build*> build;//contains 4 instances of Build class
   Draw* draw;//an instance of the Draw class
   int turn;//represents the turn number
+  int numMove;
   
  public:
   //regular constructor
@@ -76,5 +77,7 @@ class Game {
   //checks if num is found within the vector of ints
   bool contains(vector<int> vec, int num) const;
   
-  void undo(int& numMove) throw (std::invalid_argument);
+  int getNumMove();
+
+  void undo(int num) throw (std::invalid_argument);
 };

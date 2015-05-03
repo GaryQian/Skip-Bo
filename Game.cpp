@@ -23,6 +23,7 @@ using std::ostringstream;
 Game::Game() {
   draw = new Draw();
   turn = 0;
+  numMove = 0;
 }
 
 Game::~Game() {
@@ -70,6 +71,8 @@ Game::Game(vector<string> names, vector<int> arrangement){
   for(int i = 0; i < 4; i++){
     build.push_back(new Build());
   }
+
+  numMove = 0;
 }
 
 void Game::nextTurn(){
@@ -138,10 +141,14 @@ void Game::load_game(string filename){
   string name;
   vector<int> set;
 
+
   inFile >> numPlayers;
   inFile >> num;
 
   draw->clear();
+  build.clear();
+  players.clear();
+
   while(num != -1){
     *(draw)+=num;
     inFile >> num;
@@ -156,7 +163,7 @@ void Game::load_game(string filename){
     }
     build.push_back(b);
   }
-
+  
   for(int i = 0; i < numPlayers; i++){
     Stock* s = new Stock();
     Hand* h = new Hand();
@@ -215,6 +222,7 @@ void Game::load_game(string filename){
   inFile.close();
 }
 
+
 void Game::process(string input){
   if (input.substr(0,4) == "save" || input.substr(0,4) == "Save"){
     string filename;
@@ -225,7 +233,8 @@ void Game::process(string input){
   }
 
   if (input.substr(0,4) == "undo" || input.substr(0,4) == "Undo"){
-    throw 'u';
+    undo(numMove);
+    return;
   }
 
   if (input.length() < 4) throw std::invalid_argument("Invalid input length\n");
@@ -318,6 +327,7 @@ void Game::process(string input){
 //Modifies Player's cards based on the move provided
 void Game::play(Move m){
   getPlayer()->move(m);
+  numMove++;
 }
 
 bool Game::AIPlaying() const{
@@ -367,23 +377,29 @@ vector<Move*> Game::canMove() const{
 }
 
 int Game::getPlayerNumber() {
-	return (turn-1)%players.size();
+  return (turn-1)%players.size();
 }
 
 int Game::getNextPlayerNumber() {
-	return (turn)%players.size();
+  return (turn)%players.size();
 }
 
 vector<Build*> Game::getBuild() {
 	return build;
 }
 
-void Game::undo(int& numMove) throw (std::invalid_argument){
-  //if the player tries to undo at the start of their turn, throw exception
-  if(numMove == 1) 
-    throw std::invalid_argument("Can't undo - this is the start of your turn!\n");
+int Game:: getNumMove(){
+  return numMove;
+}
 
+void Game::undo(int num) throw (std::invalid_argument){  
+  //if the player tries to undo at the start of their turn, throw exception
+  if(num == 0) 
+    throw std::invalid_argument("Can't undo - this is the start of your turn!\n");
+  //cout << numMove;
   ostringstream oss;
-  oss << "move_" << --numMove;
+  oss << "move_" << num;
+  cout << oss.str() << endl;
   load_game(oss.str());
+  numMove = num;
 }

@@ -89,7 +89,8 @@ int main() {
 	cout << "Running save/load method tests" << endl;
 	gt.saveLoadTest();
 	cout << "Passed save/load method tests" << endl;
-
+	cout << "Running undo tests" << endl;
+	gt.undoTest();
 	return 0;
 	
 }
