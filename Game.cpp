@@ -78,6 +78,7 @@ Game::Game(vector<string> names, vector<int> arrangement){
 void Game::nextTurn(){
   turn++;
   numMove = 1;
+  system("rm move_*");
 }
 
 void Game::refill(){
