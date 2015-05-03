@@ -9,6 +9,7 @@
 #include "Game.h"
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <cassert>
 #include <stdexcept>
 
@@ -17,6 +18,7 @@ using std::endl;
 using std::vector;
 using std::string;
 using std::getline;
+using std::ostringstream;
 
 Game::Game() {
   draw = new Draw();
@@ -73,7 +75,6 @@ Game::Game(vector<string> names, vector<int> arrangement){
 void Game::nextTurn(){
   turn++;
 }
-
 
 void Game::refill(){
   if (5 - getPlayer()->getHand().getSize() > draw->getSize()){
@@ -178,8 +179,7 @@ void Game::load_game(string filename){
         *(discard.at(i))+=num;
 	inFile >> num;
       }
-    }
-    
+    }   
     
     inFile >> num;
     while(num != -1){
@@ -223,6 +223,11 @@ void Game::process(string input){
     save_game(filename);
     throw 's';
   }
+
+  if (input.substr(0,4) == "undo" || input.substr(0,4) == "Undo"){
+    throw 'u';
+  }
+
   if (input.length() < 4) throw std::invalid_argument("Invalid input length\n");
 
   char source = input.at(0);
@@ -373,7 +378,8 @@ vector<Build*> Game::getBuild() {
 	return build;
 }
 
-void Game::undo(int numMove) throw (std::invalid_argument){
+void Game::undo(int& numMove) throw (std::invalid_argument){
+  //if the player tries to undo at the start of their turn, throw exception
   if(numMove == 1) 
     throw std::invalid_argument("Can't undo - this is the start of your turn!\n");
 

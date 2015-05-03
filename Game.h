@@ -76,5 +76,5 @@ class Game {
   //checks if num is found within the vector of ints
   bool contains(vector<int> vec, int num) const;
   
-  void undo(int numMove);
+  void undo(int& numMove) throw (std::invalid_argument);
 };
