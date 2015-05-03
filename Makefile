@@ -13,7 +13,7 @@ test: SkipBoTest
 
 SkipBoTest: SkipBoTest.o DisplayTest.o PlayerTest.o GameTest.o DeckTest.o Deck.o Build.o Hand.o Draw.o Stock.o Move.o Game.o Player.o Display.o AI.o HumanPlayer.o Discard.o
 	$(CC) $(CXXFLAGS) -o SkipBoTest SkipBoTest.o DisplayTest.o PlayerTest.o GameTest.o DeckTest.o Deck.o Build.o Hand.o Draw.o Stock.o Move.o Game.o Player.o Display.o AI.o HumanPlayer.o Discard.o
-	
+
 SkipBoTest.o: SkipBo.cpp DisplayTest.cpp PlayerTest.cpp GameTest.cpp DeckTest.cpp
 	$(CC) $(CXXFLAGS) -c SkipBo.cpp -o SkipBoTest.o
 	
@@ -63,4 +63,5 @@ skipbo: Game.o Deck.o Display.o Game.o Player.o SkipBoMain.o
 	$(CC) $(CXXFLAGS) Game.o Deck.o Stock.o Hand.o Build.o Draw.o AI.o HumanPlayer.o Discard.o Move.o Display.o Player.o SkipBoMain.o -o skipbo
 
 clean: 
-	rm -f *~ *.o *# *.gcov *.gch a.out DeckTest PlayerTest GameTest skipbo DisplayTest
+	rm -f *~ *.o *# *.gcov *.gch a.out DeckTest PlayerTest GameTest skipbo DisplayTest SkipBoTest
+

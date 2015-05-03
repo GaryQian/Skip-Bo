@@ -104,6 +104,7 @@ TEST FILES
 MISCELLANEOUS
 1. Makefile	   - Contains instructions for easy compiling
 2. README	   - This file (documentation)
+3. files w/ "test" - Used in test functions
 
 -------------------------ADDITIONAL NOTES-------------------------------
 1. Several ASCII extended characters are used. If run on a computer which
