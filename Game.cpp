@@ -397,10 +397,9 @@ void Game::undo(int num) throw (std::invalid_argument){
   //if the player tries to undo at the start of their turn, throw exception
   if(num == 0) 
     throw std::invalid_argument("Can't undo - this is the start of your turn!\n");
-  //cout << numMove;
+  
   ostringstream oss;
   oss << "move_" << num;
-  cout << oss.str() << endl;
   load_game(oss.str());
   numMove = num;
 }

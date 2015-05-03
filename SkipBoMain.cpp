@@ -92,10 +92,6 @@ int main(){
 	  //process the input, throws an exception if invalid
 	  //if not, then goes on to play the move
 	  game->process(input);
-	  cout << "numMove: ";
-	  cout << game -> getNumMove() << endl;
-
-	  //cout << game -> build.at(0) -> toString();
 
 	  //display the game after change has been made
 	  d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber());
@@ -122,19 +118,24 @@ int main(){
       while(true){
 	cout << "No moves left.\nPlease move card to discard pile to end turn\n";	
 	input= game->getPlayer()->getMove();
-	try{
+	try {
 	  game->process(input);
+	  
+	  //recompute the choices that the player can make, in case
+	  //player chooses to undo and loads a previous save state
+	  choices = game->canMove();
+
+	  //if now there are choices, break out of this while loop
+	  if(!choices.empty()){
+	    d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber());   
+	    break;
+	  }
 	}
 	//catches invalid move input, but doesn't catch the integer thrown
 	//when the user puts a card in the discard pile
 	catch (exception& e){
 	  cout << e.what() << endl;
 	}
-	/*
-	catch (double d){
-	  try { game -> undo(numMove); }
-	  catch (exception & e){ cout << e.what() << endl; }
-	  }*/
       }
     }
     //once integer is thrown, it meanst the player has ended their turn by putting
