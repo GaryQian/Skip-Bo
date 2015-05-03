@@ -45,7 +45,7 @@ int main() {
 	cout << "Passed Discard tests." << endl << endl;
 	
 	
-	
+	/*	
 	
 	//PLAYER TESTS
 	cout << "Running Player tests..." << endl;
@@ -72,7 +72,7 @@ int main() {
 	cout << "Running Display tests..." << endl;
 	DisplayTest::testDisplay();
 	cout << "Passed Display tests." << endl << endl;
-	
+	*/
 	
 	
 	//GAME TESTS
@@ -89,6 +89,7 @@ int main() {
 	cout << "Running save/load method tests" << endl;
 	gt.saveLoadTest();
 	cout << "Passed save/load method tests" << endl;
+        
 	cout << "Running undo tests" << endl;
 	gt.undoTest();
 	return 0;

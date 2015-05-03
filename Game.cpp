@@ -142,19 +142,21 @@ void Game::load_game(string filename){
   string name;
   vector<int> set;
 
-
   inFile >> numPlayers;
   inFile >> num;
 
   draw->clear();
-  build.clear();
-  players.clear();
 
   while(num != -1){
     *(draw)+=num;
     inFile >> num;
   }
-  
+ 
+  for(int i = 0; i < (int)build.size(); i++){
+    delete build.at(i);
+  }
+  build.clear();
+ 
   for(int i = 0; i < 4; i++){
     Build* b = new Build();
     inFile >> num;
@@ -164,7 +166,12 @@ void Game::load_game(string filename){
     }
     build.push_back(b);
   }
+
+  for(int i = 0; i < (int)players.size(); i++){
+    delete players.at(i);
+  }
   
+  players.clear();
   for(int i = 0; i < numPlayers; i++){
     Stock* s = new Stock();
     Hand* h = new Hand();
@@ -386,7 +393,7 @@ int Game::getNextPlayerNumber() {
 }
 
 vector<Build*> Game::getBuild() {
-	return build;
+  return build;
 }
 
 int Game:: getNumMove(){
@@ -395,9 +402,13 @@ int Game:: getNumMove(){
 
 void Game::undo(int num) throw (std::invalid_argument){  
   //if the player tries to undo at the start of their turn, throw exception
+  //and don't decrement numMove
   if(num == 0) 
     throw std::invalid_argument("Can't undo - this is the start of your turn!\n");
   
+  //else, load the previous game state
+  //and update numMove by decrementing it (b/c now we're back at a
+  //previous game state)
   ostringstream oss;
   oss << "move_" << num;
   load_game(oss.str());

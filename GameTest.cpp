@@ -394,6 +394,7 @@ public:
     for(unsigned long i = 0; i < g3->move.size(); i++){
       assert(g3->move.at(i)->toString() == g->move.at(i)->toString());
     }
+    delete g3;
   }
 
   void undoTest(){
