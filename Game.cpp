@@ -373,4 +373,11 @@ vector<Build*> Game::getBuild() {
 	return build;
 }
 
+void Game::undo(int numMove) throw (std::invalid_argument){
+  if(numMove == 1) 
+    throw std::invalid_argument("Can't undo - this is the start of your turn!\n");
 
+  ostringstream oss;
+  oss << "move_" << --numMove;
+  load_game(oss.str());
+}

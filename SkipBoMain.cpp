@@ -18,6 +18,7 @@ using std::cin;
 using std::endl;
 using std::string;
 using std::exception;
+using std::ostringstream;
 
 int main(){
   Game* game;
@@ -26,6 +27,9 @@ int main(){
   vector<string> names;
   int players;
   Display d;
+  int numMove = 1;
+  ostringstream oss;
+
   //Prompts user to enter in a game
   cout << "Welcome to Skip-Bo!" << endl;
   d.intro();
@@ -77,6 +81,13 @@ int main(){
 	    delete choices.at(i);
 	  }
 
+	  //save game state
+	  oss << "move_" << numMove;
+	  save_game(oss.str());
+	  numMove++;
+	  oss.str("");
+	  oss.clear();
+
 	  //get the user's input move
 	  input = game->getPlayer()->getMove();
 
@@ -90,6 +101,10 @@ int main(){
 	//catch any exception thrown by a user's invalid move
 	catch(exception& e){
 	  cout << e.what() << endl;
+
+	  //decrement numMove - since move is invalid, there is nothing to
+	  //undo and we can overwrite the previous game state
+	  numMove--;
 	}
 
 	//if the player's hand is empty, refill it
@@ -119,13 +134,20 @@ int main(){
 	}
       }
     }
+    //once integer is thrown, it meanst the player has ended their turn by putting
+    //a card in the discard pile. Move to next player's turn
     catch (int a){
       d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber());
       //d.change(game->getNextPlayer(), game->getNextPlayerNumber());
       cout << "Turn end\n" << endl;
       game->nextTurn();
       game->refill();
+
+      //reset numMove to 1
+      numMove = 1;
     }
+    //catches the character thrown if the user types in "save"
+    //will save game and end the game
     catch (char c){
       cout << "File successfully saved\n" << endl;
       delete game;
