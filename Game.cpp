@@ -23,7 +23,7 @@ using std::ostringstream;
 Game::Game() {
   draw = new Draw();
   turn = 0;
-  numMove = 0;
+  numMove = 1;
 }
 
 Game::~Game() {
@@ -72,11 +72,12 @@ Game::Game(vector<string> names, vector<int> arrangement){
     build.push_back(new Build());
   }
 
-  numMove = 0;
+  numMove = 1;
 }
 
 void Game::nextTurn(){
   turn++;
+  numMove = 1;
 }
 
 void Game::refill(){
@@ -233,7 +234,7 @@ void Game::process(string input){
   }
 
   if (input.substr(0,4) == "undo" || input.substr(0,4) == "Undo"){
-    undo(numMove);
+    undo(numMove - 1);
     return;
   }
 

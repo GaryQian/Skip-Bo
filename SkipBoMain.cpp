@@ -81,7 +81,7 @@ int main(){
 	  }
 
 	  //save game state
-	  oss << "move_" << game -> getCurMove();
+	  oss << "move_" << game -> getNumMove();
 	  game -> save_game(oss.str());
 	  oss.str("");
 	  oss.clear();
@@ -92,8 +92,10 @@ int main(){
 	  //process the input, throws an exception if invalid
 	  //if not, then goes on to play the move
 	  game->process(input);
+	  cout << "numMove: ";
+	  cout << game -> getNumMove() << endl;
 
-	  cout << game -> build.at(0) -> toString();
+	  //cout << game -> build.at(0) -> toString();
 
 	  //display the game after change has been made
 	  d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber());
@@ -102,8 +104,6 @@ int main(){
 	catch(exception& e){
 	  cout << e.what() << endl;
 	}
-	//if move is valid, then increment numMove
-	numMove++;
 
 	//if the player's hand is empty, refill it
 	if (game->getPlayer()->getHand().getSize()==0){
@@ -145,9 +145,6 @@ int main(){
       cout << "Turn end\n" << endl;
       game->nextTurn();
       game->refill();
-
-      //reset numMove to 1
-      numMove = 1;
     }
     //catches the character thrown if the user types in "save"
     //will save game and end the game
@@ -156,14 +153,6 @@ int main(){
 	cout << "File successfully saved\n" << endl;
 	delete game;
 	return 0;
-	/*}
-      else if(c == 'u'){
-	try { game -> undo(numMove);}
-	catch (exception & e){
-	  // d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber());
-	  cout << e.what() << endl;
-	  }*/
-    
     }
   }
   delete game;
