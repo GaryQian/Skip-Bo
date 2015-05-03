@@ -63,32 +63,57 @@ int main(){
   //while game hasn't ended
   while (!game->hasEnded()) {
     try{
+      //display the game
       d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber());
+      
+      //create a vector of choices that the player ca make
       vector<Move*> choices = game->canMove();
+
+      //while the player still has a choice of moves
       while (choices.size()) {
 	try{  
+	  //delete the vector of choices
 	  for(unsigned long i = 0; i < choices.size(); i++){
 	    delete choices.at(i);
 	  }
+
+	  //get the user's input move
 	  input = game->getPlayer()->getMove();
+
+	  //process the input, throws an exception if invalid
+	  //if not, then goes on to play the move
 	  game->process(input);
+
+	  //display the game after change has been made
 	  d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber());
 	}
+	//catch any exception thrown by a user's invalid move
 	catch(exception& e){
 	  cout << e.what() << endl;
 	}
+
+	//if the player's hand is empty, refill it
 	if (game->getPlayer()->getHand().getSize()==0){
 	  game->refill();
 	}
+	//recompute the choices that the player can make
 	choices = game->canMove();
       }
+
+      //if no more possible moves, display the game
       d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber());   
+      
+      //keep looping this instruction until the player puts a card into the discard pile
+      //once they did, process method will throw an integer that is caught by the catch
+      //block for the outermost try block
       while(true){
 	cout << "No moves left.\nPlease move card to discard pile to end turn\n";	
 	input= game->getPlayer()->getMove();
 	try{
 	  game->process(input);
 	}
+	//catches invalid move input, but doesn't catch the integer thrown
+	//when the user puts a card in the discard pile
 	catch (exception& e){
 	  cout << e.what() << endl;
 	}
