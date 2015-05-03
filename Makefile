@@ -3,33 +3,19 @@ CXXFLAGS = -std=c++11 -pedantic -Wall -Wextra -O -g
 
 bin: skipbo
 
-test: DeckTest DisplayTest GameTest PlayerTest
+test: SkipBoTest
 	@echo "----------------------"
-	@echo "DECK TESTS..."
-	@./DeckTest
-	@echo Deck Tests Passed
-	@echo " "
-
-	@echo "DISPLAY TESTS..."
-	@./DisplayTest
-	@echo Display Tests Passed
-	@echo " "
-
-	@echo "GAME TESTS..."
-	@./GameTest
-	@echo Game Tests Passed
-	@echo " "
-
-	@echo "PLAYER TESTS..."
-	@./PlayerTest
-	@echo Player Tests Passed
+	@./SkipBoTest
 	@echo " "
 
 	@echo "ALL TESTS PASSED!"
 	@echo "----------------------"
 
-DeckTest: DeckTest.o Deck.o
-	$(CC) $(CXXFLAGS) -o DeckTest DeckTest.o Deck.o Build.o Hand.o Draw.o Discard.o Stock.o
+SkipBoTest: SkipBoTest.o DisplayTest.o PlayerTest.o GameTest.o DeckTest.o Deck.o Build.o Hand.o Draw.o Stock.o Move.o Game.o Player.o Display.o AI.o HumanPlayer.o Discard.o
+	$(CC) $(CXXFLAGS) -o SkipBoTest SkipBoTest.o DisplayTest.o PlayerTest.o GameTest.o DeckTest.o Deck.o Build.o Hand.o Draw.o Stock.o Move.o Game.o Player.o Display.o AI.o HumanPlayer.o Discard.o
+	
+SkipBoTest.o: SkipBo.cpp DisplayTest.cpp PlayerTest.cpp GameTest.cpp DeckTest.cpp
+	$(CC) $(CXXFLAGS) -c SkipBo.cpp -o SkipBoTest.o
 
 PlayerTest: PlayerTest.o Player.o
 	$(CC) $(CXXFLAGS) -o PlayerTest PlayerTest.o Player.o Deck.o Build.o Hand.o Draw.o Discard.o Stock.o AI.o HumanPlayer.o
@@ -50,7 +36,7 @@ DisplayTest: DisplayTest.o Display.o Player.o Deck.o Display.h
 	$(CC) $(CXXFLAGS) DisplayTest.o Display.o Player.o Deck.o Build.o Hand.o Draw.o Discard.o Stock.o AI.o HumanPlayer.o -o DisplayTest
 
 DisplayTest.o: DisplayTest.cpp Display.o Player.o Deck.o Display.h
-	$(CC) $(CXXFLAGS) -c DisplayTest.cpp Display.o Player.o Deck.o
+	$(CC) $(CXXFLAGS) -c DisplayTest.cpp
 
 Deck.o: Deck.h Deck.cpp Draw.cpp Build.cpp Hand.cpp Discard.cpp Stock.cpp
 	$(CC) $(CXXFLAGS) -c Deck.cpp Draw.cpp Build.cpp Hand.cpp Discard.cpp Stock.cpp

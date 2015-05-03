@@ -677,7 +677,7 @@ public:
   }
 };
 
-int main(void){
+/*int main(void){
   cout << "Running Draw tests..." << endl;
   DrawTest::constructorTest();
   DrawTest::opsTest();
@@ -714,4 +714,4 @@ int main(void){
   cout << "Passed Discard tests." << endl;
 
 }
-
+*/

@@ -226,7 +226,7 @@ public:
   }
 };
 
-int main(void) {
+/*int main(void) {
   cout << "Running Player tests..." << endl;
 
   cout << "Running HumanPlayer tests..." << endl;
@@ -245,3 +245,4 @@ int main(void) {
   cout << "Passed all Player tests." << endl;
   return 0;
 }
+*/
