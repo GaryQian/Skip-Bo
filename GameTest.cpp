@@ -362,6 +362,16 @@ public:
     g->save_game("test_save_0");
     g3 = new Game();
     g3->load_game("test_save_0");
+
+    //this is the looping of loading and saving 300 times
+    /*
+    for(int i = 0; i < 300; i++){
+      std::ostringstream oss;
+      oss << "test_save_" << i;
+      g -> save_game(oss.str());
+      g3 -> load_game(oss.str());
+      }*/
+   
     
     for(int i = 0; i < 4; i++){
       assert(g3->build.at(i)->toString() == g->build.at(i)->toString());
@@ -382,6 +392,7 @@ public:
     }
 
     delete g3;
+    
   }
 
   void undoTest(){
@@ -407,7 +418,8 @@ public:
     }
 
     assert(g3 -> draw -> toString() == g -> draw -> toString());
-  }
+    
+    }
 };
 
 /*int main(){
