@@ -44,9 +44,7 @@ int main() {
 	DiscardTest::moveTest();
 	cout << "Passed Discard tests." << endl << endl;
 	
-	
-	/*	
-	
+
 	//PLAYER TESTS
 	cout << "Running Player tests..." << endl;
 
@@ -65,15 +63,12 @@ int main() {
 
 	cout << "Passed all Player tests." << endl << endl;
 	
-	
-	
-	
+		
 	//DISPLAY TESTS
 	cout << "Running Display tests..." << endl;
 	DisplayTest::testDisplay();
 	cout << "Passed Display tests." << endl << endl;
-	*/
-	
+        
 	
 	//GAME TESTS
 	GameTest gt;
