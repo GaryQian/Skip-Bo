@@ -68,9 +68,6 @@ public:
     assert(!g->build.at(2)->getSize());
     assert(!g->build.at(3)->getSize());
 
-    //checking move vector is still empty
-    assert(!g->move.size());
-
     //making sure each player has 30 cards in stock
     assert(g->players.at(0)->getStock().getSize() == 30);
     assert(g->players.at(1)->getStock().getSize() == 30);
@@ -141,7 +138,6 @@ public:
     Game* g2 = new Game();
     //most variables are NULL or empty or 0
     assert(!g2->players.size());
-    assert(!g2->move.size());
     assert(!g2->build.size());
     assert(!g2->turn);
     //but default draw constructor is still called so draw contains 162 cards
@@ -210,7 +206,6 @@ public:
     assert(g->getPlayer()->getHand().getSize() == 4);
     assert(g->getPlayer()->getHand().toString() == "2 3 4 5 ");
     assert(g->build.at(0)->toString() == "1 ");
-    assert(g->move.size() == 1);
   }
 
   void MoveTest(){
@@ -272,7 +267,6 @@ public:
 
     assert(g->build.at(0)->toString() == "1 2 3 4 5 6 ");
     assert(g->getPlayer()->getStock().getTop() == 5);
-    assert(g->move.size() == 6);
 
     g->process("h2 b1");
     g->process("h2 b1");
@@ -281,7 +275,6 @@ public:
 
     assert(g->build.at(0)->toString() == "1 2 3 4 5 6 7 8 9 10 ");
     assert(g->getPlayer()->getHand().toString() == "6 ");
-    assert(g->move.size() == 10);
 
     //end of player 1's turn
     //build pile: 10 0 0 0
@@ -309,7 +302,6 @@ public:
     assert(g->getPlayer()->getDiscard().at(0)->getTop() == 3);
     assert(g->getPlayer()->getHand().toString() == "");
     assert(g->getPlayer()->getStock().getTop() == 12);
-    assert(g->move.size() == 15);
 
     //end of player 2's turn
     //build 2 0 0 0
@@ -337,7 +329,6 @@ public:
   
     assert(g->getPlayer()->getHand().toString() == "4 6 7 8 ");
     assert(g->getPlayer()->getDiscard().at(1)->getTop() == 5);
-    assert(g->move.size() == 16);
 
     //end of player 3's turn
     //build 2 0 0 0
@@ -363,7 +354,6 @@ public:
     g->process("h5 b1");
     assert(g->build.at(0)->getSize()%12 == 3);
     assert(g->getPlayer()->getHand().toString() == "9 10 11 12 ");
-    assert(g->move.size() == 17);
     
     clear(choices);
   }
@@ -390,10 +380,7 @@ public:
 	assert(g3->players.at(i)->getDiscard().at(j)->toString() == g->players.at(i)->getDiscard().at(j)->toString());
       }
     }
-    
-    for(unsigned long i = 0; i < g3->move.size(); i++){
-      assert(g3->move.at(i)->toString() == g->move.at(i)->toString());
-    }
+
     delete g3;
   }
 

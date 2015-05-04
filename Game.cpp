@@ -35,9 +35,6 @@ Game::~Game() {
   for (unsigned long i = 0; i < players.size(); i++){
     delete players.at(i);
   } 
-  for (unsigned long i = 0; i < move.size(); i++){
-    delete move.at(i);
-  }
   for (unsigned long i = 0; i < build.size(); i++){
     delete build.at(i);
   }
@@ -134,11 +131,6 @@ void Game::save_game(string filename) const{
   }
   outFile.flush();
 
-  outFile << move.size() << endl;
-
-  for(unsigned long i = 0; i < move.size(); i++){
-    outFile << move[i]->toString();
-  }
   outFile << endl << turn << endl;
   
   outFile.flush();
@@ -226,18 +218,6 @@ void Game::load_game(string filename) throw (std::exception){
   }
 
   inFile >> numMoves;
-
-  for(int i = 0; i < numMoves; i++){
-    Move* m = new Move();
-    inFile >> m->player;
-    inFile >> m->value;
-    inFile >> m->source;
-    inFile >> m->dest;
-    inFile >> m->sourceIndex;
-    inFile >> m->destIndex;
-
-    move.push_back(m);
-  }
  
   inFile >> turn;
   inFile.close();
@@ -263,7 +243,9 @@ void Game::process(string input){
     return;
   }
 
-  if (input.length() < 4) throw std::invalid_argument("Invalid input length\n");
+  if (input.length() < 4) {
+    throw std::invalid_argument("Invalid input length\n");
+  }
 
   char source = input.at(0);
   Move* m = new Move();
@@ -345,7 +327,6 @@ void Game::process(string input){
   }
   
   m->player = (turn-1)%players.size();
-  move.push_back(m);
   this->play(*m);
   return;
 }

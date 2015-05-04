@@ -16,7 +16,6 @@ class Game {
   friend class GameTest;
  private:
   std::vector<Player*> players;//stores vector of HumanPlayers and AI
-  std::vector<Move*> move;//stores move structs
   std::vector<Build*> build;//contains 4 instances of Build class
   Draw* draw;//an instance of the Draw class
   int turn;//represents the turn number
