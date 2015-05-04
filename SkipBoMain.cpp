@@ -125,6 +125,12 @@ int main(){
 	cout << "No moves left.\nPlease move card to discard pile to end turn\n";	
 	input= game->getPlayer()->getMove();
 	try {
+  	  //save game state
+	  oss << "move_" << game -> getNumMove();
+	  game -> save_game(oss.str());
+	  oss.str("");
+	  oss.clear();
+
 	  game->process(input);
 	  
 	  //recompute the choices that the player can make, in case
@@ -163,4 +169,5 @@ int main(){
     }
   }
   delete game;
+  system("rm move_*");
 }

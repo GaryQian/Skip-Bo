@@ -78,6 +78,7 @@ Game::Game(vector<string> names, vector<int> arrangement){
 void Game::nextTurn(){
   turn++;
   numMove = 1;
+  totalMove = 1;
   system("rm move_*");
 }
 
@@ -348,6 +349,7 @@ void Game::process(string input){
 void Game::play(Move m){
   getPlayer()->move(m);
   numMove++;
+  totalMove = numMove;
   clear_move_path(numMove);
 }
 
@@ -428,14 +430,15 @@ void Game::undo(int num) throw (std::invalid_argument){
   numMove = num;
 }
 
-void Game::redo(int num) throw(std::invalid_argument){
+void Game::redo(int num) throw(std::exception){
+  if(num > totalMove) throw std::invalid_argument("Can't redo!\n");  
   ostringstream oss;
   oss << "move_" << num;
   try {
     load_game(oss.str());
     numMove = num;
   }
-  catch(std::exception & e){
+  catch(std::invalid_argument & e){
     throw e; //std::invalid_argument("Can't redo!\n");
   } 
   oss.str("");
@@ -444,7 +447,7 @@ void Game::redo(int num) throw(std::invalid_argument){
 
 void Game::clear_move_path(int numMove){
   ostringstream oss;
-  cout << numMove + 1;
+  //cout << numMove + 1;
   oss << "rm move_*[" << numMove + 1 << "-9]";
   string s = oss.str();
   

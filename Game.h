@@ -14,13 +14,14 @@
 
 class Game {
   friend class GameTest;
- public:
+ private:
   std::vector<Player*> players;//stores vector of HumanPlayers and AI
   std::vector<Move*> move;//stores move structs
   std::vector<Build*> build;//contains 4 instances of Build class
   Draw* draw;//an instance of the Draw class
   int turn;//represents the turn number
   int numMove;
+  int totalMove;
   
  public:
   //regular constructor
@@ -81,7 +82,7 @@ class Game {
 
   void undo(int num) throw (std::invalid_argument);
 
-  void redo(int num) throw (std::invalid_argument);
+  void redo(int num) throw (std::exception);
 
   void clear_move_path(int numMove);
 };
