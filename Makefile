@@ -63,5 +63,5 @@ skipbo: Game.o Deck.o Display.o Game.o Player.o SkipBoMain.o
 	$(CC) $(CXXFLAGS) Game.o Deck.o Stock.o Hand.o Build.o Draw.o AI.o HumanPlayer.o Discard.o Move.o Display.o Player.o SkipBoMain.o -o skipbo
 
 clean: 
-	rm -f *~ *.o *# *.gcov *.gch move_* a.out DeckTest PlayerTest GameTest skipbo DisplayTest SkipBoTest
+	rm -f *~ *.o *# *.gcov *.gch a.out DeckTest PlayerTest GameTest skipbo DisplayTest SkipBoTest
 
