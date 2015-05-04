@@ -23,8 +23,12 @@ using std::ostringstream;
 Game::Game() {
   draw = new Draw();
   turn = 0;
-  numMove = 0;
-  totalMove = 0;
+  
+  //Game() is used for loading a game, so the saved state
+  //is when a user is prompted to make a move. Thus, numMove
+  //and totalMove is 1
+  numMove = 1;
+  totalMove = 1;
 }
 
 Game::~Game() {
@@ -73,6 +77,7 @@ Game::Game(vector<string> names, vector<int> arrangement){
     build.push_back(new Build());
   }
 
+  //This constructor is used for a new game, so no moves have been made
   numMove = 0;
   totalMove = 0;
 }
