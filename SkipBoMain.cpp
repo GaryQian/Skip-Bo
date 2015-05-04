@@ -41,14 +41,20 @@ int main(){
     cout << "Please enter the savefile name:" << endl;
     cin >> input;
     game = new Game();
-    game->load_game(input);
+    try{
+      game->load_game(input);
+    }
+    catch(exception & e){
+      cout << "File not found!\n" << endl;
+    }
   }
   else {
     //Else, begins a new game
 		
     cout << "How many players? (Enter Integer):" << endl;
+    
     cin >> players;
-		
+
     names.resize(players);
 		
     for(int i = 0; i < players; i++){

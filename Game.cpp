@@ -135,100 +135,106 @@ void Game::save_game(string filename) const{
   outFile.close();
 }
 
-void Game::load_game(string filename){
-  std::ifstream inFile(filename);
-  int num;
-  int numPlayers;
-  int numMoves;
-  string name;
-  vector<int> set;
+void Game::load_game(string filename) throw (std::exception){
+  try{
+    std::ifstream inFile(filename);
+  
+    int num;
+    int numPlayers;
+    int numMoves;
+    string name;
+    vector<int> set;
 
-  inFile >> numPlayers;
-  inFile >> num;
-
-  draw->clear();
-
-  while(num != -1){
-    *(draw)+=num;
+    inFile >> numPlayers;
     inFile >> num;
-  }
- 
-  for(int i = 0; i < (int)build.size(); i++){
-    delete build.at(i);
-  }
-  build.clear();
- 
-  for(int i = 0; i < 4; i++){
-    Build* b = new Build();
-    inFile >> num;
+
+    draw->clear();
+
     while(num != -1){
-      *b += num;
+      *(draw)+=num;
       inFile >> num;
     }
-    build.push_back(b);
-  }
-
-  for(int i = 0; i < (int)players.size(); i++){
-    delete players.at(i);
-  }
-  
-  players.clear();
-  for(int i = 0; i < numPlayers; i++){
-    Stock* s = new Stock();
-    Hand* h = new Hand();
-    vector<Discard*> discard;
-    for(int i = 0; i < 4; i++){
-      discard.push_back(new Discard());
+ 
+    for(int i = 0; i < (int)build.size(); i++){
+      delete build.at(i);
     }
-    std::getline(inFile, name);
-    std::getline(inFile, name);
-  
-    inFile >> num;
-    while(num != -1){
-      *h+=num;
-      inFile >> num;
-    }
-
+    build.clear();
+ 
     for(int i = 0; i < 4; i++){
+      Build* b = new Build();
       inFile >> num;
       while(num != -1){
-        *(discard.at(i))+=num;
+	*b += num;
 	inFile >> num;
       }
-    }   
-    
-    inFile >> num;
-    while(num != -1){
-      *s += num;
+      build.push_back(b);
+    }
+
+    for(int i = 0; i < (int)players.size(); i++){
+      delete players.at(i);
+    }
+  
+    players.clear();
+    for(int i = 0; i < numPlayers; i++){
+      Stock* s = new Stock();
+      Hand* h = new Hand();
+      vector<Discard*> discard;
+      for(int i = 0; i < 4; i++){
+	discard.push_back(new Discard());
+      }
+      std::getline(inFile, name);
+      std::getline(inFile, name);
+  
       inFile >> num;
+      while(num != -1){
+	*h+=num;
+	inFile >> num;
+      }
+
+      for(int i = 0; i < 4; i++){
+	inFile >> num;
+	while(num != -1){
+	  *(discard.at(i))+=num;
+	  inFile >> num;
+	}
+      }   
+    
+      inFile >> num;
+      while(num != -1){
+	*s += num;
+	inFile >> num;
+      }
+
+      if (name.substr(0,2) == "AI"){
+	players.push_back(new AI(name, draw, &build, *s, *h, discard));
+      }
+      else {
+	players.push_back(new HumanPlayer(name, draw, &build, *s, *h, discard));
+      }
+      delete s;
+      delete h;
     }
 
-    if (name.substr(0,2) == "AI"){
-      players.push_back(new AI(name, draw, &build, *s, *h, discard));
+    inFile >> numMoves;
+
+    for(int i = 0; i < numMoves; i++){
+      Move* m = new Move();
+      inFile >> m->player;
+      inFile >> m->value;
+      inFile >> m->source;
+      inFile >> m->dest;
+      inFile >> m->sourceIndex;
+      inFile >> m->destIndex;
+
+      move.push_back(m);
     }
-    else {
-      players.push_back(new HumanPlayer(name, draw, &build, *s, *h, discard));
-    }
-    delete s;
-    delete h;
-  }
-
-  inFile >> numMoves;
-
-  for(int i = 0; i < numMoves; i++){
-    Move* m = new Move();
-    inFile >> m->player;
-    inFile >> m->value;
-    inFile >> m->source;
-    inFile >> m->dest;
-    inFile >> m->sourceIndex;
-    inFile >> m->destIndex;
-
-    move.push_back(m);
-  }
  
-  inFile >> turn;
-  inFile.close();
+    inFile >> turn;
+    inFile.close();
+  }
+  catch (std::exception & e){
+    throw e;
+  }
 }
 
 
@@ -243,6 +249,11 @@ void Game::process(string input){
 
   if (input.substr(0,4) == "undo" || input.substr(0,4) == "Undo"){
     undo(numMove - 1);
+    return;
+  }
+
+  if (input.substr(0,4) == "redo" || input.substr(0,4) == "Redo"){
+    redo(numMove + 1);
     return;
   }
 
@@ -337,6 +348,7 @@ void Game::process(string input){
 void Game::play(Move m){
   getPlayer()->move(m);
   numMove++;
+  clear_move_path(numMove);
 }
 
 bool Game::AIPlaying() const{
@@ -415,3 +427,27 @@ void Game::undo(int num) throw (std::invalid_argument){
   load_game(oss.str());
   numMove = num;
 }
+
+void Game::redo(int num) throw(std::invalid_argument){
+  ostringstream oss;
+  oss << "move_" << num;
+  try {
+    load_game(oss.str());
+    numMove = num;
+  }
+  catch(std::exception & e){
+    throw e; //std::invalid_argument("Can't redo!\n");
+  } 
+  oss.str("");
+  oss.clear();
+}
+
+void Game::clear_move_path(int numMove){
+  ostringstream oss;
+  cout << numMove + 1;
+  oss << "rm move_*[" << numMove + 1 << "-9]";
+  string s = oss.str();
+  
+  system(s.c_str());
+}
+

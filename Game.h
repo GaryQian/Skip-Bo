@@ -45,7 +45,7 @@ class Game {
   void save_game(string filename) const;
 
   //loads a previous game by reading all the data from a file whose name is specified by the string parameter. May throw exception if file not found
-  void load_game(string filename);
+  void load_game(string filename) throw (std::exception);
 
   //takes a line of input and creates a move struct out of the data in the line. May throw exception if input is invalid
   void process(string input);
@@ -80,4 +80,8 @@ class Game {
   int getNumMove();
 
   void undo(int num) throw (std::invalid_argument);
+
+  void redo(int num) throw (std::invalid_argument);
+
+  void clear_move_path(int numMove);
 };
