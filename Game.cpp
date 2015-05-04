@@ -23,7 +23,8 @@ using std::ostringstream;
 Game::Game() {
   draw = new Draw();
   turn = 0;
-  numMove = 1;
+  numMove = 0;
+  totalMove = 0;
 }
 
 Game::~Game() {
@@ -72,14 +73,14 @@ Game::Game(vector<string> names, vector<int> arrangement){
     build.push_back(new Build());
   }
 
-  numMove = 1;
+  numMove = 0;
+  totalMove = 0;
 }
 
 void Game::nextTurn(){
   turn++;
-  numMove = 1;
-  totalMove = 1;
-  system("rm move_*");
+  numMove++;
+  totalMove = numMove;
 }
 
 void Game::refill(){
@@ -137,105 +138,100 @@ void Game::save_game(string filename) const{
 }
 
 void Game::load_game(string filename) throw (std::exception){
-  try{
-    std::ifstream inFile(filename);
+  std::ifstream inFile(filename);
   
-    int num;
-    int numPlayers;
-    int numMoves;
-    string name;
-    vector<int> set;
+  int num;
+  int numPlayers;
+  int numMoves;
+  string name;
+  vector<int> set;
 
-    inFile >> numPlayers;
+  inFile >> numPlayers;
+  inFile >> num;
+
+  draw->clear();
+
+  while(num != -1){
+    *(draw)+=num;
     inFile >> num;
-
-    draw->clear();
-
+  }
+ 
+  for(int i = 0; i < (int)build.size(); i++){
+    delete build.at(i);
+  }
+  build.clear();
+ 
+  for(int i = 0; i < 4; i++){
+    Build* b = new Build();
+    inFile >> num;
     while(num != -1){
-      *(draw)+=num;
+      *b += num;
       inFile >> num;
     }
- 
-    for(int i = 0; i < (int)build.size(); i++){
-      delete build.at(i);
-    }
-    build.clear();
- 
+    build.push_back(b);
+  }
+
+  for(int i = 0; i < (int)players.size(); i++){
+    delete players.at(i);
+  }
+  
+  players.clear();
+  for(int i = 0; i < numPlayers; i++){
+    Stock* s = new Stock();
+    Hand* h = new Hand();
+    vector<Discard*> discard;
     for(int i = 0; i < 4; i++){
-      Build* b = new Build();
+      discard.push_back(new Discard());
+    }
+    std::getline(inFile, name);
+    std::getline(inFile, name);
+  
+    inFile >> num;
+    while(num != -1){
+      *h+=num;
       inFile >> num;
-      while(num != -1){
-	*b += num;
-	inFile >> num;
-      }
-      build.push_back(b);
     }
 
-    for(int i = 0; i < (int)players.size(); i++){
-      delete players.at(i);
-    }
-  
-    players.clear();
-    for(int i = 0; i < numPlayers; i++){
-      Stock* s = new Stock();
-      Hand* h = new Hand();
-      vector<Discard*> discard;
-      for(int i = 0; i < 4; i++){
-	discard.push_back(new Discard());
-      }
-      std::getline(inFile, name);
-      std::getline(inFile, name);
-  
+    for(int i = 0; i < 4; i++){
       inFile >> num;
       while(num != -1){
-	*h+=num;
+	*(discard.at(i))+=num;
 	inFile >> num;
       }
-
-      for(int i = 0; i < 4; i++){
-	inFile >> num;
-	while(num != -1){
-	  *(discard.at(i))+=num;
-	  inFile >> num;
-	}
-      }   
+    }   
     
+    inFile >> num;
+    while(num != -1){
+      *s += num;
       inFile >> num;
-      while(num != -1){
-	*s += num;
-	inFile >> num;
-      }
-
-      if (name.substr(0,2) == "AI"){
-	players.push_back(new AI(name, draw, &build, *s, *h, discard));
-      }
-      else {
-	players.push_back(new HumanPlayer(name, draw, &build, *s, *h, discard));
-      }
-      delete s;
-      delete h;
     }
 
-    inFile >> numMoves;
-
-    for(int i = 0; i < numMoves; i++){
-      Move* m = new Move();
-      inFile >> m->player;
-      inFile >> m->value;
-      inFile >> m->source;
-      inFile >> m->dest;
-      inFile >> m->sourceIndex;
-      inFile >> m->destIndex;
-
-      move.push_back(m);
+    if (name.substr(0,2) == "AI"){
+      players.push_back(new AI(name, draw, &build, *s, *h, discard));
     }
+    else {
+      players.push_back(new HumanPlayer(name, draw, &build, *s, *h, discard));
+    }
+    delete s;
+    delete h;
+  }
+
+  inFile >> numMoves;
+
+  for(int i = 0; i < numMoves; i++){
+    Move* m = new Move();
+    inFile >> m->player;
+    inFile >> m->value;
+    inFile >> m->source;
+    inFile >> m->dest;
+    inFile >> m->sourceIndex;
+    inFile >> m->destIndex;
+
+    move.push_back(m);
+  }
  
-    inFile >> turn;
-    inFile.close();
-  }
-  catch (std::exception & e){
-    throw e;
-  }
+  inFile >> turn;
+  inFile.close();
 }
 
 
@@ -350,7 +346,7 @@ void Game::play(Move m){
   getPlayer()->move(m);
   numMove++;
   totalMove = numMove;
-  clear_move_path(numMove);
+  //clear_move_path(numMove);
 }
 
 bool Game::AIPlaying() const{
@@ -434,15 +430,8 @@ void Game::redo(int num) throw(std::exception){
   if(num > totalMove) throw std::invalid_argument("Can't redo!\n");  
   ostringstream oss;
   oss << "move_" << num;
-  try {
-    load_game(oss.str());
-    numMove = num;
-  }
-  catch(std::invalid_argument & e){
-    throw e; //std::invalid_argument("Can't redo!\n");
-  } 
-  oss.str("");
-  oss.clear();
+  load_game(oss.str());
+  numMove = num;
 }
 
 void Game::clear_move_path(int numMove){

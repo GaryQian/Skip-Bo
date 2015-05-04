@@ -118,6 +118,13 @@ int main(){
       //if no more possible moves, display the game
       d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber());   
       
+      //save game state
+      oss << "move_" << game -> getNumMove();
+      game -> save_game(oss.str());
+      oss.str("");
+      oss.clear();
+
+
       //keep looping this instruction until the player puts a card into the discard pile
       //once they did, process method will throw an integer that is caught by the catch
       //block for the outermost try block
@@ -125,12 +132,6 @@ int main(){
 	cout << "No moves left.\nPlease move card to discard pile to end turn\n";	
 	input= game->getPlayer()->getMove();
 	try {
-  	  //save game state
-	  oss << "move_" << game -> getNumMove();
-	  game -> save_game(oss.str());
-	  oss.str("");
-	  oss.clear();
-
 	  game->process(input);
 	  
 	  //recompute the choices that the player can make, in case
@@ -169,5 +170,5 @@ int main(){
     }
   }
   delete game;
-  system("rm move_*");
+  //system("rm move_*");
 }
