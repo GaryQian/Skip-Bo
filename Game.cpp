@@ -132,6 +132,7 @@ void Game::save_game(string filename) const{
 
     outFile << players[i]->getStock() << " " << -1 << endl;
   }
+  outFile.flush();
 
   outFile << move.size() << endl;
 
@@ -139,6 +140,9 @@ void Game::save_game(string filename) const{
     outFile << move[i]->toString();
   }
   outFile << endl << turn << endl;
+  
+  outFile.flush();
+
   outFile.close();
 }
 
@@ -351,7 +355,6 @@ void Game::play(Move m){
   getPlayer()->move(m);
   numMove++;
   totalMove = numMove;
-  //clear_move_path(numMove);
 }
 
 bool Game::AIPlaying() const{
@@ -439,6 +442,7 @@ void Game::redo(int num) throw(std::exception){
   numMove = num;
 }
 
+//NO LONGER USED
 void Game::clear_move_path(int numMove){
   ostringstream oss;
   //cout << numMove + 1;
