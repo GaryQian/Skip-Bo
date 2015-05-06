@@ -24,6 +24,5 @@ int main(void){
     outfile << "redo" << endl;
   }
 
-  outfile.close();
-  
+  outfile.close();  
 }
