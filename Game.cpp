@@ -433,3 +433,7 @@ void Game::clear_move_path(int numMove){
   system(s.c_str());
 }
 
+vector<Player*> Game::getPlayers() {
+	return players;
+}
+

@@ -84,4 +84,6 @@ class Game {
   void redo(int num) throw (std::exception);
 
   void clear_move_path(int numMove);
+  
+  std::vector<Player*> getPlayers();
 };

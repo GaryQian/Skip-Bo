@@ -9,6 +9,7 @@
 #include "Player.h"
 #include "Deck.h"
 #include "Display.h"
+//#include "Game.h"
 #include <string>
 #include <vector>
 #include <sstream>
@@ -23,26 +24,25 @@ using std::cout;
 using std::endl;
 
 //Displays game onto the screen
-void Display::display(Player* player, vector<Build*> build, int num) {
+void Display::display(Player* player, vector<Build*> build, int num, Game* game) {
 	vector<string*> out;
 	
 	string* temp;
 	
-	//for (int i = 0; i < 60; ++i) {
-		//temp = new string(" ");
-		//out.push_back(*temp);
-	//}
-	
 	intro();
-	
+	/////////////////////////////////////0
 	temp = new string("=======Build Piles======");
 	out.push_back(temp);
 	
-	////////////////////////////////////
+	////////////////////////////////////1
+	temp = new string(" -1-   -2-   -3-   -4-");
+	out.push_back(temp);
+	
+	////////////////////////////////////2
 	temp = new string("┌───┐ ┌───┐ ┌───┐ ┌───┐");
 	out.push_back(temp);
 	
-	////////////////////////////////////
+	////////////////////////////////////3
 	temp = new string("│ ");
 	*temp += convert(build.at(0)->getTop(), *build.at(0));
 	if (build.at(0)->getSize() % 12 >= 10 || (build.at(0)->getSize() % 12 == 0 && !build.at(0)->isEmpty())) {
@@ -66,31 +66,32 @@ void Display::display(Player* player, vector<Build*> build, int num) {
 	else *temp += " │";
 	out.push_back(temp);
 	
-	////////////////////////////////////
+	////////////////////////////////////4
 	temp = new string("└───┘ └───┘ └───┘ └───┘");
 	out.push_back(temp);
 	
-	////////////////////////////////////
+	////////////////////////////////////32
 	temp = new string("=======================");
 	out.push_back(temp);
 	
-	////////////////////////////////////
+	////////////////////////////////////42
 	temp = new string("Player ");
 	*temp += convert(num + 1);
 	*temp += ": ";
 	*temp += player->getName();
 	*temp += "'s Turn";
+	if (player->getName().size() < 6) *temp += "	";
 	out.push_back(temp);
 	
-	////////////////////////////////////
+	////////////////////////////////////52
 	temp = new string("=======================");
 	out.push_back(temp);
 	
-	////////////////////////////////////
+	////////////////////////////////////62
 	temp = new string("Hand:");
 	out.push_back(temp);
 	
-	////////////////////////////////////
+	////////////////////////////////////72
 	switch(player->getHand().getSize()) {
 	case 0: temp = new string("          No Cards"); break;
 	case 1: temp = new string(" -1-"); break;
@@ -101,7 +102,7 @@ void Display::display(Player* player, vector<Build*> build, int num) {
 	}
 	out.push_back(temp);
 	
-	////////////////////////////////////
+	////////////////////////////////////8
 	switch(player->getHand().getSize()) {
 	case 0: temp = new string(" "); break;
 	case 1: temp = new string("┌───┐"); break;
@@ -112,7 +113,7 @@ void Display::display(Player* player, vector<Build*> build, int num) {
 	}
 	out.push_back(temp);
 	
-	////////////////////////////////////
+	////////////////////////////////////9
 	if (player->getHand().getSize() > 0) {
 		temp = new string("│ ");
 	}
@@ -135,8 +136,7 @@ void Display::display(Player* player, vector<Build*> build, int num) {
 	}
 	out.push_back(temp);
 	
-	////////////////////////////////////
-	//temp = new string("└───┘ └───┘ └───┘ └───┘ └───┘");
+	////////////////////////////////////10
 	switch(player->getHand().getSize()) {
 	case 0: temp = new string(" "); break;
 	case 1: temp = new string("└───┘"); break;
@@ -147,19 +147,19 @@ void Display::display(Player* player, vector<Build*> build, int num) {
 	}
 	out.push_back(temp);
 	
-	////////////////////////////////////
+	////////////////////////////////////11
 	temp = new string("Discard:");
 	out.push_back(temp);
 	
-	////////////////////////////////////
+	////////////////////////////////////12
 	temp = new string(" -1-   -2-   -3-   -4-");
 	out.push_back(temp);
 	
-	////////////////////////////////////
+	////////////////////////////////////13
 	temp = new string("┌───┐ ┌───┐ ┌───┐ ┌───┐");
 	out.push_back(temp);
 	
-	////////////////////////////////////
+	////////////////////////////////////14
 	temp = new string("│ ");
 	*temp += convert(player->getDiscard().at(0)->getTop());
 	if (player->getDiscard().at(0)->getTop() >= 10) {
@@ -183,19 +183,19 @@ void Display::display(Player* player, vector<Build*> build, int num) {
 	else *temp += " │";
 	out.push_back(temp);
 	
-	////////////////////////////////////
+	////////////////////////////////////15
 	temp = new string("└───┘ └───┘ └───┘ └───┘");
 	out.push_back(temp);
 	
-	////////////////////////////////////
+	////////////////////////////////////16
 	temp = new string("Stockpile:");
 	out.push_back(temp);
 	
-	////////////////////////////////////
+	////////////////////////////////////17
 	temp = new string("┌───┐");
 	out.push_back(temp);
 	
-	////////////////////////////////////
+	////////////////////////////////////18
 	temp = new string("│ ");
 	if (!(player->getStock().isEmpty())) *temp += convert(player->getStock().getTop());
 	else *temp += " ";
@@ -213,27 +213,90 @@ void Display::display(Player* player, vector<Build*> build, int num) {
 	}
 	out.push_back(temp);
 	
-	////////////////////////////////////
+	////////////////////////////////////19
 	temp = new string("└───┘");
 	out.push_back(temp);
 	
-	////////////////////////////////////
+	////////////////////////////////////20
 	temp = new string("└Your Move: ");
 	out.push_back(temp);
 	
 	
-	for (int i = 0; i < (int) out.size(); ++i) {
-		if (i == (int) out.size()) {
-			cout << *(out.at(i));
-		}
-		else {
-			cout << *(out.at(i)) << endl;
+	//Add enemy players:
+	for (int i = 0; i < (int) game->getPlayers().size(); ++i) {
+		if (num != i) {
+			addOpponent(&out, game->getPlayers().at(i));
 		}
 	}
 	
-	for (int i = 0; i < (int) out.size(); ++i) {
-		delete out.at(i);
+	print(&out);
+}
+
+void Display::addOpponent(vector<string*>* out, Player* player) {
+	////////////////////////9
+	out->at(6)->append("		");
+	out->at(6)->append(player->getName());
+	out->at(6)->append("'s cards:	");
+	if (player->getName().size() < 6) out->at(6)->append("	");
+	
+	////////////////////////////////////14
+	out->at(13)->append("				Discard:");
+	
+	////////////////////////////////////15
+	out->at(15)->append("			┌───┐ ┌───┐ ┌───┐ ┌───┐");
+	
+	////////////////////////////////////16
+	out->at(16)->append("			│ ");
+	out->at(16)->append(convert(player->getDiscard().at(0)->getTop()));
+	if (player->getDiscard().at(0)->getTop() >= 10) {
+		out->at(16)->append("│ │ ");
 	}
+	else out->at(16)->append(" │ │ ");
+	out->at(16)->append(convert(player->getDiscard().at(1)->getTop()));
+	if (player->getDiscard().at(1)->getTop() >= 10) {
+		out->at(16)->append("│ │ ");
+	}
+	else out->at(16)->append(" │ │ ");
+	out->at(16)->append(convert(player->getDiscard().at(2)->getTop()));
+	if (player->getDiscard().at(2)->getTop() >= 10) {
+		out->at(16)->append("│ │ ");
+	}
+	else out->at(16)->append(" │ │ ");
+	out->at(16)->append(convert(player->getDiscard().at(3)->getTop()));
+	if (player->getDiscard().at(3)->getTop() >= 10) {
+		out->at(16)->append("│");
+	}
+	else out->at(16)->append(" │");
+	
+	////////////////////////////////////17
+	out->at(17)->append("			└───┘ └───┘ └───┘ └───┘");
+	
+	////////////////////////////////////18
+	out->at(18)->append("				Stockpile:");
+	
+	////////////////////////////////////19
+	out->at(19)->append("					┌───┐");
+	
+	////////////////////////////////////20
+	out->at(20)->append("			│ ");
+	if (!(player->getStock().isEmpty())) out->at(20)->append(convert(player->getStock().getTop()));
+	else out->at(20)->append(" ");
+	if (player->getStock().getTop() >= 10) {
+		out->at(20)->append("│ ");
+	}
+	else out->at(20)->append(" │ ");
+	if (player->getStock().getSize() == 0) {
+		out->at(20)->append("0");
+	}
+	else out->at(20)->append(convert(player->getStock().getSize()));
+	out->at(20)->append(" cards left");
+	if (player->getStock().getSize() < 10) {
+		out->at(20)->append(" ");
+	}
+	out->at(20)->append("    ");
+	
+	////////////////////////////////////21
+	out->at(21)->append("					└───┘");
 }
 
 void Display::display(AI player, vector<Build*> build, int num) {
@@ -270,7 +333,7 @@ void Display::intro() {
 	vector<string*> out;
 	string* temp;
 	
-	for (int i = 0; i < 60; ++i) {
+	for (int i = 0; i < 40; ++i) {
 		temp = new string(" ");
 		out.push_back(temp);
 	}
@@ -347,206 +410,17 @@ void Display::intro() {
 	
 }
 
-void Display::change(Player* player, int num) {
-	vector<string> out;
-	string* temp;
-	
-	for (int i = 0; i < 60; ++i) {
-		temp = new string(" ");
-		out.push_back(*temp);
-	}
-	temp = new string("=====================================================");
-	out.push_back(*temp);
-	temp = new string("=        ██       Switching Players!       ██       =");
-	out.push_back(*temp);
-	temp = new string("=====================================================");
-	out.push_back(*temp);
-	temp = new string("");
-	out.push_back(*temp);
-	
-	temp = new string("Player ");
-	*temp += convert(num + 1);
-	*temp += ": ";
-	*temp += player->getName();
-	*temp += "'s Turn";
-	out.push_back(*temp);
-	
-	temp = new string("");
-	out.push_back(*temp);
-	temp = new string("=====================================================");
-	out.push_back(*temp);
-	temp = new string("=                                                   =");
-	out.push_back(*temp);
-	temp = new string("=====================================================");
-	out.push_back(*temp);
-	
-	for (unsigned long i = 0; i < out.size(); ++i) {
-		if (i == out.size()) {
-			cout << out.at(i);
+void Display::print(vector<string*>* out) {
+	for (int i = 0; i < (int) out->size(); ++i) {
+		if (i == (int) out->size()) {
+			cout << *(out->at(i));
 		}
 		else {
-			cout << out.at(i) << endl;
+			cout << *(out->at(i)) << endl;
 		}
 	}
-	std::this_thread::sleep_for(std::chrono::milliseconds(200));	
-	///////////////////////////////////////////////////////
-	out.clear();
-	for (int i = 0; i < 60; ++i) {
-		temp = new string(" ");
-		out.push_back(*temp);
+	
+	for (int i = 0; i < (int) out->size(); ++i) {
+		delete out->at(i);
 	}
-	temp = new string("=====================================================");
-	out.push_back(*temp);
-	temp = new string("=                 Switching Players!                =");
-	out.push_back(*temp);
-	temp = new string("=====================================================");
-	out.push_back(*temp);
-	temp = new string("");
-	out.push_back(*temp);
-	
-	temp = new string("Player ");
-	*temp += convert(num + 1);
-	*temp += ": ";
-	*temp += player->getName();
-	*temp += "'s Turn";
-	out.push_back(*temp);
-	
-	temp = new string("");
-	out.push_back(*temp);
-	temp = new string("=====================================================");
-	out.push_back(*temp);
-	temp = new string("=                  Switching Players!               =");
-	out.push_back(*temp);
-	temp = new string("=====================================================");
-	out.push_back(*temp);
-	
-	for (unsigned long i = 0; i < out.size(); ++i) {
-		if (i == out.size()) {
-			cout << out.at(i);
-		}
-		else {
-			cout << out.at(i) << endl;
-		}
-	}
-	std::this_thread::sleep_for(std::chrono::milliseconds(200));	
-	///////////////////////////////////////////////////////
-	out.clear();
-	for (int i = 0; i < 60; ++i) {
-		temp = new string(" ");
-		out.push_back(*temp);
-	}
-	temp = new string("=====================================================");
-	out.push_back(*temp);
-	temp = new string("=        ██       Switching Players!       ██       =");
-	out.push_back(*temp);
-	temp = new string("=====================================================");
-	out.push_back(*temp);
-	temp = new string("");
-	out.push_back(*temp);
-	
-	temp = new string("Player ");
-	*temp += convert(num + 1);
-	*temp += ": ";
-	*temp += player->getName();
-	*temp += "'s Turn";
-	out.push_back(*temp);
-	
-	temp = new string("");
-	out.push_back(*temp);
-	temp = new string("=====================================================");
-	out.push_back(*temp);
-	temp = new string("=                                                   =");
-	out.push_back(*temp);
-	temp = new string("=====================================================");
-	out.push_back(*temp);
-	
-	for (unsigned long i = 0; i < out.size(); ++i) {
-		if (i == out.size()) {
-			cout << out.at(i);
-		}
-		else {
-			cout << out.at(i) << endl;
-		}
-	}
-	std::this_thread::sleep_for(std::chrono::milliseconds(200));
-	///////////////////////////////////////////////////////
-	out.clear();
-	for (int i = 0; i < 60; ++i) {
-		temp = new string(" ");
-		out.push_back(*temp);
-	}
-	temp = new string("=====================================================");
-	out.push_back(*temp);
-	temp = new string("=                 Switching Players!                =");
-	out.push_back(*temp);
-	temp = new string("=====================================================");
-	out.push_back(*temp);
-	temp = new string("");
-	out.push_back(*temp);
-	
-	temp = new string("Player ");
-	*temp += convert(num + 1);
-	*temp += ": ";
-	*temp += player->getName();
-	*temp += "'s Turn";
-	out.push_back(*temp);
-	
-	temp = new string("");
-	out.push_back(*temp);
-	temp = new string("=====================================================");
-	out.push_back(*temp);
-	temp = new string("=                  Switching Players!               =");
-	out.push_back(*temp);
-	temp = new string("=====================================================");
-	out.push_back(*temp);
-	
-	for (unsigned long i = 0; i < out.size(); ++i) {
-		if (i == out.size()) {
-			cout << out.at(i);
-		}
-		else {
-			cout << out.at(i) << endl;
-		}
-	}
-	std::this_thread::sleep_for(std::chrono::milliseconds(200));
-	out.clear();
-	for (int i = 0; i < 60; ++i) {
-		temp = new string(" ");
-		out.push_back(*temp);
-	}
-	temp = new string("=====================================================");
-	out.push_back(*temp);
-	temp = new string("=        ██       Switching Players!       ██       =");
-	out.push_back(*temp);
-	temp = new string("=====================================================");
-	out.push_back(*temp);
-	temp = new string("");
-	out.push_back(*temp);
-	
-	temp = new string("Player ");
-	*temp += convert(num + 1);
-	*temp += ": ";
-	*temp += player->getName();
-	*temp += "'s Turn";
-	out.push_back(*temp);
-	
-	temp = new string("");
-	out.push_back(*temp);
-	temp = new string("=====================================================");
-	out.push_back(*temp);
-	temp = new string("=                                                   =");
-	out.push_back(*temp);
-	temp = new string("=====================================================");
-	out.push_back(*temp);
-	
-	for (unsigned long i = 0; i < out.size(); ++i) {
-		if (i == out.size()) {
-			cout << out.at(i);
-		}
-		else {
-			cout << out.at(i) << endl;
-		}
-	}
-	std::this_thread::sleep_for(std::chrono::milliseconds(200));
-	
 }

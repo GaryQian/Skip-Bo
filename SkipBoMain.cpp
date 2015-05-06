@@ -6,7 +6,7 @@
   Email: (JHED)@jhu.edu
 */
 
-#include "Game.h"
+//#include "Game.h"
 #include "Display.h"
 #include <iostream>
 #include <string>
@@ -73,7 +73,7 @@ int main(){
   while (!game->hasEnded()) {    
     try{
       //display the game
-      d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber());
+      d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber(), game);
       
       //create a vector of choices that the player ca make
       vector<Move*> choices = game->canMove();
@@ -100,7 +100,7 @@ int main(){
 	  game->process(input);
 
 	  //display the game after change has been made
-	  d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber());
+	  d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber(), game);
 	}
 	//catch any exception thrown by a user's invalid move
 	catch(exception& e){
@@ -116,7 +116,7 @@ int main(){
       }
 
       //if no more possible moves, display the game
-      d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber());   
+      d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber(), game);   
       
       //save game state
       oss << "move_" << game -> getNumMove();
@@ -140,7 +140,7 @@ int main(){
 
 	  //if now there are choices, break out of this while loop
 	  if(!choices.empty()){
-	    d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber());   
+	    d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber(), game);   
 	    break;
 	  }
 	}
@@ -154,7 +154,7 @@ int main(){
     //once integer is thrown, it meanst the player has ended their turn by putting
     //a card in the discard pile. Move to next player's turn
     catch (int a){
-      d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber());
+      d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber(), game);
       //d.change(game->getNextPlayer(), game->getNextPlayerNumber());
       cout << "Turn end\n" << endl;
       game->nextTurn();

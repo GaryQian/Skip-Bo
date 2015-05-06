@@ -8,6 +8,7 @@
 
 #include "Player.h"
 #include "Deck.h"
+#include "Game.h"
 #include <vector>
 
 using std::vector;
@@ -20,7 +21,7 @@ public:
 	/*
 	Displays the game board from all the parameters
 	*/
-	void display(Player* player, vector<Build*> build, int num);
+	void display(Player* player, vector<Build*> build, int num, Game* game);
 	/*
 	Displays the game board from all the parameters if the player passed in is an AI
 	*/
@@ -43,5 +44,9 @@ private:
 	Helper method that takes in a number and Build Pile and returns the top card, ignoring skipbo cards
 	*/
 	string convert(int num, Build build);
+	
+	void addOpponent(vector<string*>* out, Player* player);
+	
+	void print(vector<string*>* out);
 
 };
