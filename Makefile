@@ -62,7 +62,7 @@ SkipBoMain.o: Game.h Game.cpp Display.cpp Display.h Player.o Player.cpp Player.h
 skipbo: Game.o Deck.o Display.o Game.o Player.o SkipBoMain.o
 	$(CC) $(CXXFLAGS) Game.o Deck.o Stock.o Hand.o Build.o Draw.o AI.o HumanPlayer.o Discard.o Move.o Display.o Player.o SkipBoMain.o -o skipbo
 
-speed: 
+speed: 	testGen
 	@echo "Running undo/redo speed test..."
 	@./testGen
 	@make clean

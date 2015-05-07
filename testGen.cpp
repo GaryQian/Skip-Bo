@@ -13,6 +13,7 @@ int main(void){
   outfile << "you" << endl;
   outfile << "him" << endl;
   outfile << "her" << endl;
+  outfile << "0" << endl;
 
   for(int i = 0; i < 1000; i++){
     outfile << "h1 d1" << endl;
