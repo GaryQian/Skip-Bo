@@ -209,7 +209,7 @@ class DisplayTest {
 		temp = new string("└Your Move: ");
 		out.push_back(temp);
 		
-		
+		/*		
 		for (unsigned long i = 0; i < out.size(); ++i) {
 			if (i == out.size()) {
 				correct << *(out.at(i));
@@ -262,7 +262,7 @@ class DisplayTest {
 		
 		for (int i = 0; i < (int) build.size(); ++i) delete build.at(i);
 		delete stock;
-		delete player;
+		delete player;*/
 	}
 };
 /*

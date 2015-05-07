@@ -10,6 +10,7 @@
 #define GAMETEST_CPP
 
 #include "Game.h"
+#include "Exception.h"
 #include <cassert>
 #include <iostream>
 
@@ -299,8 +300,8 @@ public:
     g->process("h1 b1");
     g->process("h1 b1");
     g->process("h1 b1");
-    try {g->process("h1 d1");}
-    catch (int a) {assert(a == 1);}
+    try {g->process("h1 d1"); assert(false);}
+    catch (const TurnEndException& e) {assert(true);}
 
     assert(g->getPlayer()->getDiscard().at(0)->getTop() == 3);
     assert(g->getPlayer()->getHand().toString() == "");
@@ -327,8 +328,8 @@ public:
     choices = g->canMove();
     assert(choices.size() == 0);
     
-    try {g->process("h2 d2");}
-    catch (int a) { assert(a == 1);}
+    try {g->process("h2 d2"); assert(false);}
+    catch (const TurnEndException & e) { assert(true);}
   
     assert(g->getPlayer()->getHand().toString() == "4 6 7 8 ");
     assert(g->getPlayer()->getDiscard().at(1)->getTop() == 5);

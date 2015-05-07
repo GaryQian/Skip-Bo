@@ -32,7 +32,7 @@ DeckTest.o: DeckTest.cpp Deck.h
 PlayerTest.o: PlayerTest.cpp Player.h
 	$(CC) $(CXXFLAGS) -c PlayerTest.cpp
 
-GameTest.o: GameTest.cpp Game.h Display.o
+GameTest.o: GameTest.cpp Game.h Exception.h Display.o
 	$(CC) $(CXXFLAGS) -c GameTest.cpp
 
 DisplayTest: DisplayTest.o Display.o Player.o Deck.o Display.h
