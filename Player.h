@@ -38,7 +38,7 @@ public:
 	
 	//Methods
 	void drawCards();
-	void move(Move yourMove) throw (int);
+	void move(Move yourMove);
 	bool hasWon();
 	//  bool playCard(Deck a, Deck b);
 	//  bool playCard(Deck b, int num);

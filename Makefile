@@ -47,16 +47,16 @@ Deck.o: Deck.h Deck.cpp Draw.cpp Build.cpp Hand.cpp Discard.cpp Stock.cpp
 Display.o: Display.cpp Display.h Player.o Player.cpp HumanPlayer.cpp AI.cpp Player.h Build.o Build.cpp Deck.h Deck.cpp Deck.o Stock.cpp Stock.o Draw.cpp Draw.o Hand.cpp Hand.o Game.o Game.h
 	$(CC) $(CXXFLAGS) -c Display.cpp -o Display.o
 
-Game.o: Game.h Game.cpp Display.cpp Display.h Player.o Player.cpp Player.h Build.o Build.cpp Deck.cpp Deck.o Stock.cpp Move.o Stock.o Draw.cpp Draw.o Hand.cpp Hand.o
+Game.o: Game.h Game.cpp Display.cpp Display.h Player.o Player.cpp Player.h Build.o Build.cpp Deck.cpp Deck.o Stock.cpp Move.o Stock.o Draw.cpp Draw.o Hand.cpp Hand.o Exception.h
 	$(CC) $(CXXFLAGS) -c Game.cpp -o Game.o
 
 Move.o: Move.h Move.cpp
 	$(CC) $(CXXFLAGS) -c Move.cpp -o Move.o
 
-Player.o: Display.cpp Display.h Player.cpp Player.h Build.o Build.cpp Deck.cpp Deck.o Stock.cpp Stock.o Draw.cpp Draw.o Hand.cpp Hand.o AI.cpp HumanPlayer.cpp
+Player.o: Display.cpp Display.h Player.cpp Player.h Build.o Build.cpp Deck.cpp Deck.o Stock.cpp Stock.o Draw.cpp Draw.o Hand.cpp Hand.o AI.cpp HumanPlayer.cpp Exception.h
 	$(CC) $(CXXFLAGS) -c Player.cpp AI.cpp HumanPlayer.cpp
 
-SkipBoMain.o: Game.h Game.cpp Display.cpp Display.h Player.o Player.cpp Player.h Build.o Build.cpp Deck.cpp Deck.o Stock.cpp Stock.o Draw.cpp Draw.o Hand.cpp Hand.o Move.o SkipBoMain.cpp
+SkipBoMain.o: Game.h Game.cpp Display.cpp Display.h Player.o Player.cpp Player.h Build.o Build.cpp Deck.cpp Deck.o Stock.cpp Stock.o Draw.cpp Draw.o Hand.cpp Hand.o Move.o Exception.h SkipBoMain.cpp
 	$(CC) $(CXXFLAGS) -c SkipBoMain.cpp -o SkipBoMain.o
 
 skipbo: Game.o Deck.o Display.o Game.o Player.o SkipBoMain.o
@@ -74,5 +74,5 @@ testGen: testGen.cpp
 	$(CC) $(CXXFLAGS) -o testGen testGen.cpp
 
 clean: 
-	rm -f *~ *.o *# *.gcov *.gch *move_* a.out DeckTest PlayerTest GameTest skipbo DisplayTest SkipBoTest
+	rm -f *~ *.o *# *.gcov *.gch *move_* a.out DeckTest PlayerTest GameTest skipbo DisplayTest SkipBoTest testGen
 

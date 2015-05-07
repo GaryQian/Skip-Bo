@@ -8,6 +8,7 @@
 
 //#include "Game.h"
 #include "Display.h"
+#include "Exception.h"
 #include <iostream>
 #include <string>
 #include <algorithm>
@@ -17,7 +18,7 @@ using std::cout;
 using std::cin;
 using std::endl;
 using std::string;
-using std::exception;
+using std::invalid_argument;
 using std::ostringstream;
 
 int main(){
@@ -44,7 +45,7 @@ int main(){
     try{
       game->load_game(input);
     }
-    catch(exception & e){
+    catch(invalid_argument & e){
       cout << "File not found!\n" << endl;
     }
   }
@@ -103,7 +104,7 @@ int main(){
 	  d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber(), game);
 	}
 	//catch any exception thrown by a user's invalid move
-	catch(exception& e){
+	catch(invalid_argument& e){
 	  cout << e.what() << endl;
 	}
 
@@ -146,24 +147,23 @@ int main(){
 	}
 	//catches invalid move input, but doesn't catch the integer thrown
 	//when the user puts a card in the discard pile
-	catch (exception& e){
+	catch (invalid_argument& e){
 	  cout << e.what() << endl;
 	}
       }
     }
     //once integer is thrown, it meanst the player has ended their turn by putting
     //a card in the discard pile. Move to next player's turn
-    catch (int a){
+    catch (const TurnEndException & e){
       d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber(), game);
       //d.change(game->getNextPlayer(), game->getNextPlayerNumber());
-      cout << "Turn end\n" << endl;
+      cout << e.what() << endl;
       game->nextTurn();
       game->refill();
     }
     //catches the character thrown if the user types in "save"
     //will save game and end the game
-    catch (char c){
-      // if(c == 's') {
+    catch (const SaveException & e){
 	cout << "File successfully saved\n" << endl;
 	delete game;
 	return 0;

@@ -7,6 +7,7 @@
 */
 
 #include "Player.h"
+#include "Exception.h"
 #include <string>
 #include <vector>
 #include <stdexcept>
@@ -16,13 +17,17 @@
 using std::string;
 using std::vector;
 
+const char* TurnEndException::what() const throw(){
+  return "Turn end.";
+}
+
 Player::~Player(){}
 
 void Player::drawCards(){
   draw->move(hand, 5 - hand.getSize());  
 }
 
-void Player::move(Move yourMove) throw (int) {
+void Player::move(Move yourMove){
   //source card is stockpile
   if (yourMove.source == 's') {
     //the only destination is build
@@ -47,7 +52,7 @@ void Player::move(Move yourMove) throw (int) {
     }
   }
 
-  if (yourMove.dest == 'd') throw 1;
+  if (yourMove.dest == 'd') throw TurnEndException();
 }
 
 //Returns if the player has won

@@ -7,6 +7,7 @@
 */
 
 #include "Game.h"
+#include "Exception.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -19,6 +20,10 @@ using std::vector;
 using std::string;
 using std::getline;
 using std::ostringstream;
+
+const char* SaveException::what() const throw(){
+  return "You have chosen to save game.\n";
+}
 
 Game::Game() {
   draw = new Draw();
@@ -230,7 +235,7 @@ void Game::process(string input){
     cout << "Save as: " << endl;
     getline(std::cin, filename);
     save_game(filename);
-    throw 's';
+    throw SaveException();
   }
 
   if (input.substr(0,4) == "undo" || input.substr(0,4) == "Undo"){
