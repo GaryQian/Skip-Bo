@@ -6,6 +6,9 @@
   Email: (JHED)@jhu.edu
 */
 
+#ifndef DECKTEST_CPP
+#define DECKTEST_CPP
+
 #include "Deck.h"
 #include <vector>
 #include <string>
@@ -715,3 +718,5 @@ public:
 
 }
 */
+
+#endif

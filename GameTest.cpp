@@ -6,6 +6,9 @@
   Email: (JHED)@jhu.edu
 */
 
+#ifndef GAMETEST_CPP
+#define GAMETEST_CPP
+
 #include "Game.h"
 #include <cassert>
 #include <iostream>
@@ -46,7 +49,7 @@ public:
     vector<string> names = {"Matthew", "AI Gary", "Sarah", "Kathleen"};
     
     //default game constructor
-    g = new Game(names, arrange);
+    g = new Game(names, 30, arrange);
     
     //checking that the player names where stored in correct order
     assert(g->players.size() == 4);
@@ -103,7 +106,7 @@ public:
     
     //when number of players becomes 5
     names.push_back("Adam");
-    g1 = new Game(names, arrange);
+    g1 = new Game(names, 20, arrange);
 
     assert(g1->players.size() == 5);
     assert(g1->players.at(0)->getName() == "Matthew");
@@ -439,3 +442,4 @@ public:
   return 0;
 }
 */
+#endif
