@@ -46,20 +46,23 @@ Game::~Game() {
   delete draw;
 }
 
-Game::Game(vector<string> names, vector<int> arrangement){ 
-  int stockSize = 0;
+Game::Game(vector<string> names, int stockSize, vector<int> arrangement){ 
   string name;
   turn = 0;
   draw = new Draw();
 
   draw->shuffle(arrangement);
-
+  
+  if (names.size() >= 5){
+    stockSize = 20;
+  }
+  /*
   if (names.size() < 5){
     stockSize = 30;
   }
   else{
     stockSize = 20;
-  }
+    }*/
   
   for(unsigned long i = 0; i < names.size(); i++){
     name = names[i];

@@ -27,6 +27,7 @@ int main(){
   string input;
   vector<string> names;
   int players;
+  int stockSize;
   Display d;
   ostringstream oss;
 
@@ -62,8 +63,34 @@ int main(){
       cout << "Enter name of player " << i+1 << ". If player is an AI, prefix with \"AI\"." << endl;
       cin >> names[i];
     }
-		
-    game = new Game(names);
+
+    
+    cout << "How many cards should be in each player's stock pile?" << endl << "(default is 30 for 2 - 4 players, 20 for 5 players and more)" << endl << "Enter 0 (zero) if you want the default value." << endl;
+
+    cin >> stockSize; 
+
+
+    while(players < 5 && (stockSize > 30 || stockSize < 0)){
+      cout << endl << "Invalid stockpile size!" << endl << 
+	"Should be a positive number less than 30." << endl << 
+	"Please enter again." << endl;
+      cin >> stockSize;
+    }
+    
+    while(players > 5 && (stockSize > 20 || stockSize < 0)){
+      cout << endl << "Invalid stockpile size!" << endl << 
+	"Should be a positive number less than 20." << endl << 
+	"Please enter again." << endl;
+      cin >> stockSize;
+    }
+
+    if(stockSize == 0){
+      game = new Game(names);
+    }
+    else{
+      game = new Game(names, stockSize);
+    }
+
     game->nextTurn();
     game->refill();
   }
