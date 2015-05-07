@@ -56,14 +56,7 @@ Game::Game(vector<string> names, int stockSize, vector<int> arrangement){
   if (names.size() >= 5){
     stockSize = 20;
   }
-  /*
-  if (names.size() < 5){
-    stockSize = 30;
-  }
-  else{
-    stockSize = 20;
-    }*/
-  
+
   for(unsigned long i = 0; i < names.size(); i++){
     name = names[i];
     
