@@ -5,6 +5,8 @@
   JHEDs: kkuswor1, gqian1, ssukard1, mtan13
   Email: (JHED)@jhu.edu
 */
+#ifndef GAME_H
+#define GAME_H
 
 #include <vector>
 #include <string>
@@ -88,3 +90,5 @@ class Game {
   
   std::vector<Player*> getPlayers();
 };
+
+#endif
