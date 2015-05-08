@@ -15,11 +15,14 @@ Discard::Discard(){
   cards = vector<int>();
 }
 
-
 void Discard::move(Build& build){
   if(isEmpty()) throw std::logic_error("Deck is empty.\n");
-  
+
   int card = takeCard();
+
+  //need to be able to return card if this attempt failed,
+  //AND notify the user that it failed - hence the try
+  //catch block here
   try {
     build += card;
   } 

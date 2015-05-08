@@ -19,6 +19,9 @@ void Stock::move(Deck& deck){
   if(isEmpty()) throw std::logic_error("Deck is empty.\n");
   
   int card = takeCard();
+
+  //if fail to add, we need to re-insert the taken card to Stock pile,
+  //hence the try catch block here
   try {
     deck += card;
   }

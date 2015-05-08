@@ -16,10 +16,13 @@ Hand::Hand(){
 }
 
 int Hand::takeCard(int index) throw(std::invalid_argument, std::logic_error){
+  //error checking
   if(isEmpty()) throw std::logic_error("Hand is empty.\n");
   if(index < 0 || index >= getSize()){
     throw std::invalid_argument("Invalid index\n");
   }
+
+  //take chosen card, then erase that slot
   int chosenCard = cards[index];
   cards.erase(cards.begin() + index);
   return chosenCard;
@@ -46,6 +49,7 @@ void Hand::operator += (vector<int> list) throw (std::invalid_argument) {
   if(getSize() + list.size() > 5)
     throw std::invalid_argument("Shouldn't draw more than five cards!\n");
 
+  //if pass error checking, call super operator
   Deck::operator += (list);
 }
 
