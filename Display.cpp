@@ -208,9 +208,11 @@ void Display::display(Player* player, vector<Build*> build, int num, Game* game)
 	}
 	else *temp += convert(player->getStock().getSize());
 	*temp += " cards left";
+	/*
 	if (player->getStock().getSize() == 0) {
 		*temp += ". You win!";
 	}
+	*/
 	out.push_back(temp);
 	
 	////////////////////////////////////19

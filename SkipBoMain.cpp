@@ -201,9 +201,9 @@ int main(){
     }
   }
   catch (const GameEndException & e){
-	d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber(), game);
-        cout << "Congratulations to " << game->getPlayer()->getName() << endl;
+    d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber(), game);
+    cout << "YOU WIN!" << endl;
+    cout << "Congratulations to " << game->getPlayer()->getName() << endl;
   }
-    delete game;
-    //system("rm move_*");
+  delete game;
 }
