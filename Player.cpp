@@ -1,9 +1,16 @@
-/*Names: Kathleen Kusworo, Gary Qian, Sarah Sukardi, Matthew Tan
+/*
+  Names: Kathleen Kusworo, Gary Qian, Sarah Sukardi, Matthew Tan
   Course: Intermediate Programming (AS.600.120)
   Date: 5/01/2015 (First Deadline), 5/08/2015 (Final Deadline)
   Assignment: Final Project-- Skip-Bo
   JHEDs: kkuswor1, gqian1, ssukard1, mtan13
   Email: (JHED)@jhu.edu
+
+  This abstract class represents a Player and the card piles
+  associated with each player (e.g. Hand, Stock, Discard). It handles
+  basic Player moves, like drawing cards into their Hand and processing 
+  a movement made by the user. Also throws TurnEndException if the player
+  discards a card.
 */
 
 #include "Player.h"

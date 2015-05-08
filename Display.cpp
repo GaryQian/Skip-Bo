@@ -1,9 +1,12 @@
-﻿/*Names: Kathleen Kusworo, Gary Qian, Sarah Sukardi, Matthew Tan
+﻿/*
+  Names: Kathleen Kusworo, Gary Qian, Sarah Sukardi, Matthew Tan
   Course: Intermediate Programming (AS.600.120)
   Date: 5/01/2015 (First Deadline), 5/08/2015 (Final Deadline)
   Assignment: Final Project-- Skip-Bo
   JHEDs: kkuswor1, gqian1, ssukard1, mtan13
   Email: (JHED)@jhu.edu
+
+  This class handles the displaying of the game board, and the card piles.
 */
 
 #include "Player.h"
@@ -208,11 +211,6 @@ void Display::display(Player* player, vector<Build*> build, int num, Game* game)
 	}
 	else *temp += convert(player->getStock().getSize());
 	*temp += " cards left";
-	/*
-	if (player->getStock().getSize() == 0) {
-		*temp += ". You win!";
-	}
-	*/
 	out.push_back(temp);
 	
 	////////////////////////////////////19
@@ -231,11 +229,6 @@ void Display::display(Player* player, vector<Build*> build, int num, Game* game)
 		else index++;
 		addOpponent(&out, game->getPlayers().at(index));
 	}
-	/*for (int i = 0; i < (int) game->getPlayers().size(); ++i) {
-		if (num != i) {
-			addOpponent(&out, game->getPlayers().at(i));
-		}
-	}*/
 	
 	print(&out);
 }

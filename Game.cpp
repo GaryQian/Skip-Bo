@@ -4,6 +4,11 @@
   Assignment: Final Project-- Skip-Bo
   JHEDs: kkuswor1, gqian1, ssukard1, mtan13
   Email: (JHED)@jhu.edu
+
+  This class contains the general game board (which contains the
+  players, the build piles, the draw pile, and the players' cards. It
+  also handles the user's input move and error-checks if they are
+  valid
 */
 
 #include "Game.h"

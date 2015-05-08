@@ -14,6 +14,15 @@ Assignment: Final Project-- Skip-Bo
 JHEDs: kkuswor1, gqian1, ssukard1, mtan13
 Email: (JHED)@jhu.edu
 
+---------------------------EXTRA CREDIT FEATURES---------------------------
+1) Undo-ing and redo-ing moves
+   Done by saving the state of the game for every valid move. This method 
+   is chosen because it is the most robust. We tested the speed of the 
+   game using this implementation and didn't encounter any lag.
+
+2) AI Implementation
+   Capable of making strategic moves. 
+
 -------------------------------RUNNING THE GAME----------------------------
 HOW TO RUN THE GAME:
 1. Type in "make". Run the executable file produced by typing
@@ -22,6 +31,7 @@ HOW TO RUN THE GAME:
 
 HOW TO TEST THE GAME:
 1. To test all tests, type in "make test".
+2. To test the speed of undo/redo, type in "make speed".
 
 HOW TO CLEAN ALL EXECUTABLES AND INTERMEDIARY FILES:
 1. Type in "make clean".
@@ -111,3 +121,7 @@ MISCELLANEOUS
 1. Several ASCII extended characters are used. If run on a computer which
    does not support ASCII-extended characters, weird artifacts might show 
    up (Though the game itself will run without incident)
+
+2. The pause when an AI makes a move is intentional - it is not a lag.
+   Without it, the screen would change so quickly that the user can hardly 
+   observe the AI's move. 
