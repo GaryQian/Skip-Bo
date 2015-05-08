@@ -55,46 +55,7 @@ string AI::getMove() {
 	}
 	vector<string*> moves;
 	string* temp;
-	for (int i = 0; i < hand.getSize(); ++i) {
-		//check for skipbo
-		if (hand.at(i) == 0) {
-			for (int j = 1; j < 5; j++) {
-				temp = new string("h");
-				*temp += convert(i + 1);
-				*temp += " b";
-				*temp += convert(j);
-				moves.push_back(temp);
-			}
-		}
-		else if (contains(validNums, hand.at(i))) {
-			temp = new string("h");
-			*temp += convert(i + 1);
-			*temp += " b";
-			*temp += convert(find(validNums, hand.at(i)) + 1);
-			moves.push_back(temp);
-		}
-	}
-	
-	for (int i = 0; i < 4; ++i) {
-		//check for skipbo
-		if (discard[i]->getTop() == 0) {
-			for (int j = 1; j < 5; j++) {
-				temp = new string("h");
-				*temp += convert(i + 1);
-				*temp += " b";
-				*temp += convert(j);
-				moves.push_back(temp);
-			}
-		}
-		else if (contains(validNums, discard[i]->getTop())) {
-			temp = new string("d");
-			*temp += convert(i + 1);
-			*temp += " b";
-			*temp += convert(find(validNums, discard[i]->getTop()) + 1);
-			moves.push_back(temp);
-		}
-	}
-	
+	//check stock first
 	if (contains(validNums, stock.getTop())) {
 		temp = new string("s b");
 		for (int i = 0; i < 5; i++) {
@@ -118,8 +79,58 @@ string AI::getMove() {
 		delete temp;
 		return temp2;
 	}
+	//check hand next
+	for (int i = 0; i < hand.getSize(); ++i) {
+		//check for skipbo
+		if (hand.at(i) == 0) {
+			//save a skipbo card to play later if no other better moves are possible.
+			for (int j = 1; j < 5; j++) {
+				temp = new string("h");
+				*temp += convert(i + 1);
+				*temp += " b";
+				*temp += convert(j);
+				moves.push_back(temp);
+			}
+			
+		}
+		else if (contains(validNums, hand.at(i))) {
+			/*temp = new string("h");
+			*temp += convert(i + 1);
+			*temp += " b";
+			*temp += convert(find(validNums, hand.at(i)) + 1);
+			moves.push_back(temp);*/
+			
+			//return first possible hand move
+			return "h" + convert(i + 1) + " b" + convert(find(validNums, hand.at(i)) + 1);
+		}
+	}
 	
-	//PICK RANDOM MOVE/BEST MOVE HERE
+	for (int i = 0; i < 4; ++i) {
+		//check for skipbo and save card to be picked later
+		if (discard[i]->getTop() == 0) {
+			for (int j = 1; j < 5; j++) {
+				temp = new string("h");
+				*temp += convert(i + 1);
+				*temp += " b";
+				*temp += convert(j);
+				moves.push_back(temp);
+			}
+		}
+		else if (contains(validNums, discard[i]->getTop())) {
+			/*temp = new string("d");
+			*temp += convert(i + 1);
+			*temp += " b";
+			*temp += convert(find(validNums, discard[i]->getTop()) + 1);
+			moves.push_back(temp);*/
+			
+			//return first possible discard move
+			return "d" + convert(i + 1) + " b" + convert(find(validNums, discard[i]->getTop()) + 1);
+		}
+	}
+	
+	
+	
+	//pick random skipbo to play (equivalent)
 	srand(seed);
 	seed++;
 	int ran;
@@ -148,7 +159,7 @@ string AI::getMove() {
 	//wait so that AI does not move instantaneously
 	cout << keep << endl;
 	
-	std::this_thread::sleep_for(std::chrono::milliseconds(400));	
+	std::this_thread::sleep_for(std::chrono::milliseconds(300));	
 	
 	return keep;
 	
