@@ -50,7 +50,7 @@ public:
     vector<string> names = {"Matthew", "AI Gary", "Sarah", "Kathleen"};
     
     //default game constructor
-    g = new Game(names, 30, arrange);
+    g = new Game(names, 0, arrange);
     
     //checking that the player names where stored in correct order
     assert(g->players.size() == 4);
@@ -107,7 +107,7 @@ public:
     
     //when number of players becomes 5
     names.push_back("Adam");
-    g1 = new Game(names, 20, arrange);
+    g1 = new Game(names, 0, arrange);
 
     assert(g1->players.size() == 5);
     assert(g1->players.at(0)->getName() == "Matthew");
@@ -403,21 +403,17 @@ public:
     //assume g is the first saved game state
     g -> save_game("move_1");
 
+    //now create a state of mid-gameplay using g3
     g3 = new Game(); 
     g3 -> load_game("move_1");
-
     *(g3 -> build.at(0)) += 4;
     *(g3 -> draw) += 4;
 
-    cout << *(g3 -> build.at(0)) << endl;
-    cout << *(g -> draw) << endl;
-
+    //undo g3, restore first saved game state
     g3 -> undo(1);
 
+    //assert contents are now the same
     for(int i = 0; i < 4; i++){ 
-      cout << i << endl;
-      cout << *(g3 -> build.at(i)) << endl;
-      cout << *(g -> build.at(i)) << endl;
       assert(g3->build.at(i)->toString() == g->build.at(i)->toString());
     }
 

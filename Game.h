@@ -26,7 +26,7 @@ class Game {
   
  public:
   //regular constructor
-  Game(std::vector<std::string> names, int stockSize = 30, 
+  Game(std::vector<std::string> names, int stockSize = 0, 
        std::vector<int> arrangement = {}); 
   
   //regular destructor

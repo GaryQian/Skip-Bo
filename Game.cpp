@@ -53,8 +53,11 @@ Game::Game(vector<string> names, int stockSize, vector<int> arrangement){
 
   draw->shuffle(arrangement);
   
-  if (names.size() >= 5){
-    stockSize = 20;
+  if(stockSize == 0){
+    if (names.size() >= 5){
+      stockSize = 20;
+    }
+    else stockSize = 30;
   }
 
   for(unsigned long i = 0; i < names.size(); i++){
