@@ -74,5 +74,5 @@ testGen: testGen.cpp
 	$(CC) $(CXXFLAGS) -o testGen testGen.cpp
 
 clean: 
-	rm -f *~ *.o *# *.gcov *.gch *move_* a.out DeckTest PlayerTest GameTest skipbo DisplayTest SkipBoTest testGen
+	rm -f *~ *.o *# *.gcov *.gch *move_* a.out DeckTest PlayerTest GameTest skipbo DisplayTest SkipBoTest testGen test_speed test_speed.txt
 
