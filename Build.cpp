@@ -14,10 +14,12 @@ using std::vector;
 using std::reverse;
 
 Build::Build(){
+  //empty vector initialization
   cards = vector<int>();
 }
 
 void Build::move(Draw& draw, int num) throw(std::logic_error){
+  //don't do anything if there's no complete set
   if(getSize() < 12) return;
 
   //reverse the order of the cards, so the bottom cards are now the
@@ -50,6 +52,7 @@ void Build::move(Draw& draw, int num) throw(std::logic_error){
 }
 
 void Build::operator +=(int value) throw (std::invalid_argument){
+  //error checking to see if card is added in sequence
   if((value == 1) && (getTop() != 12) && (getTop() != 0) && 
 		     (getTop() != -1)){
     throw std::invalid_argument("Can't add card - not in sequence!\n");
@@ -57,6 +60,7 @@ void Build::operator +=(int value) throw (std::invalid_argument){
   else if(value != 0 && value != 1 && getTop() != value - 1 && getTop() != 0){
     throw std::invalid_argument("Can't add card - not in sequence!\n");
   }  
+  //if correct, call super operator
   else (Deck::operator +=(value));
 }
 
