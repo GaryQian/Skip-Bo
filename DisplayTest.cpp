@@ -269,6 +269,7 @@ class DisplayTest {
 		
 		for (int i = 0; i < (int) build.size(); ++i) delete build.at(i);
 		delete stock;
+		delete draw;
 		delete player;
 	}
 };
