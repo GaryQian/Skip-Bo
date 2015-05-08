@@ -79,14 +79,17 @@ class Game {
 
   //checks if num is found within the vector of ints
   bool contains(vector<int> vec, int num) const;
-  
+
+  //get the current move number
   int getNumMove();
 
-  void undo(int num) throw (std::invalid_argument);
+  //undo the previous move by loading the saved state called move_<num>
+  //where <num> is the # of the previous move
+  void undo(int num);
 
-  void redo(int num) throw (std::exception);
-
-  void clear_move_path(int numMove);
+  //redo the previous move by loading the saved stated called move_<num>
+  //where <num> is the # of the next move
+  void redo(int num);
   
   std::vector<Player*> getPlayers();
 };

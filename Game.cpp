@@ -404,7 +404,7 @@ int Game:: getNumMove(){
   return numMove;
 }
 
-void Game::undo(int num) throw (std::invalid_argument){  
+void Game::undo(int num){  
   //if the player tries to undo at the start of their turn, throw exception
   //and don't decrement numMove
   if(num == 0) 
@@ -419,22 +419,12 @@ void Game::undo(int num) throw (std::invalid_argument){
   numMove = num;
 }
 
-void Game::redo(int num) throw(std::exception){
+void Game::redo(int num){
   if(num > totalMove) throw std::invalid_argument("Can't redo!\n");  
   ostringstream oss;
   oss << "move_" << num;
   load_game(oss.str());
   numMove = num;
-}
-
-//NO LONGER USED
-void Game::clear_move_path(int numMove){
-  ostringstream oss;
-  //cout << numMove + 1;
-  oss << "rm move_*[" << numMove + 1 << "-9]";
-  string s = oss.str();
-  
-  system(s.c_str());
 }
 
 vector<Player*> Game::getPlayers() {
