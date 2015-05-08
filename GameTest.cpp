@@ -417,9 +417,59 @@ public:
       assert(g3->build.at(i)->toString() == g->build.at(i)->toString());
     }
 
-    assert(g3 -> draw -> toString() == g -> draw -> toString());
+    for(unsigned long i = 0; i < g3->players.size(); i++){
+      assert(g3->players.at(i)->getName() == g->players.at(i)->getName());
+      
+      assert(g3->players.at(i)->getStock().toString() == 
+      	     g->players.at(i)->getStock().toString());
+      
+       assert(g3->players.at(i)->getHand().toString() == 
+      	     g->players.at(i)->getHand().toString());
     
+       for(int j = 0; j < 4; j++){
+	assert(g3->players.at(i)->getDiscard().at(j)->toString() == 
+	       g->players.at(i)->getDiscard().at(j)->toString());
+       }
+    }  
+    assert(g3 -> draw -> toString() == g -> draw -> toString());    
+  
+    delete g3;
+  }
+
+  void redoTest(){
+    //let g be the second move
+    *(g -> build.at(0)) += 4;
+    g -> save_game("move_2");
+
+    //create a game state where 2 moves have been made
+    g3 = new Game();
+    g3 -> load_game("move_1");
+    g3 -> totalMove += 1;
+    g3 -> redo(2);
+
+    //assert contents are now the same
+    for(int i = 0; i < 4; i++){ 
+      assert(g3->build.at(i)->toString() == g->build.at(i)->toString());
     }
+
+    for(unsigned long i = 0; i < g3->players.size(); i++){
+      assert(g3->players.at(i)->getName() == g->players.at(i)->getName());
+      
+      assert(g3->players.at(i)->getStock().toString() == 
+      	     g->players.at(i)->getStock().toString());
+      
+       assert(g3->players.at(i)->getHand().toString() == 
+      	     g->players.at(i)->getHand().toString());
+    
+       for(int j = 0; j < 4; j++){
+	assert(g3->players.at(i)->getDiscard().at(j)->toString() == 
+	       g->players.at(i)->getDiscard().at(j)->toString());
+       }
+    }  
+    assert(g3 -> draw -> toString() == g -> draw -> toString());    
+    
+    
+  }
 };
 
 /*int main(){

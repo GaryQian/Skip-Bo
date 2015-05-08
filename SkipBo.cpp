@@ -86,6 +86,10 @@ int main() {
 	cout << "Passed save/load method tests" << endl;        
 	cout << "Running undo tests" << endl;
 	gt.undoTest();
+	cout << "Passed undo tests" << endl;
+	cout << "Running redo tests" << endl;
+	gt.redoTest();
+	cout << "Passed redo tests" << endl;
 	return 0;
 	
 }
