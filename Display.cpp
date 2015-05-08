@@ -223,11 +223,17 @@ void Display::display(Player* player, vector<Build*> build, int num, Game* game)
 	
 	
 	//Add enemy players:
-	for (int i = 0; i < (int) game->getPlayers().size(); ++i) {
+	if (game->getPlayers().size() > 1) {
+		int index = num;
+		if (index == (int) game->getPlayers().size() - 1) index = 0;
+		else index++;
+		addOpponent(&out, game->getPlayers().at(index));
+	}
+	/*for (int i = 0; i < (int) game->getPlayers().size(); ++i) {
 		if (num != i) {
 			addOpponent(&out, game->getPlayers().at(i));
 		}
-	}
+	}*/
 	
 	print(&out);
 }
