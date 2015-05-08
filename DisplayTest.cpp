@@ -9,6 +9,7 @@
 #include "Display.h"
 #include "Deck.h"
 #include "Player.h"
+#include "Game.h"
 #include <vector>
 #include <iostream>
 #include <string>
@@ -56,7 +57,7 @@ class DisplayTest {
 		
 		string* temp;
 		
-		for (int i = 0; i < 60; ++i) {
+		for (int i = 0; i < 40; ++i) {
 			temp = new string(" ");
 			out.push_back(temp);
 		}
@@ -121,6 +122,10 @@ class DisplayTest {
 		out.push_back(temp);
 		
 		////////////////////////////////////
+		temp = new string(" -1-   -2-   -3-   -4-");
+		out.push_back(temp);
+		
+		////////////////////////////////////
 		temp = new string("┌───┐ ┌───┐ ┌───┐ ┌───┐");
 		out.push_back(temp);
 		
@@ -141,7 +146,7 @@ class DisplayTest {
 		*temp += d.convert(2);
 		*temp += ": ";
 		*temp += "test";
-		*temp += "'s Turn";
+		*temp += "'s Turn	";
 		out.push_back(temp);
 		
 		////////////////////////////////////
@@ -209,7 +214,7 @@ class DisplayTest {
 		temp = new string("└Your Move: ");
 		out.push_back(temp);
 		
-		/*		
+				
 		for (unsigned long i = 0; i < out.size(); ++i) {
 			if (i == out.size()) {
 				correct << *(out.at(i));
@@ -254,7 +259,9 @@ class DisplayTest {
 		player->hand.cards[4] = 10;
 		player->stock.cards.push_back(1);
 		
-		d.display(player, build, 1);
+		Game game;
+		
+		d.display(player, build, 1, &game);
 		char test[9] = {"test.txt"};
 		char corr[12] = {"correct.txt"};
 		assert(fileeq(test, corr));
@@ -262,7 +269,7 @@ class DisplayTest {
 		
 		for (int i = 0; i < (int) build.size(); ++i) delete build.at(i);
 		delete stock;
-		delete player;*/
+		delete player;
 	}
 };
 /*
