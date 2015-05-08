@@ -104,7 +104,8 @@ TEST FILES
 MISCELLANEOUS
 1. Makefile	   - Contains instructions for easy compiling
 2. README	   - This file (documentation)
-3. files w/ "test" - Used in test functions
+3. Exception.h	   - Exception header file
+4. files w/ "test" - Used in test functions
 
 -------------------------ADDITIONAL NOTES-------------------------------
 1. Several ASCII extended characters are used. If run on a computer which
