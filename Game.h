@@ -91,6 +91,7 @@ class Game {
   //where <num> is the # of the next move
   void redo(int num);
   
+  //get all the Player instances in Game
   std::vector<Player*> getPlayers();
 };
 
