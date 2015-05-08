@@ -49,6 +49,10 @@ public:
     assert (p2->getName() == "Player_2");   
     assert (!p1->isAI());
     assert (!p2->isAI());
+
+    delete draw;
+    delete p1;
+    delete p2;
   }
 
   static void cardAccessorTests() {
@@ -79,6 +83,10 @@ public:
     assert (p2->getStock().getTop() == 6);
     assert (!p1->hasWon());
     assert (!p2->hasWon());
+
+    delete draw;
+    delete p1;
+    delete p2;
   }
 
   static void hasWonTest() {
@@ -101,6 +109,10 @@ public:
     //Asserts that a player has not won yet
     assert (!p1->hasWon());
     assert (!p2->hasWon());
+
+    delete draw;
+    delete p1;
+    delete p2;
   }
 
   //to be implemented
@@ -139,6 +151,10 @@ public:
     assert (p2->getDiscard().size() == 4);
     assert (p1->getStock().getTop() == 6);
     assert (p2->getStock().getTop() == 6);
+
+    delete draw;
+    delete p1;
+    delete p2;
   }
 
   static void containsTest() {
@@ -171,6 +187,10 @@ public:
     assert(!p2->contains(nums, 20));
     assert(!p1->contains(nums, 100));
     assert(!p2->contains(nums, 100));
+
+    delete draw;
+    delete p1;
+    delete p2;
   } 
 
   static void findTest() {
@@ -203,6 +223,10 @@ public:
     assert(p2->find(nums, 20) == -1);
     assert(p1->find(nums, 100) == -1);
     assert(p2->find(nums, 100) == -1);
+
+    delete draw;
+    delete p1;
+    delete p2;
   }
 
   static void convertTest() {
@@ -223,6 +247,9 @@ public:
     assert(p1->convert(3) == "3");
     assert(p1->convert(10) == "10");
     assert(p1->convert(-1) == " ");
+
+    delete draw;
+    delete p1;
   }
 };
 
