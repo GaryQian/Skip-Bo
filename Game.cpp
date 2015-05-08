@@ -51,8 +51,10 @@ Game::Game(vector<string> names, int stockSize, vector<int> arrangement){
   turn = 0;
   draw = new Draw();
 
+  //shuffle draw pile
   draw->shuffle(arrangement);
   
+  //if stockSize is 0, that means user has chosen to use default values
   if(stockSize == 0){
     if (names.size() >= 5){
       stockSize = 20;
@@ -60,6 +62,7 @@ Game::Game(vector<string> names, int stockSize, vector<int> arrangement){
     else stockSize = 30;
   }
 
+  //initialize the players
   for(unsigned long i = 0; i < names.size(); i++){
     name = names[i];
     
@@ -74,6 +77,7 @@ Game::Game(vector<string> names, int stockSize, vector<int> arrangement){
     }
   }
 
+  //initialize build piles
   for(int i = 0; i < 4; i++){
     build.push_back(new Build());
   }
@@ -84,27 +88,36 @@ Game::Game(vector<string> names, int stockSize, vector<int> arrangement){
 }
 
 void Game::nextTurn(){
+  //increment turn, # of current move, and set total moves to be equal
+  //to numMove (since totalMove is the totalMove of the current move
+  //path, NOT the accmulated moves
   turn++;
   numMove++;
   totalMove = numMove;
 }
 
 void Game::refill(){
+  //if draw pile has less cards than what we want to draw, refill it
   if (5 - getPlayer()->getHand().getSize() > draw->getSize()){
+    //find the amount of leftover cards
     int left = draw->getSize();
     
+    //move cards from build pile to draw pile
     for (int i = 0; i < 4; i++){
       build[i]->move(*draw, left);
     }
   }
+  //draw cards for player
   getPlayer()->drawCards();
 }
 
 bool Game::hasEnded() const{
+  //can't win at first turn
   if (turn == 1){
     return false;
   }
   else{
+    //check each player if they won
     return players.at((turn-2)%players.size())->hasWon();
   }
 }
@@ -113,10 +126,12 @@ void Game::save_game(string filename) const{
   int numP = players.size();
   std::ofstream outFile(filename);
 
+  //writes all variables to a file
   outFile << numP << endl;
   
   outFile << *draw << " " << -1 << endl;
 
+  //-1 is the sentinel value that separates different build/discard piles
   for(int i = 0; i < 4; i++){
     outFile << *(build[i]) << -1 << " ";
   }
@@ -145,12 +160,14 @@ void Game::save_game(string filename) const{
 void Game::load_game(string filename) throw (std::exception){
   std::ifstream inFile(filename);
   
-  int num;
-  int numPlayers;
-  int numMoves;
-  string name;
-  vector<int> set;
+  int num;           //generic card value variable
+  int numPlayers;    //num of players
+  int numMoves;      //total number of moves (not to be confused with
+		     //Game's numMove)
+  string name;       //player name
+  vector<int> set;   //set of numbers
 
+  //read all variables from the file
   inFile >> numPlayers;
   inFile >> num;
 
@@ -229,6 +246,7 @@ void Game::load_game(string filename) throw (std::exception){
 
 
 void Game::process(string input){
+  //if user chooses to save, throw SaveException()
   if (input.substr(0,4) == "save" || input.substr(0,4) == "Save"){
     string filename;
     cout << "Save as: " << endl;
@@ -237,24 +255,30 @@ void Game::process(string input){
     throw SaveException();
   }
 
+  //if user chooses to undo
   if (input.substr(0,4) == "undo" || input.substr(0,4) == "Undo"){
     undo(numMove - 1);
     return;
   }
 
+  //if redo
   if (input.substr(0,4) == "redo" || input.substr(0,4) == "Redo"){
     redo(numMove + 1);
     return;
   }
 
+  //if invalid input length
   if (input.length() < 4) {
     throw std::invalid_argument("Invalid input length\n");
   }
 
+  //analyze text otherwise
   char source = input.at(0);
   Move* m = new Move();
 
+  //if moving from stock pile,
   if (source == 's'){
+    //process with the Move class
     input = input.substr(1);
     m->source = source;
     m->sourceIndex = 0;
@@ -264,6 +288,7 @@ void Game::process(string input){
       throw std::invalid_argument("Stock does not take an index\n");
     }
   }
+  //else if moving from discard pile
   else if (source == 'd'){
     m->source = source;
     m->sourceIndex = (input.at(1) - '0')-1;
@@ -274,6 +299,7 @@ void Game::process(string input){
     input = input.substr(2);
     m->value = getPlayer()->getDiscard()[m->sourceIndex]->getTop();
   }
+  //else if moving from hand
   else if (source == 'h'){
     m->source = source;
     m->sourceIndex = (input.at(1) - '0')-1;
@@ -285,12 +311,13 @@ void Game::process(string input){
     input = input.substr(2);
     m->value = getPlayer()->getHand().at(m->sourceIndex);
   }
+  //else if invalid source
   else {
     delete m;
     throw std::invalid_argument("Unknown card source\nNote: possible sources are (h = hand, s = stock, d = deck)\n");
   }
 
-
+  //if invalid whitespace
   if (input.at(0) != ' ' || input.at(1) == ' '){ 
     delete m;
     throw std::invalid_argument("Source and destination must be separated by a single whitespace\n");
@@ -300,9 +327,11 @@ void Game::process(string input){
     throw std::invalid_argument("Invalid input length\n");
   }
 
+  //now check destination
   char dest  = input.at(1);
   int destIndex = 0;
 
+  //if destination is build pile or discard pile, error-check for index
   if (dest == 'b' || dest == 'd'){
     m->dest = dest;
     destIndex = (input.at(2) - '0')-1;
@@ -420,7 +449,10 @@ void Game::undo(int num){
 }
 
 void Game::redo(int num){
+  //can't exceed total moves in the current move path
   if(num > totalMove) throw std::invalid_argument("Can't redo!\n");  
+  
+  //otherwise, load the next move
   ostringstream oss;
   oss << "move_" << num;
   load_game(oss.str());
@@ -428,6 +460,6 @@ void Game::redo(int num){
 }
 
 vector<Player*> Game::getPlayers() {
-	return players;
+  return players;
 }
 
