@@ -99,105 +99,111 @@ int main(){
 
   cin.ignore();
 
-  //while game hasn't ended
-  while (!game->hasEnded()) {    
-    try{
-      //display the game
-      d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber(), game);
-      
-      //create a vector of choices that the player ca make
-      vector<Move*> choices = game->canMove();
-
-      //while the player still has a choice of moves
-      while (choices.size()) {
-	try{  
-	  //delete the vector of choices
-	  for(unsigned long i = 0; i < choices.size(); i++){
-	    delete choices.at(i);
+  //will only end when GameEndException is thrown
+  try{
+    while (true) {    
+      try{
+	//display the game
+	d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber(), game);
+	
+	//create a vector of choices that the player ca make
+	vector<Move*> choices = game->canMove();
+	
+	//while the player still has a choice of moves
+	while (choices.size()) {
+	  try{  
+	    //delete the vector of choices
+	    for(unsigned long i = 0; i < choices.size(); i++){
+	      delete choices.at(i);
+	    }
+	    
+	    //save game state
+	    oss << "move_" << game -> getNumMove();
+	    game -> save_game(oss.str());
+	    oss.str("");
+	    oss.clear();
+	    
+	    //get the user's input move
+	    input = game->getPlayer()->getMove();
+	    
+	    //process the input, throws an exception if invalid
+	    //if not, then goes on to play the move
+	    game->process(input);
+	    
+	    //display the game after change has been made
+	    d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber(), game);
 	  }
-
-	  //save game state
-	  oss << "move_" << game -> getNumMove();
-	  game -> save_game(oss.str());
-	  oss.str("");
-	  oss.clear();
-
-	  //get the user's input move
-	  input = game->getPlayer()->getMove();
-
-	  //process the input, throws an exception if invalid
-	  //if not, then goes on to play the move
-	  game->process(input);
-
-	  //display the game after change has been made
-	  d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber(), game);
-	}
-	//catch any exception thrown by a user's invalid move
-	catch(invalid_argument& e){
-	  cout << e.what() << endl;
-	}
-
-	//if the player's hand is empty, refill it
-	if (game->getPlayer()->getHand().getSize()==0){
-	  game->refill();
-	}
-	//recompute the choices that the player can make
-	choices = game->canMove();
-      }
-
-      //if no more possible moves, display the game
-      d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber(), game);   
-      
-      //save game state
-      oss << "move_" << game -> getNumMove();
-      game -> save_game(oss.str());
-      oss.str("");
-      oss.clear();
-
-
-      //keep looping this instruction until the player puts a card into the discard pile
-      //once they did, process method will throw an integer that is caught by the catch
-      //block for the outermost try block
-      while(true){
-	cout << "No moves left.\nPlease move card to discard pile to end turn\n";	
-	input= game->getPlayer()->getMove();
-	try {
-	  game->process(input);
+	  //catch any exception thrown by a user's invalid move
+	  catch(invalid_argument& e){
+	    cout << e.what() << endl;
+	  }
 	  
-	  //recompute the choices that the player can make, in case
-	  //player chooses to undo and loads a previous save state
+	  //if the player's hand is empty, refill it
+	  if (game->getPlayer()->getHand().getSize()==0){
+	    game->refill();
+	  }
+	  //recompute the choices that the player can make
 	  choices = game->canMove();
-
-	  //if now there are choices, break out of this while loop
-	  if(!choices.empty()){
-	    d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber(), game);   
-	    break;
+	}
+	
+	//if no more possible moves, display the game
+	d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber(), game);   
+	
+	//save game state
+	oss << "move_" << game -> getNumMove();
+	game -> save_game(oss.str());
+	oss.str("");
+	oss.clear();
+	
+	
+	//keep looping this instruction until the player puts a card into the discard pile
+	//once they did, process method will throw an integer that is caught by the catch
+	//block for the outermost try block
+	while(true){
+	  cout << "No moves left.\nPlease move card to discard pile to end turn\n";	
+	  input= game->getPlayer()->getMove();
+	  try {
+	    game->process(input);
+	    
+	    //recompute the choices that the player can make, in case
+	    //player chooses to undo and loads a previous save state
+	    choices = game->canMove();
+	    
+	    //if now there are choices, break out of this while loop
+	    if(!choices.empty()){
+	      d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber(), game);   
+	      break;
+	    }
+	  }
+	  //catches invalid move input, but doesn't catch the integer thrown
+	  //when the user puts a card in the discard pile
+	  catch (invalid_argument& e){
+	    cout << e.what() << endl;
 	  }
 	}
-	//catches invalid move input, but doesn't catch the integer thrown
-	//when the user puts a card in the discard pile
-	catch (invalid_argument& e){
-	  cout << e.what() << endl;
-	}
       }
-    }
-    //once integer is thrown, it meanst the player has ended their turn by putting
-    //a card in the discard pile. Move to next player's turn
-    catch (const TurnEndException & e){
-      d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber(), game);
-      //d.change(game->getNextPlayer(), game->getNextPlayerNumber());
-      cout << e.what() << endl;
-      game->nextTurn();
-      game->refill();
-    }
-    //catches the character thrown if the user types in "save"
-    //will save game and end the game
-    catch (const SaveException & e){
+      //once integer is thrown, it meanst the player has ended their turn by putting
+      //a card in the discard pile. Move to next player's turn
+      catch (const TurnEndException & e){
+	d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber(), game);
+	//d.change(game->getNextPlayer(), game->getNextPlayerNumber());
+	cout << e.what() << endl;
+	game->nextTurn();
+	game->refill();
+      }
+      //catches the character thrown if the user types in "save"
+      //will save game and end the game
+      catch (const SaveException & e){
 	cout << "File successfully saved\n" << endl;
 	delete game;
 	return 0;
+      }
     }
   }
-  delete game;
-  //system("rm move_*");
+  catch (const GameEndException & e){
+	d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber(), game);
+        cout << "Congratulations to " << game->getPlayer()->getName() << endl;
+  }
+    delete game;
+    //system("rm move_*");
 }

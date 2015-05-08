@@ -25,6 +25,10 @@ const char* SaveException::what() const throw(){
   return "You have chosen to save game.\n";
 }
 
+const char* GameEndException::what() const throw(){
+  return "Game End.";
+}
+
 Game::Game() {
   draw = new Draw();
   turn = 0;
@@ -36,6 +40,8 @@ Game::Game() {
   totalMove = 1;
 }
 
+
+//destructor of Game class. Deletes dynamically allocated players and builds as well as the draw pile
 Game::~Game() {
   for (unsigned long i = 0; i < players.size(); i++){
     delete players.at(i);
@@ -46,6 +52,8 @@ Game::~Game() {
   delete draw;
 }
 
+
+//usual constructor of Game
 Game::Game(vector<string> names, int stockSize, vector<int> arrangement){ 
   string name;
   turn = 0;
@@ -69,6 +77,7 @@ Game::Game(vector<string> names, int stockSize, vector<int> arrangement){
     Stock s;
     draw->move(s, stockSize);
 
+    //Regardless of whether user specifies AI or not, adds a Player class to the vector players
     if(name.substr(0,2) == "AI"){
       players.push_back(new AI(name, draw, &build, s));
     }
@@ -117,8 +126,8 @@ bool Game::hasEnded() const{
     return false;
   }
   else{
-    //check each player if they won
-    return players.at((turn-2)%players.size())->hasWon();
+    //check if current player has won
+    return getPlayer()->hasWon();
   }
 }
 
@@ -148,15 +157,13 @@ void Game::save_game(string filename) const{
 
     outFile << players[i]->getStock() << " " << -1 << endl;
   }
-  outFile.flush();
 
   outFile << endl << turn << endl;
-  
-  outFile.flush();
 
   outFile.close();
 }
 
+//loads a game from the data in a text file. May be called on an empty game or a current game with dynamically allocated variables, all of which will be deleted before being overwritten
 void Game::load_game(string filename) throw (std::exception){
   std::ifstream inFile(filename);
   
@@ -171,13 +178,15 @@ void Game::load_game(string filename) throw (std::exception){
   inFile >> numPlayers;
   inFile >> num;
 
+  //clears draw pile before overwriting
   draw->clear();
 
   while(num != -1){
     *(draw)+=num;
     inFile >> num;
   }
- 
+
+  //clears current build pile before overwriting
   for(int i = 0; i < (int)build.size(); i++){
     delete build.at(i);
   }
@@ -193,6 +202,7 @@ void Game::load_game(string filename) throw (std::exception){
     build.push_back(b);
   }
 
+  //clears players before overwriting
   for(int i = 0; i < (int)players.size(); i++){
     delete players.at(i);
   }
@@ -244,7 +254,7 @@ void Game::load_game(string filename) throw (std::exception){
   inFile.close();
 }
 
-
+//this is the general method which parses the user input into a move struct which the player class can then process easily
 void Game::process(string input){
   //if user chooses to save, throw SaveException()
   if (input.substr(0,4) == "save" || input.substr(0,4) == "Save"){
@@ -369,20 +379,27 @@ void Game::play(Move m){
   getPlayer()->move(m);
   numMove++;
   totalMove = numMove;
+  if (hasEnded()){
+    throw GameEndException();
+  }
 }
 
+//Checks whether current player is AI
 bool Game::AIPlaying() const{
   return getPlayer()->isAI();	
 }
-  
+
+//returns pointer to current player  
 Player* Game::getPlayer() const{
   return players.at((turn-1)%players.size());
 }
 
+//returns pointer to next player
 Player* Game::getNextPlayer() const{
   return players.at((turn)%players.size());
 }
 
+//returns a vector of Move pointers that represent all possible/valid moves of the player
 vector<Move*> Game::canMove() const{
   vector<Move*> validMoves;
   int p = (turn-1)%players.size();
@@ -417,18 +434,22 @@ vector<Move*> Game::canMove() const{
   return validMoves;
 }
 
+//returns the index of the current player in the players vector
 int Game::getPlayerNumber() {
   return (turn-1)%players.size();
 }
 
+//returns the index of the next player in the players vector
 int Game::getNextPlayerNumber() {
   return (turn)%players.size();
 }
 
+//returns a vector of Build piles
 vector<Build*> Game::getBuild() {
   return build;
 }
 
+//return how many moves have been made so far
 int Game:: getNumMove(){
   return numMove;
 }
@@ -459,6 +480,7 @@ void Game::redo(int num){
   numMove = num;
 }
 
+//returns vector of Player pointers
 vector<Player*> Game::getPlayers() {
   return players;
 }
