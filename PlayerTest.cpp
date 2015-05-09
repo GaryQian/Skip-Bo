@@ -114,9 +114,6 @@ public:
     delete p1;
     delete p2;
   }
-
-  //to be implemented
-  static void moveTest() {  }
 };
 
 class AITest {
@@ -158,6 +155,7 @@ public:
   }
 
   static void containsTest() {
+    //Creates all of the explicit parameters necessary to create an AI
     Draw* draw = new Draw();
     vector<int> arrange;
     for(int i = 161; i >= 0; i--) {
@@ -194,6 +192,7 @@ public:
   } 
 
   static void findTest() {
+    //Creates all of the explicit parameters necessary to create an AI
     Draw* draw = new Draw();
     vector<int> arrange;
     for(int i = 161; i >= 0; i--) {
@@ -213,6 +212,7 @@ public:
     for(int i = 0; i < 20; i++) {
       nums.push_back(i);
     }
+    //Tests find method VIA assert statements
     assert(p1->find(nums, 0) == -1);
     assert(p2->find(nums, 0) == -1);
     assert(p1->find(nums, 1) == 1);
@@ -230,6 +230,7 @@ public:
   }
 
   static void convertTest() {
+    //Creates all of the explicit parameters necessary to create an AI
     Draw* draw = new Draw();
     vector<int> arrange;
     for(int i = 161; i >= 0; i--) {
@@ -244,6 +245,7 @@ public:
     //Constructs an AI
     AI* p1 = new AI("AI", draw, &build, stock);
 
+    //Tests convert tests via assert statements
     assert(p1->convert(3) == "3");
     assert(p1->convert(10) == "10");
     assert(p1->convert(-1) == " ");
