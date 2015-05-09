@@ -127,4 +127,4 @@ MISCELLANEOUS
 
 2. The pause when an AI makes a move is intentional - it is not a lag.
    Without it, the screen would change so quickly that the user can hardly 
-   observe the AI's move. 
+   observe the AI's move. The lines that implement this are 182 and 165 in AI.cpp
