@@ -289,56 +289,51 @@ void Game::process(string input){
 
   //analyze text otherwise
   char source = input.at(0);
-  Move* m = new Move();
-
+  //Move* m = new Move();
+  Move m;
   //if moving from stock pile,
   if (source == 's'){
     //process with the Move class
     input = input.substr(1);
-    m->source = source;
-    m->sourceIndex = 0;
-    m->value = getPlayer()->getStock().getTop();
+    m.source = source;
+    m.sourceIndex = 0;
+    m.value = getPlayer()->getStock().getTop();
     if (input.at(0) != ' ') {
-      delete m;
       throw std::invalid_argument("Stock does not take an index\n");
     }
   }
   //else if moving from discard pile
   else if (source == 'd'){
-    m->source = source;
-    m->sourceIndex = (input.at(1) - '0')-1;
-    if (m->sourceIndex > 3 || m->sourceIndex < 0){
-      delete m;
+    m.source = source;
+    m.sourceIndex = (input.at(1) - '0')-1;
+    if (m.sourceIndex > 3 || m.sourceIndex < 0){
       throw std::invalid_argument("Invalid discard pile index\n");
     }
     input = input.substr(2);
-    m->value = getPlayer()->getDiscard()[m->sourceIndex]->getTop();
+    m.value = getPlayer()->getDiscard()[m.sourceIndex]->getTop();
   }
   //else if moving from hand
   else if (source == 'h'){
-    m->source = source;
-    m->sourceIndex = (input.at(1) - '0')-1;
-    if (m->sourceIndex < 0 || m->sourceIndex > getPlayer()->getHand().getSize() - 1){
-      delete m;
+    m.source = source;
+    m.sourceIndex = (input.at(1) - '0')-1;
+    if (m.sourceIndex < 0 || m.sourceIndex > getPlayer()->getHand().getSize() - 1){
       throw std::invalid_argument("Invalid hand index\n");
     }
 
     input = input.substr(2);
-    m->value = getPlayer()->getHand().at(m->sourceIndex);
+    m.value = getPlayer()->getHand().at(m.sourceIndex);
   }
   //else if invalid source
   else {
-    delete m;
+    //delete m;
     throw std::invalid_argument("Unknown card source\nNote: possible sources are (h = hand, s = stock, d = deck)\n");
   }
 
   //if invalid whitespace
   if (input.at(0) != ' ' || input.at(1) == ' '){ 
-    delete m;
     throw std::invalid_argument("Source and destination must be separated by a single whitespace\n");
   }
   if (input.size() < 3){
-    delete m;
     throw std::invalid_argument("Invalid input length\n");
   }
 
@@ -348,34 +343,34 @@ void Game::process(string input){
 
   //if destination is build pile or discard pile, error-check for index
   if (dest == 'b' || dest == 'd'){
-    m->dest = dest;
+    m.dest = dest;
     destIndex = (input.at(2) - '0')-1;
 
     if (destIndex > 3 || destIndex < 0){
-      delete m;
       throw std::invalid_argument("Invalid index for destination\n");
     }
-    m->destIndex = destIndex;
+    m.destIndex = destIndex;
   }
   else {
-    delete m;
     throw std::invalid_argument("Unknown card destination\nNote: possible destinations are (d = discard, b = build pile)");
   }
 
-  if (dest == 'b' && m->value != 0){
-    if (build.at(destIndex)->getSize()%12 != m->value - 1){
-      delete m;
+  if (dest == 'b' && m.value != 0){
+    if (build.at(destIndex)->getSize()%12 != m.value - 1){
       throw std::invalid_argument("Source and destination do not match");
     }
   }
   
   if (dest == 'd' && source == 's'){
-    delete m;
+    //delete m;
     throw std::invalid_argument("Stock card cannot be moved to discard pile\n");
   }
   
-  m->player = (turn-1)%players.size();
-  this->play(*m);
+  m.player = (turn-1)%players.size();
+
+  this->play(m);
+  
+  //delete m;
   return;
 }
 
