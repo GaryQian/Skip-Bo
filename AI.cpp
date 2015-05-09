@@ -96,7 +96,12 @@ string AI::getMove() {
 		}
 		else if (contains(validNums, hand.at(i))) {
 			//move if next card will allow stock to be played
-			if (hand.at(i) == stock.getTop() - 2) return "h" + convert(i + 1) + " b" + convert(find(validNums, hand.at(i)) + 1);
+			if (hand.at(i) == stock.getTop() - 2) {
+				for (int i = 0; i < (int) moves.size(); ++i) {
+					delete moves.at(i);
+				}
+				return "h" + convert(i + 1) + " b" + convert(find(validNums, hand.at(i)) + 1);
+			}
 			//return first possible hand move
 			store = ("h" + convert(i + 1) + " b" + convert(find(validNums, hand.at(i)) + 1));
 		}
@@ -121,7 +126,12 @@ string AI::getMove() {
 			}
 		}
 		else if (contains(validNums, discard[i]->getTop())) {
-			if (discard[i]->getTop() == stock.getTop()) return "d" + convert(i + 1) + " b" + convert(find(validNums, discard[i]->getTop()) + 1);
+			if (discard[i]->getTop() == stock.getTop()) {
+				for (int i = 0; i < (int) moves.size(); ++i) {
+					delete moves.at(i);
+				}
+				return "d" + convert(i + 1) + " b" + convert(find(validNums, discard[i]->getTop()) + 1);
+			}
 			/*temp = new string("d");
 			*temp += convert(i + 1);
 			*temp += " b";

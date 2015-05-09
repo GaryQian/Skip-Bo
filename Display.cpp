@@ -82,7 +82,7 @@ void Display::display(Player* player, vector<Build*> build, int num, Game* game)
 	*temp += ": ";
 	*temp += player->getName();
 	*temp += "'s Turn";
-	if (player->getName().size() < 6) *temp += "	";
+	if (player->getName().size() < 8) *temp += "	";
 	out.push_back(temp);
 	
 	////////////////////////////////////52
