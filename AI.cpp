@@ -96,7 +96,7 @@ string AI::getMove() {
 		}
 		else if (contains(validNums, hand.at(i))) {
 			//move if next card will allow stock to be played
-			if (hand.at(i) == stock.getTop() - 2) {
+			if (hand.at(i) == stock.getTop() - 1) {
 				for (int i = 0; i < (int) moves.size(); ++i) {
 					delete moves.at(i);
 				}
@@ -126,7 +126,7 @@ string AI::getMove() {
 			}
 		}
 		else if (contains(validNums, discard[i]->getTop())) {
-			if (discard[i]->getTop() == stock.getTop()) {
+			if (discard[i]->getTop() == stock.getTop() - 1) {
 				for (int i = 0; i < (int) moves.size(); ++i) {
 					delete moves.at(i);
 				}
