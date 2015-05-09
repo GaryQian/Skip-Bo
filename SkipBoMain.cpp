@@ -172,10 +172,22 @@ int main(){
 	    choices = game->canMove();
 	    
 	    //if now there are choices, break out of this while loop
-	    if(!choices.empty()){
-	      d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber(), game);   
+	    if(!choices.empty()){	
+	      //delete the vector of choices
+	      for(unsigned long i = 0; i < choices.size(); i++){
+		delete choices.at(i);
+	      }
+	      
+	      d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber(), game);
 	      break;
 	    }
+
+	    //delete the vector of choices
+	    for(unsigned long i = 0; i < choices.size(); i++){
+	      delete choices.at(i);
+	    }
+	    
+	    d.display(game->getPlayer(), game->getBuild(), game->getPlayerNumber(), game);
 	  }
 	  //catches invalid move input, but doesn't catch the integer thrown
 	  //when the user puts a card in the discard pile

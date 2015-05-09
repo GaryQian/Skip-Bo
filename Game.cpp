@@ -174,8 +174,6 @@ void Game::load_game(string filename) throw (std::exception){
   
   int num;           //generic card value variable
   int numPlayers;    //num of players
-  int numMoves;      //total number of moves (not to be confused with
-		     //Game's numMove)
   string name;       //player name
   vector<int> set;   //set of numbers
 
@@ -253,8 +251,6 @@ void Game::load_game(string filename) throw (std::exception){
     delete h;
   }
 
-  inFile >> numMoves;
- 
   inFile >> turn;
   inFile.close();
 }
@@ -362,7 +358,6 @@ void Game::process(string input){
   }
   
   if (dest == 'd' && source == 's'){
-    //delete m;
     throw std::invalid_argument("Stock card cannot be moved to discard pile\n");
   }
   
@@ -370,7 +365,6 @@ void Game::process(string input){
 
   this->play(m);
   
-  //delete m;
   return;
 }
 
