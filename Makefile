@@ -65,7 +65,6 @@ skipbo: Game.o Deck.o Display.o Game.o Player.o SkipBoMain.o
 speed: 	testGen
 	@echo "Running undo/redo speed test..."
 	@./testGen
-	@make clean
 	@make skipbo
 	@./skipbo < test_speed.txt
 	@echo "Finished."
@@ -74,5 +73,5 @@ testGen: testGen.cpp
 	$(CC) $(CXXFLAGS) -o testGen testGen.cpp
 
 clean: 
-	rm -f *~ *.o *# *.gcov *.gch *move_* a.out DeckTest PlayerTest GameTest skipbo DisplayTest SkipBoTest testGen test_speed test_speed.txt
+	rm -f *~ *.o *# *.gcov *.gch *move_* a.out DeckTest PlayerTest GameTest skipbo DisplayTest SkipBoTest testGen test_speed 
 
