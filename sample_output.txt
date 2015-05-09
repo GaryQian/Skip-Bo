@@ -1,0 +1,310 @@
+                                      .++~
+                                   MMMMMMMMM.
+              8=          .  DMMM .MMMM DMMMM
+            MMMM   DM    MMM  MMM  MMMM  MMM+
+          MMMMMM  MMMD  MMMM. MMM8 MMMM  MMM.
+         MMMM.    MMMM MMMM.  MMMM MMMMMMMM  MMMM 
+        MMMMM$.   MMMM+MMM    MMMM  MMMMM.   MM+
+        MMMMMMMMM.MMMMMMMM.   MMMM  MMM.
+         MMMMMMMMMMMMM MMMMM  MMMM  MMMI
+          ..MMMMMM,MMM. MMMMMM:MMM. MMM.
+             MMMMM MMMO  MMMI .MM=
+          ..MMMMM  MMMM    .
+         .MMMMM    MM,.         :MMD.
+          MMM.                MMMMMMMM         .
+          ..  $MMMMMMMMMM    MMMMMMMMMM       .ZZZZZZZ
+               MMMMNMMMMMM. MMMM8..MMMMM      ZZZZZZZ,
+       ...     MMMM. .MMMM +MMM     MMMM      ZZZZZZZ I.
+   ~MMMMMM     MMMM? MMMM. MMMM     7MMM      ZZZZZZ7IIII.
+   MMMMMMM     MMMMMMMMMMM.DMMM     MMMM   MMMZZZZZIIIIIIII.
+   MMMMMMM     MMMMMMMMMMMM:MMMM.  MMMM.   MMMZZZZIIIIIIIII
+   ,MMMMMMM     MMMM.  MMMM$:MMMMMMMMM,    .MMZZZIIIIIIIII 
+    MMMMMMM     MMMM.  MMMM.  MMMMMMM        MMMIIIIIIIII
+    MMMMMMMM    MMMM$MMMMM      ..           .MMMIIIIII 
+     MMMMMMM    MMMMMMMM                      =MMMMIII.
+     ....       +MMM7.                         NMM. ..
+ 
+ 
+=======Build Piles======
+ -1-   -2-   -3-   -4-
+┌───┐ ┌───┐ ┌───┐ ┌───┐
+│   │ │   │ │   │ │   │
+└───┘ └───┘ └───┘ └───┘
+=======================
+Player 1: AIBob's Turn			AIJoe's cards:		
+=======================
+Hand:
+ -1-   -2-   -3-   -4-   -5-
+┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐
+│ 9 │ │ 8 │ │ 1 │ │ 4 │ │ 8 │
+└───┘ └───┘ └───┘ └───┘ └───┘
+Discard:				Discard:
+ -1-   -2-   -3-   -4-
+┌───┐ ┌───┐ ┌───┐ ┌───┐			┌───┐ ┌───┐ ┌───┐ ┌───┐
+│   │ │   │ │   │ │   │			│   │ │   │ │   │ │   │
+└───┘ └───┘ └───┘ └───┘			└───┘ └───┘ └───┘ └───┘
+Stockpile:				Stockpile:
+┌───┐					┌───┐
+│ 3 │ 1 cards left			│ 2 │ 1 cards left     
+└───┘					└───┘
+└Your Move: 
+ 
+ 
+                                      .++~
+                                   MMMMMMMMM.
+              8=          .  DMMM .MMMM DMMMM
+            MMMM   DM    MMM  MMM  MMMM  MMM+
+          MMMMMM  MMMD  MMMM. MMM8 MMMM  MMM.
+         MMMM.    MMMM MMMM.  MMMM MMMMMMMM  MMMM 
+        MMMMM$.   MMMM+MMM    MMMM  MMMMM.   MM+
+        MMMMMMMMM.MMMMMMMM.   MMMM  MMM.
+         MMMMMMMMMMMMM MMMMM  MMMM  MMMI
+          ..MMMMMM,MMM. MMMMMM:MMM. MMM.
+             MMMMM MMMO  MMMI .MM=
+          ..MMMMM  MMMM    .
+         .MMMMM    MM,.         :MMD.
+          MMM.                MMMMMMMM         .
+          ..  $MMMMMMMMMM    MMMMMMMMMM       .ZZZZZZZ
+               MMMMNMMMMMM. MMMM8..MMMMM      ZZZZZZZ,
+       ...     MMMM. .MMMM +MMM     MMMM      ZZZZZZZ I.
+   ~MMMMMM     MMMM? MMMM. MMMM     7MMM      ZZZZZZ7IIII.
+   MMMMMMM     MMMMMMMMMMM.DMMM     MMMM   MMMZZZZZIIIIIIII.
+   MMMMMMM     MMMMMMMMMMMM:MMMM.  MMMM.   MMMZZZZIIIIIIIII
+   ,MMMMMMM     MMMM.  MMMM$:MMMMMMMMM,    .MMZZZIIIIIIIII 
+    MMMMMMM     MMMM.  MMMM.  MMMMMMM        MMMIIIIIIIII
+    MMMMMMMM    MMMM$MMMMM      ..           .MMMIIIIII 
+     MMMMMMM    MMMMMMMM                      =MMMMIII.
+     ....       +MMM7.                         NMM. ..
+ 
+ 
+=======Build Piles======
+ -1-   -2-   -3-   -4-
+┌───┐ ┌───┐ ┌───┐ ┌───┐
+│ 1 │ │   │ │   │ │   │
+└───┘ └───┘ └───┘ └───┘
+=======================
+Player 1: AIBob's Turn			AIJoe's cards:		
+=======================
+Hand:
+ -1-   -2-   -3-   -4-
+┌───┐ ┌───┐ ┌───┐ ┌───┐
+│ 9 │ │ 8 │ │ 4 │ │ 8 │
+└───┘ └───┘ └───┘ └───┘
+Discard:				Discard:
+ -1-   -2-   -3-   -4-
+┌───┐ ┌───┐ ┌───┐ ┌───┐			┌───┐ ┌───┐ ┌───┐ ┌───┐
+│   │ │   │ │   │ │   │			│   │ │   │ │   │ │   │
+└───┘ └───┘ └───┘ └───┘			└───┘ └───┘ └───┘ └───┘
+Stockpile:				Stockpile:
+┌───┐					┌───┐
+│ 3 │ 1 cards left			│ 2 │ 1 cards left     
+└───┘					└───┘
+└Your Move: 
+ 
+                                      .++~
+                                   MMMMMMMMM.
+              8=          .  DMMM .MMMM DMMMM
+            MMMM   DM    MMM  MMM  MMMM  MMM+
+          MMMMMM  MMMD  MMMM. MMM8 MMMM  MMM.
+         MMMM.    MMMM MMMM.  MMMM MMMMMMMM  MMMM 
+        MMMMM$.   MMMM+MMM    MMMM  MMMMM.   MM+
+        MMMMMMMMM.MMMMMMMM.   MMMM  MMM.
+         MMMMMMMMMMMMM MMMMM  MMMM  MMMI
+          ..MMMMMM,MMM. MMMMMM:MMM. MMM.
+             MMMMM MMMO  MMMI .MM=
+          ..MMMMM  MMMM    .
+         .MMMMM    MM,.         :MMD.
+          MMM.                MMMMMMMM         .
+          ..  $MMMMMMMMMM    MMMMMMMMMM       .ZZZZZZZ
+               MMMMNMMMMMM. MMMM8..MMMMM      ZZZZZZZ,
+       ...     MMMM. .MMMM +MMM     MMMM      ZZZZZZZ I.
+   ~MMMMMM     MMMM? MMMM. MMMM     7MMM      ZZZZZZ7IIII.
+   MMMMMMM     MMMMMMMMMMM.DMMM     MMMM   MMMZZZZZIIIIIIII.
+   MMMMMMM     MMMMMMMMMMMM:MMMM.  MMMM.   MMMZZZZIIIIIIIII
+   ,MMMMMMM     MMMM.  MMMM$:MMMMMMMMM,    .MMZZZIIIIIIIII 
+    MMMMMMM     MMMM.  MMMM.  MMMMMMM        MMMIIIIIIIII
+    MMMMMMMM    MMMM$MMMMM      ..           .MMMIIIIII 
+     MMMMMMM    MMMMMMMM                      =MMMMIII.
+     ....       +MMM7.                         NMM. ..
+ 
+ 
+=======Build Piles======
+ -1-   -2-   -3-   -4-
+┌───┐ ┌───┐ ┌───┐ ┌───┐
+│ 1 │ │   │ │   │ │   │
+└───┘ └───┘ └───┘ └───┘
+=======================
+Player 1: AIBob's Turn			AIJoe's cards:		
+=======================
+Hand:
+ -1-   -2-   -3-   -4-
+┌───┐ ┌───┐ ┌───┐ ┌───┐
+│ 9 │ │ 8 │ │ 4 │ │ 8 │
+└───┘ └───┘ └───┘ └───┘
+Discard:				Discard:
+ -1-   -2-   -3-   -4-
+┌───┐ ┌───┐ ┌───┐ ┌───┐			┌───┐ ┌───┐ ┌───┐ ┌───┐
+│   │ │   │ │   │ │   │			│   │ │   │ │   │ │   │
+└───┘ └───┘ └───┘ └───┘			└───┘ └───┘ └───┘ └───┘
+Stockpile:				Stockpile:
+┌───┐					┌───┐
+│ 3 │ 1 cards left			│ 2 │ 1 cards left     
+└───┘					└───┘
+└Your Move: 
+No moves left.
+Please move card to discard pile to end turn
+h2 d4 
+                                      .++~
+                                   MMMMMMMMM.
+              8=          .  DMMM .MMMM DMMMM
+            MMMM   DM    MMM  MMM  MMMM  MMM+
+          MMMMMM  MMMD  MMMM. MMM8 MMMM  MMM.
+         MMMM.    MMMM MMMM.  MMMM MMMMMMMM  MMMM 
+        MMMMM$.   MMMM+MMM    MMMM  MMMMM.   MM+
+        MMMMMMMMM.MMMMMMMM.   MMMM  MMM.
+         MMMMMMMMMMMMM MMMMM  MMMM  MMMI
+          ..MMMMMM,MMM. MMMMMM:MMM. MMM.
+             MMMMM MMMO  MMMI .MM=
+          ..MMMMM  MMMM    .
+         .MMMMM    MM,.         :MMD.
+          MMM.                MMMMMMMM         .
+          ..  $MMMMMMMMMM    MMMMMMMMMM       .ZZZZZZZ
+               MMMMNMMMMMM. MMMM8..MMMMM      ZZZZZZZ,
+       ...     MMMM. .MMMM +MMM     MMMM      ZZZZZZZ I.
+   ~MMMMMM     MMMM? MMMM. MMMM     7MMM      ZZZZZZ7IIII.
+   MMMMMMM     MMMMMMMMMMM.DMMM     MMMM   MMMZZZZZIIIIIIII.
+   MMMMMMM     MMMMMMMMMMMM:MMMM.  MMMM.   MMMZZZZIIIIIIIII
+   ,MMMMMMM     MMMM.  MMMM$:MMMMMMMMM,    .MMZZZIIIIIIIII 
+    MMMMMMM     MMMM.  MMMM.  MMMMMMM        MMMIIIIIIIII
+    MMMMMMMM    MMMM$MMMMM      ..           .MMMIIIIII 
+     MMMMMMM    MMMMMMMM                      =MMMMIII.
+     ....       +MMM7.                         NMM. ..
+ 
+ 
+=======Build Piles======
+ -1-   -2-   -3-   -4-
+┌───┐ ┌───┐ ┌───┐ ┌───┐
+│ 1 │ │   │ │   │ │   │
+└───┘ └───┘ └───┘ └───┘
+=======================
+Player 1: AIBob's Turn			AIJoe's cards:		
+=======================
+Hand:
+ -1-   -2-   -3-
+┌───┐ ┌───┐ ┌───┐
+│ 9 │ │ 4 │ │ 8 │
+└───┘ └───┘ └───┘
+Discard:				Discard:
+ -1-   -2-   -3-   -4-
+┌───┐ ┌───┐ ┌───┐ ┌───┐			┌───┐ ┌───┐ ┌───┐ ┌───┐
+│   │ │   │ │   │ │ 8 │			│   │ │   │ │   │ │   │
+└───┘ └───┘ └───┘ └───┘			└───┘ └───┘ └───┘ └───┘
+Stockpile:				Stockpile:
+┌───┐					┌───┐
+│ 3 │ 1 cards left			│ 2 │ 1 cards left     
+└───┘					└───┘
+└Your Move: 
+Turn end.
+                                      .++~
+                                   MMMMMMMMM.
+              8=          .  DMMM .MMMM DMMMM
+            MMMM   DM    MMM  MMM  MMMM  MMM+
+          MMMMMM  MMMD  MMMM. MMM8 MMMM  MMM.
+         MMMM.    MMMM MMMM.  MMMM MMMMMMMM  MMMM 
+        MMMMM$.   MMMM+MMM    MMMM  MMMMM.   MM+
+        MMMMMMMMM.MMMMMMMM.   MMMM  MMM.
+         MMMMMMMMMMMMM MMMMM  MMMM  MMMI
+          ..MMMMMM,MMM. MMMMMM:MMM. MMM.
+             MMMMM MMMO  MMMI .MM=
+          ..MMMMM  MMMM    .
+         .MMMMM    MM,.         :MMD.
+          MMM.                MMMMMMMM         .
+          ..  $MMMMMMMMMM    MMMMMMMMMM       .ZZZZZZZ
+               MMMMNMMMMMM. MMMM8..MMMMM      ZZZZZZZ,
+       ...     MMMM. .MMMM +MMM     MMMM      ZZZZZZZ I.
+   ~MMMMMM     MMMM? MMMM. MMMM     7MMM      ZZZZZZ7IIII.
+   MMMMMMM     MMMMMMMMMMM.DMMM     MMMM   MMMZZZZZIIIIIIII.
+   MMMMMMM     MMMMMMMMMMMM:MMMM.  MMMM.   MMMZZZZIIIIIIIII
+   ,MMMMMMM     MMMM.  MMMM$:MMMMMMMMM,    .MMZZZIIIIIIIII 
+    MMMMMMM     MMMM.  MMMM.  MMMMMMM        MMMIIIIIIIII
+    MMMMMMMM    MMMM$MMMMM      ..           .MMMIIIIII 
+     MMMMMMM    MMMMMMMM                      =MMMMIII.
+     ....       +MMM7.                         NMM. ..
+ 
+ 
+=======Build Piles======
+ -1-   -2-   -3-   -4-
+┌───┐ ┌───┐ ┌───┐ ┌───┐
+│ 1 │ │   │ │   │ │   │
+└───┘ └───┘ └───┘ └───┘
+=======================
+Player 2: AIJoe's Turn			AIBob's cards:		
+=======================
+Hand:
+ -1-   -2-   -3-   -4-   -5-
+┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐
+│ 7 │ │ 8 │ │ S │ │ 10│ │ 3 │
+└───┘ └───┘ └───┘ └───┘ └───┘
+Discard:				Discard:
+ -1-   -2-   -3-   -4-
+┌───┐ ┌───┐ ┌───┐ ┌───┐			┌───┐ ┌───┐ ┌───┐ ┌───┐
+│   │ │   │ │   │ │   │			│   │ │   │ │   │ │ 8 │
+└───┘ └───┘ └───┘ └───┘			└───┘ └───┘ └───┘ └───┘
+Stockpile:				Stockpile:
+┌───┐					┌───┐
+│ 2 │ 1 cards left			│ 3 │ 1 cards left     
+└───┘					└───┘
+└Your Move: 
+ 
+                                      .++~
+                                   MMMMMMMMM.
+              8=          .  DMMM .MMMM DMMMM
+            MMMM   DM    MMM  MMM  MMMM  MMM+
+          MMMMMM  MMMD  MMMM. MMM8 MMMM  MMM.
+         MMMM.    MMMM MMMM.  MMMM MMMMMMMM  MMMM 
+        MMMMM$.   MMMM+MMM    MMMM  MMMMM.   MM+
+        MMMMMMMMM.MMMMMMMM.   MMMM  MMM.
+         MMMMMMMMMMMMM MMMMM  MMMM  MMMI
+          ..MMMMMM,MMM. MMMMMM:MMM. MMM.
+             MMMMM MMMO  MMMI .MM=
+          ..MMMMM  MMMM    .
+         .MMMMM    MM,.         :MMD.
+          MMM.                MMMMMMMM         .
+          ..  $MMMMMMMMMM    MMMMMMMMMM       .ZZZZZZZ
+               MMMMNMMMMMM. MMMM8..MMMMM      ZZZZZZZ,
+       ...     MMMM. .MMMM +MMM     MMMM      ZZZZZZZ I.
+   ~MMMMMM     MMMM? MMMM. MMMM     7MMM      ZZZZZZ7IIII.
+   MMMMMMM     MMMMMMMMMMM.DMMM     MMMM   MMMZZZZZIIIIIIII.
+   MMMMMMM     MMMMMMMMMMMM:MMMM.  MMMM.   MMMZZZZIIIIIIIII
+   ,MMMMMMM     MMMM.  MMMM$:MMMMMMMMM,    .MMZZZIIIIIIIII 
+    MMMMMMM     MMMM.  MMMM.  MMMMMMM        MMMIIIIIIIII
+    MMMMMMMM    MMMM$MMMMM      ..           .MMMIIIIII 
+     MMMMMMM    MMMMMMMM                      =MMMMIII.
+     ....       +MMM7.                         NMM. ..
+ 
+ 
+=======Build Piles======
+ -1-   -2-   -3-   -4-
+┌───┐ ┌───┐ ┌───┐ ┌───┐
+│ 2 │ │   │ │   │ │   │
+└───┘ └───┘ └───┘ └───┘
+=======================
+Player 2: AIJoe's Turn			AIBob's cards:		
+=======================
+Hand:
+ -1-   -2-   -3-   -4-   -5-
+┌───┐ ┌───┐ ┌───┐ ┌───┐ ┌───┐
+│ 7 │ │ 8 │ │ S │ │ 10│ │ 3 │
+└───┘ └───┘ └───┘ └───┘ └───┘
+Discard:				Discard:
+ -1-   -2-   -3-   -4-
+┌───┐ ┌───┐ ┌───┐ ┌───┐			┌───┐ ┌───┐ ┌───┐ ┌───┐
+│   │ │   │ │   │ │   │			│   │ │   │ │   │ │ 8 │
+└───┘ └───┘ └───┘ └───┘			└───┘ └───┘ └───┘ └───┘
+Stockpile:				Stockpile:
+┌───┐					┌───┐
+│   │ 0 cards left			│ 3 │ 1 cards left     
+└───┘					└───┘
+└Your Move: 
+YOU WIN!
+Congratulations to AIJoe

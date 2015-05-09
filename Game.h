@@ -1,9 +1,15 @@
-/*Names: Kathleen Kusworo, Gary Qian, Sarah Sukardi, Matthew Tan
+/*
+  Names: Kathleen Kusworo, Gary Qian, Sarah Sukardi, Matthew Tan
   Course: Intermediate Programming (AS.600.120)
   Date: 5/01/2015 (First Deadline), 5/08/2015 (Final Deadline)
   Assignment: Final Project-- Skip-Bo
   JHEDs: kkuswor1, gqian1, ssukard1, mtan13
   Email: (JHED)@jhu.edu
+
+  This class contains the general game board (which contains the
+  players, the build piles, the draw pile, and the players' cards. It
+  also handles the user's input move and error-checks if they are
+  valid
 */
 #ifndef GAME_H
 #define GAME_H
