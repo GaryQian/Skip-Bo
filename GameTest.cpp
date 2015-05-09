@@ -1,9 +1,12 @@
-/*Names: Kathleen Kusworo, Gary Qian, Sarah Sukardi, Matthew Tan
+/*
+  Names: Kathleen Kusworo, Gary Qian, Sarah Sukardi, Matthew Tan
   Course: Intermediate Programming (AS.600.120)
   Date: 5/01/2015 (First Deadline), 5/08/2015 (Final Deadline)
   Assignment: Final Project-- Skip-Bo
   JHEDs: kkuswor1, gqian1, ssukard1, mtan13
   Email: (JHED)@jhu.edu
+
+  This file tests the methods in Game.cpp
 */
 
 #ifndef GAMETEST_CPP
@@ -41,7 +44,8 @@ public:
   void constructorTest(){
     vector<int> arrange;
 
-    //this arrangement makes the cards rearrange backwards when shuffle is called
+    //this arrangement makes the cards rearrange backwards when
+    //shuffle is called
     for(int i = 161; i >= 0; i--){
       arrange.push_back(i);
     }

@@ -1,9 +1,12 @@
-/*Names: Kathleen Kusworo, Gary Qian, Sarah Sukardi, Matthew Tan
+/*
+  Names: Kathleen Kusworo, Gary Qian, Sarah Sukardi, Matthew Tan
   Course: Intermediate Programming (AS.600.120)
   Date: 5/01/2015 (First Deadline), 5/08/2015 (Final Deadline)
   Assignment: Final Project-- Skip-Bo
   JHEDs: kkuswor1, gqian1, ssukard1, mtan13
   Email: (JHED)@jhu.edu
+
+  This file tests all the methods in Deck and its subclasses.
 */
 
 #ifndef DECKTEST_CPP
@@ -26,6 +29,7 @@ using std::iterator;
 
 class DrawTest {
 public:
+  //constructor test
   static void constructorTest(){
     //assert that a draw pile of 162 cards is constructed
     //and the topmost card is a Skip-Bo card
@@ -46,6 +50,7 @@ public:
     }
   }
   
+  //operators test
   static void opsTest() {
     Draw d = Draw();
     vector<int> list;
@@ -74,6 +79,7 @@ public:
     
   }
 
+  //takeCard test
   static void takeCardTest(){
     ostringstream oss;
     //construct a draw pile and save the original size
@@ -109,6 +115,7 @@ public:
     assert(oss.str() == "Deck is empty.\n");
   }
 
+  //shuffle test
   static void shuffleTest(){
     Draw d = Draw();
     vector<int> arr;
