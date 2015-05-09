@@ -36,7 +36,7 @@ int main(){
   //Prompts user to enter in a game
   cout << "Welcome to Skip-Bo!" << endl;
   d.intro();
-  cout << "HOW TO PLAY: " << endl << endl << "To play a card, type in the initial of the card source and the card index (when applicable)." << endl << "Then, enter a SINGLE SPACE and tpe in the initial of the card destination, along with the index of the destination pile." << endl << "For example, if we want to move the first card in our hand to the first build pile, type in: h1 b1" << endl << "If we want to move a card from the stock pile to the second build pile, type in: s b2" << endl << "Happy playing!" << endl << endl;
+  cout << "HOW TO PLAY: " << endl << endl << "To play a card, type in the initial of the card source and the card index (when applicable)." << endl << "Then, enter a SINGLE SPACE and tpe in the initial of the card destination, along with the index of the destination pile." << endl << "For example, if we want to move the first card in our hand to the first build pile, type in: h1 b1" << endl << "If we want to move a card from the stock pile to the second build pile, type in: s b2" << endl << "Type in 'undo' to go back by one move, 'redo' to go forward by one move." << endl << "Type in 'save' if you want to save the game and exit." << endl << "Happy playing!" << endl << endl;
 
   cout << "Would you like to load a saved game?" << endl;
 

@@ -19,6 +19,7 @@ Email: (JHED)@jhu.edu
    Done by saving the state of the game for every valid move. This method 
    is chosen because it is the most robust. We tested the speed of the 
    game using this implementation and didn't encounter any lag.
+   Simply type in 'undo' or 'redo' any time during gameplay.
 
 2) AI Implementation
    Capable of making strategic moves. 
