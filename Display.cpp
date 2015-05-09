@@ -234,7 +234,7 @@ void Display::display(Player* player, vector<Build*> build, int num, Game* game)
 
 void Display::addOpponent(vector<string*>* out, Player* player) {
 	////////////////////////9
-	out->at(6)->append("		");
+	out->at(6)->append("		Next Player: ");
 	out->at(6)->append(player->getName());
 	out->at(6)->append("'s cards:	");
 	if (player->getName().size() < 6) out->at(6)->append("	");
