@@ -1,13 +1,9 @@
-/*
-  Names: Kathleen Kusworo, Gary Qian, Sarah Sukardi, Matthew Tan
+/*Names: Kathleen Kusworo, Gary Qian, Sarah Sukardi, Matthew Tan
   Course: Intermediate Programming (AS.600.120)
   Date: 5/01/2015 (First Deadline), 5/08/2015 (Final Deadline)
   Assignment: Final Project-- Skip-Bo
   JHEDs: kkuswor1, gqian1, ssukard1, mtan13
   Email: (JHED)@jhu.edu
-
-  This class represents an AI player, and is derived from the abstract
-  class Player. It calculates its own moves.
 */
 
 #include "Player.h"
@@ -59,6 +55,7 @@ string AI::getMove() {
 	}
 	vector<string*> moves;
 	string* temp;
+	string store = "x";
 	//check stock first
 	if (contains(validNums, stock.getTop())) {
 		temp = new string("s b");
@@ -98,16 +95,19 @@ string AI::getMove() {
 			
 		}
 		else if (contains(validNums, hand.at(i))) {
-			/*temp = new string("h");
-			*temp += convert(i + 1);
-			*temp += " b";
-			*temp += convert(find(validNums, hand.at(i)) + 1);
-			moves.push_back(temp);*/
-			
+			//move if next card will allow stock to be played
+			if (hand.at(i) == stock.getTop() - 2) return "h" + convert(i + 1) + " b" + convert(find(validNums, hand.at(i)) + 1);
 			//return first possible hand move
-			return "h" + convert(i + 1) + " b" + convert(find(validNums, hand.at(i)) + 1);
+			store = ("h" + convert(i + 1) + " b" + convert(find(validNums, hand.at(i)) + 1));
 		}
 	}
+	if (store != "x") {
+		for (int i = 0; i < (int) moves.size(); ++i) {
+			delete moves.at(i);
+		}
+		return store;
+	}
+	store = "x";
 	
 	for (int i = 0; i < 4; ++i) {
 		//check for skipbo and save card to be picked later
@@ -121,6 +121,7 @@ string AI::getMove() {
 			}
 		}
 		else if (contains(validNums, discard[i]->getTop())) {
+			if (discard[i]->getTop() == stock.getTop()) return "d" + convert(i + 1) + " b" + convert(find(validNums, discard[i]->getTop()) + 1);
 			/*temp = new string("d");
 			*temp += convert(i + 1);
 			*temp += " b";
@@ -128,10 +129,15 @@ string AI::getMove() {
 			moves.push_back(temp);*/
 			
 			//return first possible discard move
-			return "d" + convert(i + 1) + " b" + convert(find(validNums, discard[i]->getTop()) + 1);
+			store = "d" + convert(i + 1) + " b" + convert(find(validNums, discard[i]->getTop()) + 1);
 		}
 	}
-	
+	if (store != "x") {
+		for (int i = 0; i < (int) moves.size(); ++i) {
+			delete moves.at(i);
+		}
+		return store;
+	}
 	
 	
 	//pick random skipbo to play (equivalent)
